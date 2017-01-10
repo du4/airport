@@ -24,7 +24,6 @@ public abstract class AbstractDAO{
             e.printStackTrace();
 
         }
-        //System.out.println(result+":"+sql); //проверить SQL можно снимая комментарий с этой строки
         return result;
     }
 

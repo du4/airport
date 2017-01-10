@@ -1,24 +1,26 @@
 package by.it.pvt.du4.connection;
 
-//import by.it.pvt.du4.controller.FrontController;
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 
-
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionCreator {
 
     private static volatile Connection connection = null;
-    public static final String URL_DB = "jdbc:mysql://localhost:3306/airportdb";
-    public static final String USER_DB = "root";
-    public static final String PASSWORD_DB = "root";
     private static final Lock lock = new ReentrantLock();
+
+    private static  String path = "/home/du4/IdeaProjects/airport/dao/src/main/resources/database.properties";
+    private static Properties prop = new Properties();
 
     static {
         Driver driver;
@@ -30,6 +32,16 @@ public class ConnectionCreator {
         }
     }
 
+    static {
+        try(InputStream input = new FileInputStream(path)){
+            prop.load(input);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Connection getConnection() throws SQLException, FileNotFoundException {
 
         if (connection == null || connection.isClosed()) {
@@ -38,9 +50,7 @@ public class ConnectionCreator {
                 if (connection == null || connection.isClosed()) {
                     Class.forName("com.mysql.jdbc.Driver");
                     if (connection == null || connection.isClosed())
-                        connection = DriverManager.getConnection(URL_DB, USER_DB, PASSWORD_DB);
-
-//                    connection = DriverManager.getConnection(FrontController.connectionSettings.getURL_DB(), FrontController.connectionSettings.getUSER_DB(), FrontController.connectionSettings.getPASSWORD_DB());
+                        connection = DriverManager.getConnection(prop.getProperty("dburl"), prop.getProperty("dbusername"), prop.getProperty("dbpassword"));
                 }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();

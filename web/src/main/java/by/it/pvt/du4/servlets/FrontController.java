@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
 
-//@WebServlet(value = "/airport")
 public class FrontController extends HttpServlet {
 
 
@@ -24,8 +23,8 @@ public class FrontController extends HttpServlet {
 
         updateSessionCash(request);
         setUserToAttribute(request);
-
         Action action = Actions.defineFrom(request);
+
         Action nextAction = action.execute(request, response);
 
         if (nextAction == null) {
@@ -41,13 +40,12 @@ public class FrontController extends HttpServlet {
 
         updateSessionCash(request);
         setUserToAttribute(request);
-
         Action action = Actions.defineFrom(request);
+
         action.execute(request, response);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(action.getJsp());
 
         requestDispatcher.forward(request, response);
-
 
     }
 
@@ -65,7 +63,6 @@ public class FrontController extends HttpServlet {
             request.setAttribute("curUser", "Session info: user.login=" + user.getLogin() +", role="+ user.getRole() + ", created at-" + new Timestamp(session.getLastAccessedTime()));
             request.setAttribute("user", user);
         } else {
-
 //            Cookie[] cookies = request.getCookies();
 //            //     Create map of cookies
 //            if (cookies != null) {

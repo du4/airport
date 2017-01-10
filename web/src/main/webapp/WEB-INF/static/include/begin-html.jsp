@@ -11,7 +11,7 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <link href="../static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -67,15 +67,11 @@
                 <c:if test="${user==null}">
                     <menu:li command="Login" glyphicon="glyphicon glyphicon-log-in" text=" Login"/>
                     <menu:li command="SignUp" glyphicon="glyphicon glyphicon-user" text=" SignUp"/>
-                    <%--<li><a href="airport?command=Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>--%>
-                    <%--<li><a href="airport?command=SignUp"><span class="glyphicon glyphicon-user"></span> SignUp</a></li>--%>
                 </c:if>
                 <c:if test="${user!=null}">
                     <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="${curUser}"><span class="glyphicon glyphicon-check"></span>  user=${user.login}</a></li>
                     <menu:li command="Logout" glyphicon="glyphicon glyphicon-log-out" text=" Logout"/>
                     <menu:li command="Profile" glyphicon="glyphicon glyphicon-user" text=" Profile"/>
-                    <%--<li><a href="airport?command=Logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>--%>
-                    <%--<li><a href="airport?command=Profile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>--%>
                 </c:if>
             </ul>
         </div>

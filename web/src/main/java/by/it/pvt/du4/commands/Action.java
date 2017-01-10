@@ -30,7 +30,4 @@ abstract public class Action {
         }
         return   name;
     }
-
-
-
 }

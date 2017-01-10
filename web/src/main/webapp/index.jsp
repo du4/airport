@@ -33,12 +33,10 @@
                         </select>
                     </div>
 
-                    <%--<div class=col-md-1>Departure time</div>--%>
                     <div class=col-md-2>
                         <input name="departureTime" size="16" type="text" value="" placeholder="Departure time" class="form_datetime">
                     </div>
 
-                    <%--<div class=col-md-1>Arrival time</div>--%>
                     <div class=col-md-2>
                         <input name="arrivalTime" size="16" type="text" value="" placeholder="Arrival time" class="form_datetime">
                     </div>
@@ -89,14 +87,10 @@
         </tbody>
     </table>
     </div>
-    <%--<br>(${adCount})--%>
-    <%--<t:paginator step="10" count="${adCount}" urlprefix="?startNumber="/>--%>
-    <%--</fieldset>--%>
     </form>
 
 
-<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-
+<script type="text/javascript" src="WEB-INF/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({
         format: 'yyyy-mm-dd',
@@ -105,6 +99,8 @@
     });
 
 </script>
+
+
 
 
 <%@ include file="WEB-INF/static/include/end-html.jsp" %>

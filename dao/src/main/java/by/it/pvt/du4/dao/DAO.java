@@ -1,9 +1,8 @@
 package by.it.pvt.du4.dao;
 
-class DAO {
+public class DAO {
 
     private static DAO dao; //синглтон для DAO
-    private static String csPath;
 
     public FlightDAO flightDAO;                //DAO for flights
     public FligthStrDAO fligthStrDAO;       // DAO for flights in str
@@ -16,9 +15,8 @@ class DAO {
     public CrewDAO crewDAO;                 //DAO for crews
     public CommandDAO commandDAO;           // DAO for cmd
     public PermissionDAO permissionDAO;     // DAO for permission
-    //...
 
-    public static DAO getDAO() {   //singletone method
+    public static DAO getDAO() {   //singltone method
         if (dao == null) {
             synchronized (DAO.class) {
                 if (dao == null) {

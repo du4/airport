@@ -1,10 +1,12 @@
 package by.it.pvt.du4.commands;
 
+import by.it.pvt.du4.DictionaryService;
 import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.dao.DAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.DesktopIconUI;
 import java.util.List;
 
 public class SessionAttrSesHelper {
@@ -18,8 +20,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("roles", roleList);
             }
         }else {
-            DAO dao = DAO.getDAO();
-            List<Role> roles = dao.roleDAO.getAll("");
+            List<Role> roles = DictionaryService.getInstance().getRoles();
             request.setAttribute("roles",roles);
             request.getSession().setAttribute("roles",roles);
         }
@@ -33,8 +34,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("pilots", pilotList);
             }
         }else {
-            DAO dao = DAO.getDAO();
-            List<Pilot> roles = dao.pilotDAO.getAll("");
+            List<Pilot> roles = DictionaryService.getInstance().getPilots();
             request.setAttribute("pilots",roles);
             request.getSession().setAttribute("pilots",roles);
         }
@@ -49,8 +49,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("airhostesses", airhostesses);
             }
         }else {
-            DAO dao = DAO.getDAO();
-            airhostesses = dao.airhostessDAO.getAll("");
+            airhostesses = DictionaryService.getInstance().getAirhostesses();
             request.setAttribute("airhostesses",airhostesses);
             request.getSession().setAttribute("airhostesses",airhostesses);
         }
@@ -65,8 +64,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("airports", airports);
             }
         }else {
-            DAO dao = DAO.getDAO();
-            airports = dao.airportsDAO.getAll("");
+            airports = DictionaryService.getInstance().getAirports();
             request.setAttribute("airports",airports);
             request.getSession().setAttribute("airports",airports);
         }
@@ -81,8 +79,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("planes", planes);
             }
         }else {
-            DAO dao = DAO.getDAO();
-            planes = dao.planeDAO.getAll("");
+            planes = DictionaryService.getInstance().getPlanes();
             request.setAttribute("planes", planes);
             request.getSession().setAttribute("planes", planes);
         }
@@ -97,8 +94,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("crews", crews);
             }
         }else {
-            DAO dao = DAO.getDAO();
-            crews = dao.crewDAO.getAll("");
+            crews = DictionaryService.getInstance().getCrews();
             request.setAttribute("crews", crews);
             request.getSession().setAttribute("crews", crews);
         }
@@ -113,8 +109,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("commands", commands);
             }
         }else {
-            DAO dao = DAO.getDAO();
-            commands = dao.commandDAO.getAll("");
+            commands = DictionaryService.getInstance().getCommands();
             request.setAttribute("commands", commands);
             request.getSession().setAttribute("commands", commands);
         }
@@ -129,33 +124,9 @@ public class SessionAttrSesHelper {
                 request.setAttribute("permissions", permissions);
             }
         }else {
-            DAO dao = DAO.getDAO();
-            permissions = dao.permissionDAO.getAll("");
+            permissions = DictionaryService.getInstance().getPermissions();
             request.setAttribute("permissions", permissions);
             request.getSession().setAttribute("permissions", permissions);
         }
     }
-
-    static boolean isAdministrator(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        Object o = session.getAttribute("user");
-        if (o != null){
-            if (o instanceof User){
-                return ((User) o).getRole() == Role.ADMINISTRATOR_ROLE;
-            }
-        }
-        return false;
-    }
-
-    static boolean isLogined(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        Object o = session.getAttribute("user");
-        if (o != null){
-            if (o instanceof User){
-                    return true;
-            }
-        }
-        return false;
-    }
-    
 }

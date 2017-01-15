@@ -1,6 +1,8 @@
 package by.it.pvt.du4.beans;
 
-public class Permission {
+import java.io.Serializable;
+
+public class Permission implements Serializable {
     private int id;
     private int role;
     private int command;

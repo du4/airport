@@ -1,6 +1,8 @@
 package by.it.pvt.du4.beans;
 
-public class Role {
+import java.io.Serializable;
+
+public class Role implements Serializable {
     public static final int ADMINISTRATOR_ROLE=1;
     public static final int DISPATCHER_ROLE=2;
     public static final int USER_ROLE =3;

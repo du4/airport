@@ -1,8 +1,9 @@
 package by.it.pvt.du4.beans;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Flight {
+public class Flight implements Serializable {
     private int id = 0;
     private String flightCode;
     private String company;

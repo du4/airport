@@ -1,8 +1,9 @@
 package by.it.pvt.du4.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Pilot {
+public class Pilot implements Serializable {
     private int id=0;
     private String name;
     private String phoneNumber;

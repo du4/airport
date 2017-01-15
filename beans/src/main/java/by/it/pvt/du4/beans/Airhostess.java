@@ -1,8 +1,9 @@
 package by.it.pvt.du4.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Airhostess {
+public class Airhostess implements Serializable{
     private int id=0;
     private String name;
     private Date birthDay;

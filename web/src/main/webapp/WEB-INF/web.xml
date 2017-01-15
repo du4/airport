@@ -10,26 +10,6 @@
     <servlet>
         <servlet-name>AirportDu4</servlet-name>
         <servlet-class>by.it.pvt.du4.servlets.FrontController</servlet-class>
-
-        <!-- так можно добавить читаемые параметры конфигурации -->
-        <!-- параметры подключения к базе данных. Их можно прочитать в методе init сервлета -->
-        <init-param>
-            <param-name>URL_DB</param-name>
-            <!--<param-value>jdbc:mysql://185.143.172.95:3306/airportdb?useUnicode=true&amp;characterEncoding=UTF-8</param-value>-->
-            <param-value>jdbc:mysql://localhost:3306/airportdb</param-value>
-            <!--<param-value>jdbc:mysql://localhost:2016/airportdb?useUnicode=true&amp;characterEncoding=UTF-8</param-value>-->
-        </init-param>
-
-        <init-param>
-            <param-name>USER_DB</param-name>
-            <param-value>root</param-value>
-        </init-param>
-
-        <init-param>
-            <param-name>PASSWORD_DB</param-name>
-            <!--<param-value>measurer</param-value>-->
-            <param-value>root</param-value>
-        </init-param>
     </servlet>
 
     <servlet-mapping>
@@ -38,9 +18,8 @@
     </servlet-mapping>
 
     <!--<welcome-file-list>-->
-        <!--<welcome-file>/WEB-INF/views/index.jsp</welcome-file>-->
+        <!--<welcome-file>/</welcome-file>-->
     <!--</welcome-file-list>-->
-
 
     <session-config>
         <session-timeout>

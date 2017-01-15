@@ -1,20 +1,13 @@
 package by.it.pvt.du4.commands;
 
+import by.it.pvt.du4.exceptions.ServiceException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 abstract public class Action {
-    public abstract Action execute(HttpServletRequest request, HttpServletResponse response);
 
-    public Action getRedirectAction() {
-        return redirectAction;
-    }
-
-    public void setRedirectAction(Action redirectAction) {
-        this.redirectAction = redirectAction;
-    }
-
-    private Action redirectAction;
+    public abstract Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException;
 
     @Override
     public String toString() {
@@ -24,7 +17,7 @@ abstract public class Action {
     }
 
     public String getJsp(){
-        String name="/" + this.toString().toLowerCase()+".jsp";
+        String name = "/" + this.toString().toLowerCase()+".jsp";
         if (!name.equalsIgnoreCase("/index.jsp")){
             name = "/WEB-INF/views" + name;
         }

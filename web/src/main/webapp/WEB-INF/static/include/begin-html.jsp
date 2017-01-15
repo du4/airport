@@ -27,7 +27,6 @@
 
 </head>
 <body>
-<%--<img width="100%" height="50%" src="include/logo.jpg">--%>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -45,21 +44,17 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <%--<li><a href="/airport"><span class="glyphicon glyphicon-home"></span>  Home</a></li>--%>
                 <menu:li command="Index" glyphicon="glyphicon glyphicon-home" text="  Home"/>
 
 
                 <c:if test="${user.role==1}">
-                    <menu:li command="ListUsers" glyphicon="glyphicon glyphicon-list-alt" text="  List Users"/>
+                    <menu:li command="UserManagement" glyphicon="glyphicon glyphicon-list-alt" text="  User Management"/>
                     <menu:li command="NewFlight" glyphicon="glyphicon glyphicon-plane" text="  New flight"/>
                     <menu:li command="StuffingCrew" glyphicon="glyphicon glyphicon-bullhorn" text="  Add Flight Crew"/>
                 </c:if>
                 <c:if test="${user.role==2}">
                     <menu:li command="StuffingCrew" glyphicon="glyphicon glyphicon-bullhorn" text="  Add Flight Crew"/>
                 </c:if>
-
-                <%--<li><a href="#"> ${jsp_error}</a></li>--%>
-
 
             </ul>
 

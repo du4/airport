@@ -4,8 +4,10 @@ package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.FlightStr;
 import by.it.pvt.du4.connection.ConnectionCreator;
+import by.it.pvt.du4.dao.exceptions.DaoException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FligthStrDAO extends AbstractDAO implements IDAO <FlightStr> {
+    private static final Logger LOG = LoggerFactory.getLogger(CrewDAO.class);
     @Override
     public FlightStr read(int id) {
         return null;
@@ -35,7 +38,7 @@ public class FligthStrDAO extends AbstractDAO implements IDAO <FlightStr> {
     }
 
     @Override
-    public List<FlightStr> getAll(String WhereAndOrder) {
+    public List<FlightStr> getAll(String WhereAndOrder) throws DaoException {
         List<FlightStr> flights = new ArrayList<>();
         String sql = "SELECT flights.flight_id,flights.flightCode,flights.company," +
                 "flights.departure_time, flights.arrival_time , planes.planeName ," +
@@ -46,9 +49,10 @@ public class FligthStrDAO extends AbstractDAO implements IDAO <FlightStr> {
                 "INNER JOIN airports b ON flights.fromPort=b.airports_id " +
                 "INNER JOIN crews ON flights.crew=crews.crew_id " +
                 "INNER JOIN users ON flights.user=users.user_id " + WhereAndOrder + ";";
-        try (Connection connection = ConnectionCreator.getConnection();
+        try (Connection connection = ConnectionCreator.getDataSource();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
+            LOG.trace("executeQuery("+sql+")");
             while (resultSet.next()){
                 flights.add(new FlightStr(resultSet.getInt("flight_id"),resultSet.getString("flightCode"),
                         resultSet.getString("company"),resultSet.getTimestamp("departure_time"),resultSet.getTimestamp("arrival_time"),
@@ -56,22 +60,24 @@ public class FligthStrDAO extends AbstractDAO implements IDAO <FlightStr> {
                         resultSet.getString("login")));
             }
 
-        } catch (SQLException | FileNotFoundException e) {
+        } catch (SQLException e) {
+            LOG.error("ERROR"+e.getMessage());
             e.printStackTrace();
+            throw new DaoException(e);
         }
         return flights;
     }
     public int getCount(String WHERE){
         int res=0;
         String sql = "SELECT Count(*) FROM flights " + WHERE + " ;";
-        try (Connection connection = ConnectionCreator.getConnection();
+        try (Connection connection = ConnectionCreator.getDataSource();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sql)
         ) {
             if (rs.next()) {
                 res=(rs.getInt(1));
             }
-        } catch (SQLException | FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return res;

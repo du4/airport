@@ -1,6 +1,7 @@
-package by.it.pvt.du4.dao;
+package by.it.pvt.du4.commands;
 
 public class FlightQueryStrBuilder {
+
     private static final String startOfTheQuery="WHERE ";
     private StringBuilder query = new StringBuilder();
 
@@ -9,12 +10,10 @@ public class FlightQueryStrBuilder {
     }
 
     public String getQuery() {
-        query.insert(0,startOfTheQuery);
+        if (!query.toString().isEmpty()) {
+            query.insert(0, startOfTheQuery);
+        }
         return query.toString();
-    }
-
-    public void setQuery(String query) {
-        this.query = new StringBuilder(query);
     }
 
     public void appendIntParam(String param, String operator , String str){

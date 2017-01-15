@@ -1,7 +1,9 @@
 package by.it.pvt.du4.commands;
 
+import by.it.pvt.du4.UserService;
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.dao.DAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 class CmdLogin extends Action {
+    private static final Logger LOG = LoggerFactory.getLogger(CmdLogin.class);
+
     @Override
     public Action execute(HttpServletRequest request, HttpServletResponse response) {
 
@@ -19,18 +23,18 @@ class CmdLogin extends Action {
                 user.setLogin(Form.getString(request, "login", Patterns.LOGIN));
                 user.setPass(Form.getString(request, "pass", Patterns.PASSWORD));
 
-                DAO dao = DAO.getDAO();
-                List<User> userList = dao.userDAO.getAll(String.format("WHERE login='%s' AND pass='%s'", user.getLogin(), user.getPass()));
+                List<User> userList = UserService.getInstance().getAll(String.format("WHERE login='%s' AND pass='%s'", user.getLogin(), user.getPass()));
                 if (userList.size() > 0) {
                     request.setAttribute(AttrMessages.msgMessage, "User login - OK ");
-
                     addUserToSessionCookie(userList.get(0), request, response);
-
+                    LOG.trace("User="+user+ "are logined.");
                     return Actions.INDEX.action;
                 } else {
+                    LOG.error("Can't login user="+user);
                     throw new IllegalArgumentException("Wrong login or password");
                 }
             } catch (Exception e) {
+                LOG.error("Invalid field format. " + e.toString());
                 request.setAttribute(AttrMessages.msgError, "Invalid field format. " + e.toString());
             }
         }

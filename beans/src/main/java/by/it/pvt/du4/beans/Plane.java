@@ -1,6 +1,8 @@
 package by.it.pvt.du4.beans;
 
-public class Plane {
+import java.io.Serializable;
+
+public class Plane implements Serializable {
 
     private int id = 0;
     private String planeName;

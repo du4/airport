@@ -1,13 +1,14 @@
 package by.it.pvt.du4.commands;
 
 import by.it.pvt.du4.beans.User;
+import by.it.pvt.du4.exceptions.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 class CmdProfile extends Action {
     @Override
-    public Action execute(HttpServletRequest request, HttpServletResponse response) {
+    public Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         Object o = request.getSession().getAttribute("user");
         if (o != null){
             if (o instanceof User){

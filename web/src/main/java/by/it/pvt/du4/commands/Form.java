@@ -1,9 +1,14 @@
 package by.it.pvt.du4.commands;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 
 public class Form {
+    private static final Logger LOG = LoggerFactory.getLogger(Form.class);
+
     static String getString(HttpServletRequest req,
                             String parameter,
                             String pattern) throws ParseException {

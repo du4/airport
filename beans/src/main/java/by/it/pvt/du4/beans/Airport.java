@@ -1,6 +1,8 @@
 package by.it.pvt.du4.beans;
 
-public class Airport {
+import java.io.Serializable;
+
+public class Airport implements Serializable {
     private int id=0;
     private String acronim;
     private String name;

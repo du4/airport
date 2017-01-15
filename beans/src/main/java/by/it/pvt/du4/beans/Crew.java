@@ -1,6 +1,8 @@
 package by.it.pvt.du4.beans;
 
-public class Crew {
+import java.io.Serializable;
+
+public class Crew implements Serializable {
     private int id=0;
     private int pilot1;
     private int pilot2;

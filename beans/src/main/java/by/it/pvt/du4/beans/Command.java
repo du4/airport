@@ -1,6 +1,8 @@
 package by.it.pvt.du4.beans;
 
-public class Command {
+import java.io.Serializable;
+
+public class Command implements Serializable {
     private int id =0;
     private String name;
 

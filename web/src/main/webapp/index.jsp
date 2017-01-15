@@ -89,8 +89,8 @@
     </div>
     </form>
 
-
 <script type="text/javascript" src="WEB-INF/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({
         format: 'yyyy-mm-dd',
@@ -99,8 +99,5 @@
     });
 
 </script>
-
-
-
 
 <%@ include file="WEB-INF/static/include/end-html.jsp" %>

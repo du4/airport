@@ -1,6 +1,9 @@
 package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.connection.ConnectionCreator;
+import by.it.pvt.du4.dao.exceptions.DaoException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,11 +11,12 @@ import java.sql.Statement;
 
 public abstract class AbstractDAO{
     public String lastSQL="";
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractDAO.class);
 
-    protected int executeUpdate(String sql) {
+    protected int executeUpdate(String sql) throws DaoException {
         int result = -1;
-        lastSQL="executeUpdate:"+sql;
-        try (Connection connection = ConnectionCreator.getConnection();
+        LOG.trace("executeUpdate:"+sql);
+        try (Connection connection = ConnectionCreator.getDataSource();
              Statement statement = connection.createStatement()) {
             result = statement.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
             if (sql.trim().toUpperCase().startsWith("INSERT")) {
@@ -20,9 +24,9 @@ public abstract class AbstractDAO{
                 if (resultSet.next()) result = resultSet.getInt(1);
             }
         } catch (Exception e) {
-            lastSQL += e.toString();
             e.printStackTrace();
-
+            LOG.error(e.getMessage());
+            throw  new DaoException(e);
         }
         return result;
     }
@@ -31,13 +35,15 @@ public abstract class AbstractDAO{
         String sql = "SELECT " + idColName + " FROM " + tableName + " ORDER BY " + idColName + " DESC LIMIT 1;";
 
         int result = -1;
-        try (Connection connection = ConnectionCreator.getConnection();
+        try (Connection connection = ConnectionCreator.getDataSource();
              Statement statement = connection.createStatement()) {
+            LOG.trace("executeQuery:"+sql);
             ResultSet resultSet = statement.executeQuery(sql);
             resultSet.next();
             result = resultSet.getInt(1);
         } catch (Exception e) {
             e.printStackTrace();
+            LOG.error(e.getMessage());
         }
         return result;
     }

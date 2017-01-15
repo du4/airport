@@ -1,8 +1,11 @@
 package by.it.pvt.du4.commands;
 
+import by.it.pvt.du4.FlightService;
 import by.it.pvt.du4.beans.Flight;
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.dao.DAO;
+import by.it.pvt.du4.exceptions.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,13 +13,15 @@ import java.sql.Timestamp;
 
 
 class CmdNewFlight extends Action {
+    private static final Logger LOG = LoggerFactory.getLogger(CmdNewFlight.class);
     @Override
-    public Action execute(HttpServletRequest request, HttpServletResponse response) {
+    public Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         if (request.getMethod().equalsIgnoreCase("POST")) {
             User user = (User) request.getSession().getAttribute("user");
-            if (user ==null){
-                request.setAttribute(AttrMessages.msgError, "Wrong user. ");
+            if (user == null){
+                LOG.error("Permission deny, user is not authorized.");
+                request.setAttribute(AttrMessages.msgError, "Permission deny, user is not authorized.");
                 return Actions.LOGIN.action;
             }
             Flight flight = new Flight();
@@ -40,23 +45,25 @@ class CmdNewFlight extends Action {
                 flight.setTo(Integer.parseInt(Form.getString(request,"to",Patterns.INT)));
                 flight.setCrew(Integer.parseInt(Form.getString(request, "crew", Patterns.INT)));
                 if (flight.getFrom() == flight.getTo()){
-                    throw new Exception("Destination can't be equals to Arrival");
+                    LOG.error("Destination can't be equals to Arrival");
+                    throw new IllegalArgumentException("Destination can't be equals to Arrival");
                 }
                 if (flight.getDeparture_time().getTime()  >= flight.getArrival_time().getTime()){
-                    throw new Exception("Arrival time must be more then Destination time");
+                    LOG.error("Arrival time must be grater then Destination time");
+                    throw new IllegalArgumentException("Arrival time must be grater then Destination time");
                 }
             }catch (Exception e) {
                 e.printStackTrace();
+                LOG.error("Invalid field format. "+e.toString());
                 request.setAttribute(AttrMessages.msgError, "Invalid field format. "+e.toString());
                 return null;
             }
 
-            DAO dao = DAO.getDAO();
-            if (dao.flightDAO.create(flight)>0) {
-                request.setAttribute(AttrMessages.msgMessage, "New flight is created.");
+            if(FlightService.gerInstance().create(flight)>0){
+                LOG.trace("Create new flight"+flight);
                 return  Actions.INDEX.action;
             } else {
-                request.setAttribute(AttrMessages.msgError, "Flight does not created. " + dao.crewDAO.lastSQL);
+                LOG.error("Flight does not created.");
                 return  Actions.NEWFLIGHT.action;
             }
         }else{

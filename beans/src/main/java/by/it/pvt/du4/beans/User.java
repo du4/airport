@@ -1,6 +1,8 @@
 package by.it.pvt.du4.beans;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int id=0;
     private String login;
     private String email;

@@ -1,17 +1,15 @@
 package by.it.pvt.du4.dao;
 
+import by.it.pvt.du4.dao.exceptions.DaoException;
+
 import java.util.List;
 
 interface IDAO<TYPE> {
-    //READ чтение отдельной сущности
-    TYPE read(int id);
-    //CREATE,UPDATE,DELETE обновление сущности
-    int create(TYPE entity);
-    boolean update(TYPE entity);
-    boolean delete(TYPE entity);
+    TYPE read(int id) throws DaoException;
+    int create(TYPE entity) throws DaoException;
+    boolean update(TYPE entity) throws DaoException;
+    boolean delete(TYPE entity) throws DaoException;
 
-    //READ - чтение всех элементов по условию
-    List<TYPE> getAll(String WhereAndOrder);
-    //и другие необходимые системе операции
+    List<TYPE> getAll(String WhereAndOrder) throws DaoException;
 
 }

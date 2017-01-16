@@ -102,7 +102,7 @@ public class FrontController extends HttpServlet {
 //
 //                if (userHash != null && !userHash.isEmpty()){
 //                    DAO dao = DAO.getDAO((String) request.getAttribute(FrontController.CSPATH));
-//                    List<User> userList = dao.userDAO.getAll("");
+//                    List<User> userList = dao.userDAO.get("");
 //                    for (User u : userList) {
 //                        if (u.hashCode() == Integer.valueOf(userHash)) {
 //                            request.setAttribute("user", u);

@@ -65,6 +65,15 @@ public class DictionaryUtil {
         }
     }
 
+    public List<User> getUsers() throws ServiceException {
+        try {
+            return DAO.getDAO().userDAO.getAll("");
+        } catch (DaoException e) {
+            LOG.error(""+e);
+            throw new ServiceException(e);
+        }
+    }
+
     public List<Plane> getPlanes() throws ServiceException {
         try {
             return DAO.getDAO().planeDAO.getAll("");

@@ -55,8 +55,17 @@ public class UserService {
         }
     }
 
-    public List<User> getAll(String str) throws ServiceException {
+    public List<User> get(User user) throws ServiceException {
+        if (user.getLogin().length() > 30){
+            throw new ServiceException(new IllegalArgumentException("User login to long"));
+        }
+
+        if (user.getPass().length() > 30){
+            throw new ServiceException(new IllegalArgumentException("User password to long"));
+        }
+
         try {
+            String str = "WHERE login='" + user.getLogin() +"' AND pass='" + user.getPass() + "'";
             return DAO.getDAO().userDAO.getAll(str);
         } catch (DaoException e) {
             LOG.error(""+e);

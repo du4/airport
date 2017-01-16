@@ -1,5 +1,6 @@
 package by.it.pvt.du4.commands;
 
+import by.it.pvt.du4.DictionaryUtil;
 import by.it.pvt.du4.UserService;
 import by.it.pvt.du4.beans.User;
 import org.slf4j.Logger;
@@ -23,11 +24,11 @@ class CmdLogin extends Action {
                 user.setLogin(Form.getString(request, "login", Patterns.LOGIN));
                 user.setPass(Form.getString(request, "pass", Patterns.PASSWORD));
 
-                List<User> userList = UserService.getInstance().getAll(String.format("WHERE login='%s' AND pass='%s'", user.getLogin(), user.getPass()));
+                List<User> userList = DictionaryUtil.getInstance().getUsers();
                 if (userList.size() > 0) {
                     request.setAttribute(AttrMessages.msgMessage, "User login - OK ");
                     addUserToSessionCookie(userList.get(0), request, response);
-                    LOG.trace("User="+user+ "are logined.");
+                    LOG.trace("User="+user+ "are authorized.");
                     return Actions.INDEX.action;
                 } else {
                     LOG.error("Can't login user="+user);

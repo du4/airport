@@ -70,4 +70,29 @@ public class Crew implements Serializable {
                 ", airhostess2=" + airhostess2 +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Crew)) return false;
+
+        Crew crew = (Crew) o;
+
+        if (id != crew.id) return false;
+        if (pilot1 != crew.pilot1) return false;
+        if (pilot2 != crew.pilot2) return false;
+        if (airhostess1 != crew.airhostess1) return false;
+        return airhostess2 == crew.airhostess2;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + pilot1;
+        result = 31 * result + pilot2;
+        result = 31 * result + airhostess1;
+        result = 31 * result + airhostess2;
+        return result;
+    }
 }

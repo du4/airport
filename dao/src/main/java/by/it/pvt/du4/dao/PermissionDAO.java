@@ -2,7 +2,7 @@ package by.it.pvt.du4.dao;
 
 
 import by.it.pvt.du4.beans.Permission;
-import by.it.pvt.du4.connection.ConnectionCreator;
+import by.it.pvt.du4.connection.DataSourceCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class PermissionDAO extends AbstractDAO implements IDAO<Permission>{
     public List<Permission> getAll(String WhereAndOrder) throws DaoException {
         List<Permission> permissions = new ArrayList<>();
         String sql = "SELECT * FROM permission " + WhereAndOrder + ";";
-        try (Connection connection = ConnectionCreator.getDataSource();
+        try (Connection connection = DataSourceCreator.getDataSource();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
             LOG.trace("executeQuery("+sql+")");

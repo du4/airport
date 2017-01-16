@@ -2,7 +2,7 @@ package by.it.pvt.du4.dao;
 
 
 import by.it.pvt.du4.beans.Flight;
-import by.it.pvt.du4.connection.ConnectionCreator;
+import by.it.pvt.du4.connection.DataSourceCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,6 @@ public class FlightDAO extends AbstractDAO implements IDAO<Flight> {
                         "VALUES('%s','%s','%s','%s',%d,%d,%d,%d,%d);",
                 entity.getFlightCode(), entity.getCompany(), entity.getDeparture_time().toString(), entity.getArrival_time().toString(),
                 entity.getPlane(),entity.getTo(),entity.getFrom(), entity.getCrew(),entity.getUser());
-//        entity.setId(executeUpdate(sql));
         return executeUpdate(sql);
     }
 
@@ -52,7 +51,7 @@ public class FlightDAO extends AbstractDAO implements IDAO<Flight> {
     public List<Flight> getAll(String WhereAndOrder) throws DaoException{
         List<Flight> flights = new ArrayList<>();
         String sql = "SELECT * FROM flights " + WhereAndOrder + ";";
-        try (Connection connection = ConnectionCreator.getDataSource();
+        try (Connection connection = DataSourceCreator.getDataSource();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
             LOG.trace("executeQuery("+sql+")");
@@ -75,7 +74,7 @@ public class FlightDAO extends AbstractDAO implements IDAO<Flight> {
     public int getCount(String WHERE){
         int res=0;
         String sql = "SELECT Count(*) FROM flights " + WHERE + " ;";
-        try (Connection connection = ConnectionCreator.getDataSource();
+        try (Connection connection = DataSourceCreator.getDataSource();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sql)
         ) {

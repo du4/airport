@@ -89,27 +89,6 @@ public class FrontController extends HttpServlet {
             request.setAttribute("user", user);
             LOG.trace("Set user from session to request attribute = "+user);
         } else {
-//            Cookie[] cookies = request.getCookies();
-//            //     Create map of cookies
-//            if (cookies != null) {
-//                Map<String, String> cookieMap = new HashMap();
-//
-//                for (Cookie cookie : cookies) {
-//                    cookieMap.put(cookie.getName(), cookie.getValue());
-//                }
-//
-//                String userHash = cookieMap.get("uid");
-//
-//                if (userHash != null && !userHash.isEmpty()){
-//                    DAO dao = DAO.getDAO((String) request.getAttribute(FrontController.CSPATH));
-//                    List<User> userList = dao.userDAO.get("");
-//                    for (User u : userList) {
-//                        if (u.hashCode() == Integer.valueOf(userHash)) {
-//                            request.setAttribute("user", u);
-//                            break;
-//                        }
-//                    }
-//                }
             request.setAttribute("user", null);
             LOG.trace("Unauthorized user.");
         }

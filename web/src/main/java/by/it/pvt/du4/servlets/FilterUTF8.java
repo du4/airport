@@ -18,7 +18,7 @@ public class FilterUTF8 implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-        //пример фильтра ПЕРЕД сервлетом.
+        // фильтра ПЕРЕД сервлетом.
         String codeResponse = response.getCharacterEncoding();
         // установка кодировки ответа из параметров фильтра, если не установлена
         if (code != null && !code.equalsIgnoreCase(codeResponse)) {

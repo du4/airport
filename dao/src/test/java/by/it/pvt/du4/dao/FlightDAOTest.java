@@ -1,42 +1,48 @@
 package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Flight;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.sql.Timestamp;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 
 
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
 public class FlightDAOTest {
     FlightDAO flightDAO = new FlightDAO();
-    Flight fs = new Flight(1,"FF666","Company", new Timestamp(1488009000),new Timestamp(1476271800), 1,1,3,6,1);
-    Flight fs1 = new Flight(14,"AS123","Lufthanse", new Timestamp(1476293400000L),new Timestamp(1487995200000L), 2,3,2,7,1);
+    private static Flight testFlight;
 
-    @Test
-    public void C_update() throws Exception {
-        assertTrue(flightDAO.update(fs1));
+    @BeforeClass
+    public static void  init() {
+        testFlight = new Flight(0,"FF666","Company", new Timestamp(1488009000),new Timestamp(1476271000), 1,1,3,6,1);
     }
 
     @Test
-    public void B_read() throws Exception {
-        assertEquals(flightDAO.read(14), fs1);
+    public void a_create() throws Exception {
+        assertTrue(flightDAO.create(testFlight)>0);
+        testFlight.setId(flightDAO.getLastID("flight_id", "flights"));
     }
 
     @Test
-    public void A_create() throws Exception {
-        assertTrue(flightDAO.create(fs)>0);
+    public void b_update() throws Exception {
+        testFlight.setFlightCode("AS123");
+        testFlight.setCompany("Lufthanse");
+        assertTrue(flightDAO.update(testFlight));
     }
 
     @Test
-    public void D_delete() throws Exception {
-        int id = flightDAO.getLastID("flight_id", "flights");
-        fs.setId(id);
-        assertTrue(flightDAO.delete(fs));
+    public void c_read() throws Exception {
+        assertEquals(flightDAO.read(testFlight.getId()), testFlight);
+    }
+
+    @Test
+    public void delete() throws Exception {
+        assertTrue(flightDAO.delete(testFlight));
     }
 
 

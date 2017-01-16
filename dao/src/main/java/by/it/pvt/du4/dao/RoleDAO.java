@@ -1,7 +1,7 @@
 package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Role;
-import by.it.pvt.du4.connection.ConnectionCreator;
+import by.it.pvt.du4.connection.DataSourceCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class RoleDAO extends AbstractDAO implements IDAO<Role> {
     public List<Role> getAll(String WHERE) throws DaoException {
         List<Role> roles = new ArrayList<>();
         String sql = "SELECT * FROM roles " + WHERE + " ;";
-        try (Connection connection = ConnectionCreator.getDataSource();
+        try (Connection connection = DataSourceCreator.getDataSource();
              Statement statement = connection.createStatement()
         ) {
             ResultSet rs = statement.executeQuery(sql);
@@ -50,16 +50,15 @@ public class RoleDAO extends AbstractDAO implements IDAO<Role> {
     @Override
     public int create(Role role) throws DaoException{
         String sql = String.format(
-                "insert INTO roles(name) values('%s',);",role.getRole()
+                "insert INTO roles(name) values('%s');",role.getRole()
         );
-//        role.setId(executeUpdate(sql));
         return executeUpdate(sql);
     }
 
     @Override
     public boolean update(Role role) throws DaoException{
         String sql = String.format(
-                "UPDATE `roles` SET `name` = '%s', WHERE `roles`.`role_id` = %d",
+                "UPDATE `roles` SET `name` = '%s' WHERE `roles`.`role_id` = %d",
                 role.getRole(), role.getId()
         );
         return (0 < executeUpdate(sql));

@@ -1,7 +1,7 @@
 package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.connection.ConnectionCreator;
+import by.it.pvt.du4.connection.DataSourceCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,6 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
     public int create(User entity) throws DaoException{
         String sql = String.format("INSERT INTO users(login, pass, role, email) VALUES('%s','%s','%s','%s');",
                 entity.getLogin(), entity.getPass(), entity.getRole(), entity.getEmail());
-//        entity.setId(executeUpdate(sql));
         return executeUpdate(sql);
     }
 
@@ -48,7 +47,7 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
     public List<User> getAll(String WhereAndOrder) throws DaoException{
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM users " + WhereAndOrder + ";";
-        try (Connection connection = ConnectionCreator.getDataSource();
+        try (Connection connection = DataSourceCreator.getDataSource();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
             LOG.trace("executeQuery("+sql+")");

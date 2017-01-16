@@ -2,7 +2,7 @@ package by.it.pvt.du4.dao;
 
 
 import by.it.pvt.du4.beans.Crew;
-import by.it.pvt.du4.connection.ConnectionCreator;
+import by.it.pvt.du4.connection.DataSourceCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,6 @@ public class CrewDAO extends AbstractDAO implements IDAO<Crew> {
     public int create(Crew entity) throws DaoException{
         String sql = String.format("INSERT INTO crews(pilot1, pilot2, airHostess1, airHostess2) VALUES('%d','%d','%d','%d');",
                 entity.getPilot1(), entity.getPilot2(), entity.getAirhostess1(), entity.getAirhostess2());
-//        entity.setId(executeUpdate(sql));
         return executeUpdate(sql);
     }
 
@@ -42,7 +41,6 @@ public class CrewDAO extends AbstractDAO implements IDAO<Crew> {
     @Override
     public boolean delete(Crew entity) throws DaoException{
         String sql = String.format("DELETE FROM `crews` WHERE  `crews`.`crew_id`=%d;", entity.getId());
-        executeUpdate(sql);
         return (0<executeUpdate(sql));
     }
 
@@ -50,7 +48,7 @@ public class CrewDAO extends AbstractDAO implements IDAO<Crew> {
     public List<Crew> getAll(String WhereAndOrder) throws DaoException{
         List<Crew> crews = new ArrayList<>();
         String sql = "SELECT * FROM crews " + WhereAndOrder + ";";
-        try (Connection connection = ConnectionCreator.getDataSource();
+        try (Connection connection = DataSourceCreator.getDataSource();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
             LOG.trace("executeQuery("+sql+")");

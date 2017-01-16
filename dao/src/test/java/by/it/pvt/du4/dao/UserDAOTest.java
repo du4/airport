@@ -1,9 +1,8 @@
-package by.it.pvt.du4;
+package by.it.pvt.du4.dao;
 
 
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.dao.UserDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -36,7 +36,7 @@ public class FlightDAO extends AbstractDAO implements IDAO<Flight> {
     public boolean update(Flight entity) throws DaoException{
         String sql = String.format("UPDATE `flights` SET `flightCode`='%s', `company`='%s', `departure_time`='%s', `arrival_time`='%s' " +
                         ",`plane`=%d,`toPort`=%d,`fromPort`=%d,`crew`=%d,`user`=%d" +
-                        "WHERE `flights`.`flight_id` = %d;",
+                        " WHERE `flights`.`flight_id` = %d;",
                 entity.getFlightCode(), entity.getCompany(), entity.getDeparture_time().toString(), entity.getArrival_time().toString(),
                 entity.getPlane(),entity.getTo(),entity.getFrom(), entity.getCrew(),entity.getUser(), entity.getId());
         return (0<executeUpdate(sql));
@@ -45,7 +45,6 @@ public class FlightDAO extends AbstractDAO implements IDAO<Flight> {
     @Override
     public boolean delete(Flight entity) throws DaoException{
         String sql = String.format("DELETE FROM `flights` WHERE  `flights`.`flight_id`=%d;", entity.getId());
-        executeUpdate(sql);
         return (0<executeUpdate(sql));
     }
 

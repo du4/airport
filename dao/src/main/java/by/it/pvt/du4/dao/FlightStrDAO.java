@@ -15,7 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FligthStrDAO extends AbstractDAO implements IDAO <FlightStr> {
+public class FlightStrDAO extends AbstractDAO implements IDAO <FlightStr> {
     private static final Logger LOG = LoggerFactory.getLogger(CrewDAO.class);
     @Override
     public FlightStr read(int id) {

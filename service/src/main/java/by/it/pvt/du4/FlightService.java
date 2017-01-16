@@ -32,7 +32,7 @@ public class FlightService {
 
     public List<FlightStr> getAll(String flightQuery) throws ServiceException {
         try {
-            return DAO.getDAO().fligthStrDAO.getAll(flightQuery);
+            return DAO.getDAO().flightStrDAO.getAll(flightQuery);
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);

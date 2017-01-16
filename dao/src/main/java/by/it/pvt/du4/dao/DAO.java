@@ -5,7 +5,7 @@ public class DAO {
     private static DAO dao; //синглтон для DAO
 
     public FlightDAO flightDAO;                //DAO for flights
-    public FligthStrDAO fligthStrDAO;       // DAO for flights in str
+    public FlightStrDAO flightStrDAO;       // DAO for flights in str
     public AirhostessDAO airhostessDAO;     //DAO for airhostess
     public AirportsDAO airportsDAO;         //DAO for aiports
     public PilotDAO pilotDAO;                //DAO for pilots
@@ -28,7 +28,7 @@ public class DAO {
                     dao.userDAO = new UserDAO();
                     dao.roleDAO = new RoleDAO();
                     dao.flightDAO = new FlightDAO();
-                    dao.fligthStrDAO = new FligthStrDAO();
+                    dao.flightStrDAO = new FlightStrDAO();
                     dao.crewDAO = new CrewDAO();
                     dao.commandDAO = new CommandDAO();
                     dao.permissionDAO = new PermissionDAO();

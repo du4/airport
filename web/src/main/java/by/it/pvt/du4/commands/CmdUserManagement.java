@@ -27,23 +27,23 @@ class CmdUserManagement extends Action {
                 user.setEmail(Form.getString(request, "Email", Patterns.EMAIL));
                 user.setRole(Form.getInt(request,"fk_Role"));
                 request.setAttribute(AttrMessages.msgMessage,user);
-                if (user.getId()>0){
+                if (user.getId() > 0){
                     UserService.getInstance().update(user);
                     LOG.trace("Update user:"+user);
                 }
-                if (user.getId()<0){
+                if (user.getId() < 0){
                     user.setId(user.getId()*(-1));
                     UserService.getInstance().delete(user);
                     LOG.trace("Delete user="+user);
                 }
-                if (user.getId()==0){
+                if (user.getId() == 0){
                     UserService.getInstance().create(user);
                     LOG.trace("Create user"+user);
                 }
 
             } catch (ParseException e) {
                 e.printStackTrace();
-                LOG.error(e.getMessage());
+                LOG.error(""+e);
                 request.setAttribute(AttrMessages.msgMessage,"Error");
             }
         }

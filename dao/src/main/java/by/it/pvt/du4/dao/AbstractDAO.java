@@ -1,6 +1,6 @@
 package by.it.pvt.du4.dao;
 
-import by.it.pvt.du4.connection.DataSourceCreator;
+import by.it.pvt.du4.pool.PoolCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ public abstract class AbstractDAO{
     protected int executeUpdate(String sql) throws DaoException {
         int result = -1;
         LOG.trace("executeUpdate:"+sql);
-        try (Connection connection = DataSourceCreator.getDataSource();
+        try (Connection connection = PoolCreator.getConnectionFromPool();
              Statement statement = connection.createStatement()) {
             result = statement.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
             if (sql.trim().toUpperCase().startsWith("INSERT")) {
@@ -34,7 +34,7 @@ public abstract class AbstractDAO{
         String sql = "SELECT " + idColName + " FROM " + tableName + " ORDER BY " + idColName + " DESC LIMIT 1;";
 
         int result = -1;
-        try (Connection connection = DataSourceCreator.getDataSource();
+        try (Connection connection = PoolCreator.getConnectionFromPool();
              Statement statement = connection.createStatement()) {
             LOG.trace("executeQuery:"+sql);
             ResultSet resultSet = statement.executeQuery(sql);

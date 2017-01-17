@@ -60,6 +60,10 @@ public enum Actions {
         return result;
     }
 
+    /**
+     * Simple return error Action
+     * @return
+     */
     public static Action getErrorAction(){
         return Actions.ERROR.action;
     }

@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 abstract public class Action {
 
+    /**
+     * Execute command from request
+     * @param request
+     * @param response
+     * @return Action
+     * @throws ServiceException
+     */
     public abstract Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException;
 
     @Override
@@ -16,6 +23,10 @@ abstract public class Action {
         return name;
     }
 
+    /**
+     * return path to jsp view
+     * @return String
+     */
     public String getJsp(){
         String name = "/" + this.toString().toLowerCase()+".jsp";
         if (!name.equalsIgnoreCase("/index.jsp")){

@@ -2,7 +2,9 @@ package by.it.pvt.du4.dao;
 
 public class DAO {
 
-    private static DAO dao; //синглтон для DAO
+    private static volatile DAO dao; //синглтон для DAO
+
+    private DAO(){}
 
     public FlightDAO flightDAO;                //DAO for flights
     public FlightStrDAO flightStrDAO;       // DAO for flights in str

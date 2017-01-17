@@ -24,7 +24,7 @@ public class UserDAOTest {
 
     @Test
     public void a_create() throws Exception {
-        assertTrue(userDAO.create(testUser)>0);
+        assertTrue(userDAO.create(testUser) > 0);
         testUser.setId(userDAO.getLastID("user_id", "users"));
     }
 

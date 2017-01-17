@@ -3,7 +3,7 @@ package by.it.pvt.du4.dao;
 
 
 import by.it.pvt.du4.beans.FlightStr;
-import by.it.pvt.du4.connection.DataSourceCreator;
+import by.it.pvt.du4.pool.PoolCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ public class FlightStrDAO extends AbstractDAO implements IDAO <FlightStr> {
                 "INNER JOIN airports b ON flights.fromPort=b.airports_id " +
                 "INNER JOIN crews ON flights.crew=crews.crew_id " +
                 "INNER JOIN users ON flights.user=users.user_id " + WhereAndOrder + ";";
-        try (Connection connection = DataSourceCreator.getDataSource();
+        try (Connection connection = PoolCreator.getConnectionFromPool();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
             LOG.trace("executeQuery("+sql+")");
@@ -70,7 +70,7 @@ public class FlightStrDAO extends AbstractDAO implements IDAO <FlightStr> {
     public int getCount(String WHERE){
         int res=0;
         String sql = "SELECT Count(*) FROM flights " + WHERE + " ;";
-        try (Connection connection = DataSourceCreator.getDataSource();
+        try (Connection connection = PoolCreator.getConnectionFromPool();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sql)
         ) {

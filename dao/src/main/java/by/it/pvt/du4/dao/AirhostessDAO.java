@@ -2,7 +2,7 @@ package by.it.pvt.du4.dao;
 
 
 import by.it.pvt.du4.beans.Airhostess;
-import by.it.pvt.du4.connection.DataSourceCreator;
+import by.it.pvt.du4.pool.PoolCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +48,7 @@ public class AirhostessDAO extends AbstractDAO implements IDAO <Airhostess> {
     public List<Airhostess> getAll(String WhereAndOrder) throws DaoException {
         List<Airhostess> airhostesses = new ArrayList<>();
         String sql = "SELECT * FROM airhostesses " + WhereAndOrder + ";";
-        try (Connection connection = DataSourceCreator.getDataSource();
+        try (Connection connection = PoolCreator.getConnectionFromPool();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
             LOG.trace("executeQuery("+sql+")");

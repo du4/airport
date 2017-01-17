@@ -2,7 +2,7 @@ package by.it.pvt.du4.dao;
 
 
 import by.it.pvt.du4.beans.Airport;
-import by.it.pvt.du4.connection.DataSourceCreator;
+import by.it.pvt.du4.pool.PoolCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ public class AirportsDAO extends AbstractDAO implements IDAO<Airport> {
     public List<Airport> getAll(String WhereAndOrder) throws DaoException {
         List<Airport> airports = new ArrayList<>();
         String sql = "SELECT * FROM airports " + WhereAndOrder + ";";
-        try (Connection connection = DataSourceCreator.getDataSource();
+        try (Connection connection = PoolCreator.getConnectionFromPool();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
             LOG.trace("executeQuery("+sql+")");

@@ -24,7 +24,7 @@ class CmdLogin extends Action {
                 user.setLogin(Form.getString(request, "login", Patterns.LOGIN));
                 user.setPass(Form.getString(request, "pass", Patterns.PASSWORD));
 
-                List<User> userList = DictionaryUtil.getInstance().getUsers();
+                List<User> userList = UserService.getInstance().get(user);
                 if (userList.size() > 0) {
                     request.setAttribute(AttrMessages.msgMessage, "User login - OK ");
                     addUserToSessionCookie(userList.get(0), request, response);

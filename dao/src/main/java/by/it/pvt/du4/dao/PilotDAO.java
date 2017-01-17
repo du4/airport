@@ -1,7 +1,7 @@
 package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Pilot;
-import by.it.pvt.du4.connection.DataSourceCreator;
+import by.it.pvt.du4.pool.PoolCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ public class PilotDAO extends AbstractDAO implements IDAO<Pilot> {
     public List<Pilot> getAll(String WhereAndOrder) throws DaoException{
         List<Pilot> pilots = new ArrayList<>();
         String sql = "SELECT * FROM pilots " + WhereAndOrder + ";";
-        try (Connection connection = DataSourceCreator.getDataSource();
+        try (Connection connection = PoolCreator.getConnectionFromPool();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
             LOG.trace("executeQuery("+sql+")");

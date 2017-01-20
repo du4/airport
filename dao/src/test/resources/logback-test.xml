@@ -4,7 +4,7 @@
   <property name="DEV_HOME" value="/home/du4/IdeaProjects/airport/log" />
 
   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <file>${DEV_HOME}/full.log</file>
+    <file>${DEV_HOME}/test.log</file>
     <layout class="ch.qos.logback.classic.PatternLayout">
       <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
     </layout>

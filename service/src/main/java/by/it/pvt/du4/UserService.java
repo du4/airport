@@ -4,6 +4,7 @@ import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.dao.DAO;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +48,7 @@ public class UserService {
     }
 
     public int create(User user) throws ServiceException {
+//        user.setPass(DigestUtils.md5Hex(user.getPass()));
         try {
             return DAO.getDAO().userDAO.create(user);
         } catch (DaoException e) {

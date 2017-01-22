@@ -18,15 +18,15 @@ class CmdNewFlight extends Action {
     public Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         if (request.getMethod().equalsIgnoreCase("POST")) {
-            User user = (User) request.getSession().getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user_id");
             if (user == null){
-                LOG.error("Permission deny, user is not authorized.");
-                request.setAttribute(AttrMessages.msgError, "Permission deny, user is not authorized.");
+                LOG.error("Permission deny, user_id is not authorized.");
+                request.setAttribute(AttrMessages.msgError, "Permission deny, user_id is not authorized.");
                 return Actions.LOGIN.action;
             }
             Flight flight = new Flight();
 
-            flight.setUser(user.getId());
+            flight.setUser_id(user.getId());
 
             try {
                 flight.setFlightCode(Form.getString(request, "code", Patterns.FLIGTH_CODE));
@@ -40,13 +40,13 @@ class CmdNewFlight extends Action {
                 timestamp1 = Timestamp.valueOf(timestampStr);
                 flight.setDeparture_time(timestamp1 );
 
-                flight.setPlane(Integer.parseInt(Form.getString(request,"plane",Patterns.INT)));
-                flight.setFrom(Integer.parseInt(Form.getString(request,"from",Patterns.INT)));
-                flight.setTo(Integer.parseInt(Form.getString(request,"to",Patterns.INT)));
-                flight.setCrew(Integer.parseInt(Form.getString(request, "crew", Patterns.INT)));
-                if (flight.getFrom() == flight.getTo()){
-                    LOG.error("Destination can't be equals to Arrival");
-                    throw new IllegalArgumentException("Destination can't be equals to Arrival");
+                flight.setPlane_id(Integer.parseInt(Form.getString(request,"plane_id",Patterns.INT)));
+                flight.setFrom_id(Integer.parseInt(Form.getString(request,"from_id",Patterns.INT)));
+                flight.setTo_id(Integer.parseInt(Form.getString(request,"to_id",Patterns.INT)));
+                flight.setCrew_id(Integer.parseInt(Form.getString(request, "crew_id", Patterns.INT)));
+                if (flight.getFrom_id() == flight.getTo_id()){
+                    LOG.error("Destination can't be equals to_id Arrival");
+                    throw new IllegalArgumentException("Destination can't be equals to_id Arrival");
                 }
                 if (flight.getDeparture_time().getTime()  >= flight.getArrival_time().getTime()){
                     LOG.error("Arrival time must be grater then Destination time");

@@ -1,40 +1,24 @@
 package by.it.pvt.du4.beans;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
+@Table
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Command implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id =0;
+    @Column
     private String name;
 
-    public Command() {
-    }
 
-    public Command(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Command{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

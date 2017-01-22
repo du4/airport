@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 abstract public class Action {
 
     /**
-     * Execute command from request
+     * Execute command from_id request
      * @param request
      * @param response
      * @return Action
@@ -24,7 +24,7 @@ abstract public class Action {
     }
 
     /**
-     * return path to jsp view
+     * return path to_id jsp view
      * @return String
      */
     public String getJsp(){

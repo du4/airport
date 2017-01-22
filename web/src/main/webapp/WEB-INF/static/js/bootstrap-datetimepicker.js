@@ -83,7 +83,7 @@
     this.container = options.container || 'body';
 
     this.language = options.language || this.element.data('date-language') || 'en';
-    this.language = this.language in dates ? this.language : this.language.split('-')[0]; // fr-CA fallback to fr
+    this.language = this.language in dates ? this.language : this.language.split('-')[0]; // fr-CA fallback to_id fr
     this.language = this.language in dates ? this.language : 'en';
     this.isRTL = dates[this.language].rtl || false;
     this.formatType = options.formatType || this.element.data('format-type') || 'standard';
@@ -785,8 +785,8 @@
         .end()
         .find('span').removeClass('active');
       if (currentYear == year) {
-        // getUTCMonths() returns 0 based, and we need to select the next one
-        // To cater bootstrap 2 we don't need to select the next one
+        // getUTCMonths() returns 0 based, and we need to_id select the next one
+        // To cater bootstrap 2 we don't need to_id select the next one
         var offset = months.length - 12;
         months.eq(this.date.getUTCMonth() + offset).addClass('active');
       }
@@ -1181,13 +1181,13 @@
         };
         new_month = month + dir;
         new_date.setUTCMonth(new_month);
-        // Dec -> Jan (12) or Jan -> Dec (-1) -- limit expected date to 0-11
+        // Dec -> Jan (12) or Jan -> Dec (-1) -- limit expected date to_id 0-11
         if (new_month < 0 || new_month > 11)
           new_month = (new_month + 12) % 12;
       } else {
         // For magnitudes >1, move one month at a time...
         for (var i = 0; i < mag; i++)
-          // ...which might decrease the day (eg, Jan 31 to Feb 28, etc)...
+          // ...which might decrease the day (eg, Jan 31 to_id Feb 28, etc)...
           new_date = this.moveMonth(new_date, dir);
         // ...then reset the day, keeping it in the new month
         new_month = new_date.getUTCMonth();
@@ -1215,7 +1215,7 @@
 
     keydown: function (e) {
       if (this.picker.is(':not(:visible)')) {
-        if (e.keyCode == 27) // allow escape to hide and re-show picker
+        if (e.keyCode == 27) // allow escape to_id hide and re-show picker
           this.show();
         return;
       }
@@ -1357,7 +1357,7 @@
        vitalets: fixing bug of very special conditions:
        jquery 1.7.1 + webkit + show inline datetimepicker in bootstrap popover.
        Method show() does not set display css correctly and datetimepicker is not shown.
-       Changed to .css('display', 'block') solve the problem.
+       Changed to_id .css('display', 'block') solve the problem.
        See https://github.com/vitalets/x-editable/issues/37
 
        In jquery 1.7.2+ everything works fine.
@@ -1878,7 +1878,7 @@
       var $this = $(this);
       if ($this.data('datetimepicker')) return;
       e.preventDefault();
-      // component click requires us to explicitly show it
+      // component click requires us to_id explicitly show it
       $this.datetimepicker('show');
     }
   );

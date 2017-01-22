@@ -26,10 +26,10 @@ public class CrewDAOTest {
 
     @Test
     public void b_update() throws Exception {
-        testCrew.setAirhostess1(2);
-        testCrew.setAirhostess2(2);
-        testCrew.setPilot1(2);
-        testCrew.setPilot2(2);
+        testCrew.setAirhostess1_id(2);
+        testCrew.setAirhostess2_id(2);
+        testCrew.setPilot1_id(2);
+        testCrew.setPilot2_id(2);
         assertTrue(crewDAO.update(testCrew));
     }
 

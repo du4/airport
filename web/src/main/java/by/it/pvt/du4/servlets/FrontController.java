@@ -24,7 +24,7 @@ public class FrontController extends HttpServlet {
         Action action;
         Action nextAction = null;
         try {
-            updateSessionCash(request);
+            updateHttpSessionCash(request);
             setUserToAttribute(request);
             action = Actions.defineFrom(request);
             LOG.trace("ActionPage="+action.getJsp());
@@ -46,7 +46,7 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
         Action action;
         try {
-            updateSessionCash(request);
+            updateHttpSessionCash(request);
             setUserToAttribute(request);
             action = Actions.defineFrom(request);
             action.execute(request, response);
@@ -64,33 +64,33 @@ public class FrontController extends HttpServlet {
     }
 
     /**
-     * Store commandList & permissionList to current Session if ifs absent
+     * Store commandList & permissionList to_id current Session if ifs absent
      * @param request
      * @throws ServiceException
      */
-    private void updateSessionCash(HttpServletRequest request) throws ServiceException {
+    private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
         SessionAttrSesHelper.setCommandToAttribute(request);
         SessionAttrSesHelper.setCommandToAttribute(request);
         SessionAttrSesHelper.setPermissionToAttribute(request);
     }
 
     /**
-     * Get user from session if its not null sore to request attribute.
-     * Else store null user to request attribute
+     * Get user_id from_id session if its not null sore to_id request attribute.
+     * Else store null user_id to_id request attribute
      * @param request
      */
     private void setUserToAttribute(HttpServletRequest request) {
 
         HttpSession session = request.getSession(true);
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user_id");
 
         if (user != null) {
-            request.setAttribute("curUser", "Session info: user.login=" + user.getLogin() +", role="+ user.getRole());
-            request.setAttribute("user", user);
-            LOG.trace("Set user from session to request attribute = "+user);
+            request.setAttribute("curUser", "Session info: user_id.login=" + user.getLogin() +", role="+ user.getRole_id());
+            request.setAttribute("user_id", user);
+            LOG.trace("Set user_id from_id session to_id request attribute = "+user);
         } else {
-            request.setAttribute("user", null);
-            LOG.trace("Unauthorized user.");
+            request.setAttribute("user_id", null);
+            LOG.trace("Unauthorized user_id.");
         }
     }
 }

@@ -48,7 +48,7 @@ public class UserService {
     }
 
     public int create(User user) throws ServiceException {
-//        user.setPass(DigestUtils.md5Hex(user.getPass()));
+//        user_id.setPass(DigestUtils.md5Hex(user_id.getPass()));
         try {
             return DAO.getDAO().userDAO.create(user);
         } catch (DaoException e) {
@@ -59,11 +59,11 @@ public class UserService {
 
     public List<User> get(User user) throws ServiceException {
         if (user.getLogin().length() > 30){
-            throw new ServiceException(new IllegalArgumentException("User login to long"));
+            throw new ServiceException(new IllegalArgumentException("User login to_id long"));
         }
 
         if (user.getPass().length() > 30){
-            throw new ServiceException(new IllegalArgumentException("User password to long"));
+            throw new ServiceException(new IllegalArgumentException("User password to_id long"));
         }
 
         try {

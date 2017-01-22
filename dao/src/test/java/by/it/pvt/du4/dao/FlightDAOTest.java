@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -19,7 +20,7 @@ public class FlightDAOTest {
 
     @BeforeClass
     public static void  init() {
-        testFlight = new Flight(0,"FF666","Company", new Timestamp(1488009000),new Timestamp(1476271000), 1,1,3,6,1);
+        testFlight = new Flight(0,"FF666","Company", new Timestamp(1488009000),new Timestamp(1476271000), 1,1,3,6,1, new Timestamp((new Date()).getTime()));
     }
 
     @Test

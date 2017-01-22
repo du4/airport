@@ -21,13 +21,13 @@ class CmdIndex extends Action {
         if (request.getMethod().equalsIgnoreCase("post")) {
             try {
                 FlightQueryStrBuilder queryStrBuilder = new FlightQueryStrBuilder();
-                if (request.getParameter("from") != null && request.getParameter("to")!=null) {
-                    if (request.getParameter("from").equals(request.getParameter("to"))) {
-                        throw new IllegalArgumentException("Destination can't be equals to departure.");
+                if (request.getParameter("from_id") != null && request.getParameter("to_id")!=null) {
+                    if (request.getParameter("from_id").equals(request.getParameter("to_id"))) {
+                        throw new IllegalArgumentException("Destination can't be equals to_id departure.");
                     }
                 }
-                queryStrBuilder.appendIntParam("fromPort", "=", request.getParameter("from"));
-                queryStrBuilder.appendIntParam("toPort", "=", request.getParameter("to"));
+                queryStrBuilder.appendIntParam("fromPort", "=", request.getParameter("from_id"));
+                queryStrBuilder.appendIntParam("toPort", "=", request.getParameter("to_id"));
                 queryStrBuilder.appendStrParam("DATE(departure_time)", "=", request.getParameter("departureTime"));
                 queryStrBuilder.appendStrParam("DATE(arrival_time)", "=", request.getParameter("arrivalTime"));
                 LOG.trace(queryStrBuilder.toString());
@@ -40,9 +40,9 @@ class CmdIndex extends Action {
         }
 
         List<FlightStr> flightStrs = FlightService.gerInstance().getAll(flightQuery);
-        for (FlightStr flight : flightStrs) {
-            flight.setViewNumber(++startNumber);
-        }
+//        for (FlightStr flight : flightStrs) {
+//            flight.setViewNumber(++startNumber);
+//        }
         request.setAttribute("flights", flightStrs);
         SessionAttrSesHelper.setAirportsToAttribute(request);
         return null;

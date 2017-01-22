@@ -21,15 +21,15 @@ class CmdStuffingCrew extends Action {
             Crew crew = new Crew();
             crew.setId(0);
             try {
-                crew.setPilot1(Integer.parseInt(Form.getString(request,"pilot1", Patterns.INT)));
-                crew.setPilot2(Integer.parseInt(Form.getString(request,"pilot2", Patterns.INT)));
-                crew.setAirhostess1(Integer.parseInt(Form.getString(request,"airhostess1", Patterns.INT)));
-                crew.setAirhostess2(Integer.parseInt(Form.getString(request,"airhostess2", Patterns.INT)));
-                if (crew.getPilot1() == crew.getPilot2()){
+                crew.setPilot1_id(Integer.parseInt(Form.getString(request,"pilot1", Patterns.INT)));
+                crew.setPilot2_id(Integer.parseInt(Form.getString(request,"pilot2", Patterns.INT)));
+                crew.setAirhostess1_id(Integer.parseInt(Form.getString(request,"airhostess1", Patterns.INT)));
+                crew.setAirhostess2_id(Integer.parseInt(Form.getString(request,"airhostess2", Patterns.INT)));
+                if (crew.getPilot1_id() == crew.getPilot2_id()){
                     LOG.error("pilot1 = pilot2");
                     throw new IllegalArgumentException("Select different pilots");
                 }
-                if (crew.getAirhostess1() == crew.getAirhostess2()){
+                if (crew.getAirhostess1_id() == crew.getAirhostess2_id()){
                     LOG.error("Airhostess1 = airhostess2");
                     throw new IllegalArgumentException("Select different airhostesses");
                 }
@@ -41,7 +41,7 @@ class CmdStuffingCrew extends Action {
                 return null;
             }
             if (CrewService.getInstance().create(crew)>0){
-                LOG.trace("New crew is created." + crew);
+                LOG.trace("New crew_id is created." + crew);
             } else {
                 LOG.trace("Crew does not created.");
             }

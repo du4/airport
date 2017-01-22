@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
     </div>
-    <div class="col-sm-1 sidenav"></div>
+    <%--<div class="col-sm-1 sidenav"></div>--%>
 </div>
 
 

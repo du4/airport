@@ -6,7 +6,7 @@
     <fieldset>
 
         <!-- Form Name -->
-        <legend align="center">Stuffing the crew</legend>
+        <legend align="center">Stuffing the crew_id</legend>
 
         <!-- Select Basic -->
         <div class="form-group">
@@ -23,10 +23,10 @@
 
         <!-- Select Basic -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="pilot2">Pilot2</label>
+            <label class="col-md-4 control-label" for="pilot2_id">Pilot2</label>
             <div class="col-md-4">
-                <select id="pilot2" name="pilot2"  class="form-control" required="">
-                    <option value="" selected disabled>pilot2</option>
+                <select id="pilot2_id" name="pilot2_id"  class="form-control" required="">
+                    <option value="" selected disabled>pilot2_id</option>
                     <c:forEach items="${pilots}" var="pilot">
                         <option value=${pilot.id}>${pilot.name}</option>
                     </c:forEach>
@@ -36,10 +36,10 @@
 
         <!-- Select Basic -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="airhostess1">Airhostess1</label>
+            <label class="col-md-4 control-label" for="airhostess1_id">Airhostess1</label>
             <div class="col-md-4">
-                <select id="airhostess1" name="airhostess1"   class="form-control" required="">
-                    <option value="" selected disabled>airhostess1</option>
+                <select id="airhostess1_id" name="airhostess1_id"   class="form-control" required="">
+                    <option value="" selected disabled>airhostess1_id</option>
                     <c:forEach items="${airhostesses}" var="airhostess">
                         <option value=${airhostess.id}>${airhostess.name}</option>
                     </c:forEach>
@@ -49,10 +49,10 @@
 
         <!-- Select Basic -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="airhostess2">Airhostess2</label>
+            <label class="col-md-4 control-label" for="airhostess2_id">Airhostess2</label>
             <div class="col-md-4">
-                <select id="airhostess2" name="airhostess2"  class="form-control" required="">
-                    <option value="" selected disabled>airhostess2</option>
+                <select id="airhostess2_id" name="airhostess2_id"  class="form-control" required="">
+                    <option value="" selected disabled>airhostess2_id</option>
                     <c:forEach items="${airhostesses}" var="airhostess">
                         <option value=${airhostess.id}>${airhostess.name}</option>
                     </c:forEach>

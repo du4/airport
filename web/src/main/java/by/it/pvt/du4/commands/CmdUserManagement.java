@@ -18,27 +18,27 @@ class CmdUserManagement extends Action {
     @Override
     public Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        if (request.getMethod().equalsIgnoreCase("POST")){
+        if ("POST".equalsIgnoreCase(request.getMethod())){
             User user=new User();
             try {
                 user.setId(Form.getInt(request,"ID"));
                 user.setLogin(Form.getString(request, "Login", Patterns.LOGIN));
                 user.setPass(Form.getString(request, "Password", Patterns.PASSWORD));
                 user.setEmail(Form.getString(request, "Email", Patterns.EMAIL));
-                user.setRole(Form.getInt(request,"fk_Role"));
+                user.setRole_id(Form.getInt(request,"fk_Role"));
                 request.setAttribute(AttrMessages.msgMessage,user);
                 if (user.getId() > 0){
                     UserService.getInstance().update(user);
-                    LOG.trace("Update user:"+user);
+                    LOG.trace("Update user_id:"+user);
                 }
                 if (user.getId() < 0){
                     user.setId(user.getId()*(-1));
                     UserService.getInstance().delete(user);
-                    LOG.trace("Delete user="+user);
+                    LOG.trace("Delete user_id="+user);
                 }
                 if (user.getId() == 0){
                     UserService.getInstance().create(user);
-                    LOG.trace("Create user"+user);
+                    LOG.trace("Create user_id"+user);
                 }
 
             } catch (ParseException e) {
@@ -55,7 +55,7 @@ class CmdUserManagement extends Action {
         } else {
             request.setAttribute(AttrMessages.msgMessage,"Read usersCount=" + users.size());
             request.setAttribute("users", users);
-            LOG.trace("Read all users, user count = "+users.size());
+            LOG.trace("Read all users, user_id count = "+users.size());
         }
         return null;
     }

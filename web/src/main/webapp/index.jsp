@@ -7,7 +7,7 @@
     <h3 align="center">Flight time-table</h3>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 
     <div class="panel panel-warning">
         <div class="panel-heading">Find panel</div>
@@ -61,7 +61,7 @@
             <th>From</th>
             <th>To</th>
 
-            <c:if test="${user.role<3}">
+            <c:if test="${user.role_id<3}">
                 <th>Crew</th>
                 <th>User</th>
             </c:if>
@@ -78,7 +78,7 @@
                 <td>${flight.plane}</td>
                 <td>${flight.from}</td>
                 <td>${flight.to}</td>
-                <c:if test="${user.role<3}">
+                <c:if test="${user.role_id<3}">
                     <td>${flight.crew}</td>
                     <td>${flight.user}</td>
                 </c:if>

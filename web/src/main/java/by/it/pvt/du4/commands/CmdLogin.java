@@ -43,11 +43,11 @@ class CmdLogin extends Action {
     }
 
     private void addUserToSessionCookie(User user, HttpServletRequest request, HttpServletResponse response){
-//        Save user to Cookies
+//        Save user to_id Cookies
         Cookie cookie = new Cookie("uid", ""+user.hashCode());
         cookie.setMaxAge(60*60);
         response.addCookie(cookie);
-//        Save user to Session
+//        Save user to_id Session
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
 

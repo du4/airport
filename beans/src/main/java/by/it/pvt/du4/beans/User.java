@@ -1,110 +1,52 @@
 package by.it.pvt.du4.beans;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
 
+@Data
+@Table
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id=0;
+    @Column(
+            unique = true,
+            nullable = false
+    )
     private String login;
+    @Column(
+            unique = true,
+            nullable = false
+    )
     private String email;
+    @Column
     private String pass;
-    private int role=0;
-
-    public User() {
-    }
+    @Column
+    private Integer role_id = 0;
+    @Column
+    private Timestamp createdDate;
 
     public User(String login) {
         this.login = login;
-        this.role = Role.USER_ROLE;
+        this.role_id = Role.USER_ROLE;
+        this.createdDate = new Timestamp((new Date()).getTime());
     }
 
-    public User(int id, String login, String email, String pass, int role) {
-        this.id = id;
+    public User(String login, String email, String pass, Integer role_id, Timestamp createDate) {
         this.login = login;
         this.email = email;
         this.pass = pass;
-        this.role = role;
+        this.role_id = role_id;
+        this.createdDate = createDate;
     }
-
-    public User(String login, String email, String pass, int role) {
-        this.login = login;
-        this.email = email;
-        this.pass = pass;
-        this.role = role;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", email='" + email + '\'' +
-                ", pass='" + pass + '\'' +
-                ", role=" + role +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User userBean = (User) o;
-
-        if (id != userBean.id) return false;
-        if (role != userBean.role) return false;
-        if (login != null ? !login.equals(userBean.login) : userBean.login != null) return false;
-        return email != null ? email.equals(userBean.email) : userBean.email == null && (pass != null ? pass.equals(userBean.pass) : userBean.pass == null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (pass != null ? pass.hashCode() : 0);
-        result = 31 * result + role;
-        return result;
-    }
-
 }

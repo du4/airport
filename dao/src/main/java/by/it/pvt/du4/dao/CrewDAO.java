@@ -21,12 +21,12 @@ public class CrewDAO extends AbstractDAO implements IDAO<Crew> {
         try(Connection connection =  PoolCreator.getConnectionFromPool();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO crews(pilot1, pilot2, airHostess1, airHostess2) VALUES(?,?,?,?);")
         ){
-            preparedStatement.setInt(1, entity.getPilot1());
-            preparedStatement.setInt(2, entity.getPilot2());
-            preparedStatement.setInt(3, entity.getAirhostess1());
-            preparedStatement.setInt(4, entity.getAirhostess2());
+            preparedStatement.setInt(1, entity.getPilot1_id());
+            preparedStatement.setInt(2, entity.getPilot2_id());
+            preparedStatement.setInt(3, entity.getAirhostess1_id());
+            preparedStatement.setInt(4, entity.getAirhostess2_id());
             result = preparedStatement.executeUpdate();
-            LOG.info("Create crew="+entity);
+            LOG.info("Create crew_id="+entity);
         }catch (SQLException e) {
             LOG.error(""+e);
             throw new DaoException(e);
@@ -40,13 +40,13 @@ public class CrewDAO extends AbstractDAO implements IDAO<Crew> {
         try(Connection connection =  PoolCreator.getConnectionFromPool();
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE `crews` SET `pilot1`=?, `pilot2`=?, `airHostess1`=?, `airHostess1`=? WHERE `crews`.`crew_id` = ?;")){
-            preparedStatement.setInt(1, entity.getPilot1());
-            preparedStatement.setInt(2, entity.getPilot2());
-            preparedStatement.setInt(3, entity.getAirhostess1());
-            preparedStatement.setInt(4, entity.getAirhostess2());
+            preparedStatement.setInt(1, entity.getPilot1_id());
+            preparedStatement.setInt(2, entity.getPilot2_id());
+            preparedStatement.setInt(3, entity.getAirhostess1_id());
+            preparedStatement.setInt(4, entity.getAirhostess2_id());
             preparedStatement.setInt(5,entity.getId());
             result = preparedStatement.executeUpdate();
-            LOG.info("Update crew="+entity);
+            LOG.info("Update crew_id="+entity);
         }catch (SQLException e) {
             LOG.error(""+e);
             throw new DaoException(e);
@@ -62,7 +62,7 @@ public class CrewDAO extends AbstractDAO implements IDAO<Crew> {
         ){
             preparedStatement.setInt(1, entity.getId());
             result = preparedStatement.executeUpdate();
-            LOG.info("Delete crew="+entity);
+            LOG.info("Delete crew_id="+entity);
         }catch (SQLException e) {
             LOG.error(""+e);
             throw new DaoException(e);

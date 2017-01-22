@@ -26,7 +26,7 @@ class CmdSignUp extends Action {
                     throw  new IllegalArgumentException("Passwords don't match");
                 }
                 user.setPass(Form.getString(request, "pass", Patterns.PASSWORD));
-                user.setRole(Role.USER_ROLE);
+                user.setRole_id(Role.USER_ROLE);
 
             } catch (Exception e) {
                 LOG.error("Invalid field format. " + e.toString());
@@ -35,8 +35,8 @@ class CmdSignUp extends Action {
             }
 
             if (UserService.getInstance().create(user) > 0) {
-                request.setAttribute(AttrMessages.msgMessage, "New user is created. Input new user login and password.");
-                LOG.trace("New user is created. Input new user login and password.");
+                request.setAttribute(AttrMessages.msgMessage, "New user_id is created. Input new user_id login and password.");
+                LOG.trace("New user_id is created. Input new user_id login and password.");
             } else {
                 request.setAttribute(AttrMessages.msgError, "User does not created. Create new user again. ");
                 LOG.error("User not created");

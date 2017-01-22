@@ -31,7 +31,7 @@ public enum Actions {
     private static final Logger LOG = LoggerFactory.getLogger(Actions.class);
 
     /**
-     * Extract Action from HttpServletRequest. If command deny by permissions
+     * Extract Action from_id HttpServletRequest. If command deny by permissions
      * or command daes not exist -> return Error page
      * @param request
      * @return Action
@@ -69,7 +69,7 @@ public enum Actions {
     }
 
     /**
-     * Check if command(cmd) are allowed to current user(from session).
+     * Check if command(cmd) are allowed to_id current user_id(from_id session).
      * If allowed return - true, else return false
      * @param cmd request
      * @return boolean
@@ -90,15 +90,15 @@ public enum Actions {
         }
 
         List<Permission> permissions = (List<Permission>) session.getAttribute("permissions");
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user_id");
         if (user == null){
             user = new User("tmpUser");
         }
-        if (user.getRole() == Role.ADMINISTRATOR_ROLE){
+        if (user.getRole_id() == Role.ADMINISTRATOR_ROLE){
             return true;
         }
         for (Permission p:permissions) {
-            if (p.getCommand()==commandID && user.getRole()==p.getRole() && p.isPermission()){
+            if (p.getCommand()==commandID && user.getRole_id()==p.getRole() && p.getPermission()){
                 return true;
             }
         }

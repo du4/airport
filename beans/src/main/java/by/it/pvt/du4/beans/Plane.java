@@ -1,59 +1,26 @@
 package by.it.pvt.du4.beans;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
+@Table
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Plane implements Serializable {
-
-    private int id = 0;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id = 0;
+    @Column(
+            unique = true,
+            nullable = false
+    )
     private String planeName;
 
-    public Plane() {
-    }
-
-    public Plane(int id, String planeName) {
-        this.id = id;
-        this.planeName = planeName;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getPlaneName() {
-        return planeName;
-    }
-
-    public void setPlaneName(String planeName) {
-        this.planeName = planeName;
-    }
-
-    @Override
-    public String toString() {
-        return "Plane{" +
-                "id=" + id +
-                ", planeName='" + planeName + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Plane)) return false;
-
-        Plane plane = (Plane) o;
-
-        return id == plane.id && planeName.equals(plane.planeName);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + planeName.hashCode();
-        return result;
-    }
 }

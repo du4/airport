@@ -42,7 +42,7 @@ public class FlightStrDAO extends AbstractDAO implements IDAO <FlightStr> {
         List<FlightStr> flights = new ArrayList<>();
         String sql = "SELECT flights.flight_id,flights.flightCode,flights.company," +
                 "flights.departure_time, flights.arrival_time , planes.planeName ," +
-                "a.acronim toPort, b.acronim fromPort, crews.crew_id,users.login " +
+                "a.acronim toPort, b.acronim fromPort, crews.crew_id,users.login, flights.createDate " +
                 "FROM airportdb.flights " +
                 "INNER JOIN planes ON flights.plane=planes.plane_id " +
                 "INNER JOIN airports a ON flights.toPort=a.airports_id " +
@@ -57,7 +57,7 @@ public class FlightStrDAO extends AbstractDAO implements IDAO <FlightStr> {
                 flights.add(new FlightStr(resultSet.getInt("flight_id"),resultSet.getString("flightCode"),
                         resultSet.getString("company"),resultSet.getTimestamp("departure_time"),resultSet.getTimestamp("arrival_time"),
                         resultSet.getString("planeName"),resultSet.getString(7),resultSet.getString(8),resultSet.getString("crew_id"),
-                        resultSet.getString("login")));
+                        resultSet.getString("login"), resultSet.getTimestamp("createDate")));
             }
 
         } catch (SQLException e) {

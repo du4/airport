@@ -8,6 +8,9 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -19,7 +22,8 @@ public class UserDAOTest {
 
     @BeforeClass
     public static void init() {
-        testUser = new User("testUser1","testuser1@tut.by","test1user1pass",Role.USER_ROLE);
+        testUser = new User("testUser1","testuser1@tut.by","test1user1pass",Role.USER_ROLE,
+                new Timestamp((new Date()).getTime()));
     }
 
     @Test
@@ -32,7 +36,7 @@ public class UserDAOTest {
     public void b_update() throws Exception {
         testUser.setPass("test1user1p");
         testUser.setEmail("tu1@tut.com");
-        testUser.setRole(Role.DISPATCHER_ROLE);
+        testUser.setRole_id(Role.DISPATCHER_ROLE);
         assertTrue(userDAO.update(testUser));
     }
 

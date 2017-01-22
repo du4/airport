@@ -1,98 +1,28 @@
 package by.it.pvt.du4.beans;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
+@Table
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Crew implements Serializable {
-    private int id=0;
-    private int pilot1;
-    private int pilot2;
-    private int airhostess1;
-    private int airhostess2;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id=0;
+    @Column
+    private Integer pilot1_id;
+    @Column
+    private Integer pilot2_id;
+    @Column
+    private Integer airhostess1_id;
+    @Column
+    private Integer airhostess2_id;
 
-    public Crew() {
-    }
-
-    public Crew(int id, int pilot1, int pilot2, int airhostess1, int airhostess2) {
-        this.id = id;
-        this.pilot1 = pilot1;
-        this.pilot2 = pilot2;
-        this.airhostess1 = airhostess1;
-        this.airhostess2 = airhostess2;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPilot1() {
-        return pilot1;
-    }
-
-    public void setPilot1(int pilot1) {
-        this.pilot1 = pilot1;
-    }
-
-    public int getPilot2() {
-        return pilot2;
-    }
-
-    public void setPilot2(int pilot2) {
-        this.pilot2 = pilot2;
-    }
-
-    public int getAirhostess1() {
-        return airhostess1;
-    }
-
-    public void setAirhostess1(int airhostess1) {
-        this.airhostess1 = airhostess1;
-    }
-
-    public int getAirhostess2() {
-        return airhostess2;
-    }
-
-    public void setAirhostess2(int airhostess2) {
-        this.airhostess2 = airhostess2;
-    }
-
-    @Override
-    public String toString() {
-        return "Crew{" +
-                "id=" + id +
-                ", pilot1=" + pilot1 +
-                ", pilot2=" + pilot2 +
-                ", airhostess1=" + airhostess1 +
-                ", airhostess2=" + airhostess2 +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Crew)) return false;
-
-        Crew crew = (Crew) o;
-
-        if (id != crew.id) return false;
-        if (pilot1 != crew.pilot1) return false;
-        if (pilot2 != crew.pilot2) return false;
-        if (airhostess1 != crew.airhostess1) return false;
-        return airhostess2 == crew.airhostess2;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + pilot1;
-        result = 31 * result + pilot2;
-        result = 31 * result + airhostess1;
-        result = 31 * result + airhostess2;
-        return result;
-    }
 }

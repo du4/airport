@@ -35,11 +35,11 @@
 
         <!-- Select Basic -->
         <%--<div class="form-group">--%>
-            <%--<label class="col-md-4 control-label" for="role">Select role</label>--%>
+            <%--<label class="col-md-4 control-label" for="role_id">Select role_id</label>--%>
             <%--<div class="col-md-4">--%>
-                <%--<select id="role" name="role"  class="form-control">--%>
-                    <%--<c:forEach items="${roles}" var="role">--%>
-                        <%--<option value=${role.id}>${role.role}</option>--%>
+                <%--<select id="role_id" name="role_id"  class="form-control">--%>
+                    <%--<c:forEach items="${roles}" var="role_id">--%>
+                        <%--<option value=${role_id.id}>${role_id.role_id}</option>--%>
                     <%--</c:forEach>--%>
                 <%--</select>--%>
             <%--</div>--%>

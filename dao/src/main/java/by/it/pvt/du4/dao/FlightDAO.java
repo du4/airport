@@ -24,11 +24,11 @@ public class FlightDAO extends AbstractDAO implements IDAO<Flight> {
             preparedStatement.setString(2, entity.getCompany());
             preparedStatement.setTimestamp(3, entity.getDeparture_time());
             preparedStatement.setTimestamp(4, entity.getArrival_time());
-            preparedStatement.setInt(5,entity.getPlane());
-            preparedStatement.setInt(6,entity.getTo());
-            preparedStatement.setInt(7,entity.getFrom());
-            preparedStatement.setInt(8,entity.getCrew());
-            preparedStatement.setInt(9,entity.getUser());
+            preparedStatement.setInt(5,entity.getPlane_id());
+            preparedStatement.setInt(6,entity.getTo_id());
+            preparedStatement.setInt(7,entity.getFrom_id());
+            preparedStatement.setInt(8,entity.getCrew_id());
+            preparedStatement.setInt(9,entity.getUser_id());
             result = preparedStatement.executeUpdate();
             LOG.info("Create flight="+entity);
         }catch (SQLException e) {
@@ -50,11 +50,11 @@ public class FlightDAO extends AbstractDAO implements IDAO<Flight> {
             preparedStatement.setString(2, entity.getCompany());
             preparedStatement.setTimestamp(3, entity.getDeparture_time());
             preparedStatement.setTimestamp(4, entity.getArrival_time());
-            preparedStatement.setInt(5,entity.getPlane());
-            preparedStatement.setInt(6,entity.getTo());
-            preparedStatement.setInt(7,entity.getFrom());
-            preparedStatement.setInt(8,entity.getCrew());
-            preparedStatement.setInt(9,entity.getUser());
+            preparedStatement.setInt(5,entity.getPlane_id());
+            preparedStatement.setInt(6,entity.getTo_id());
+            preparedStatement.setInt(7,entity.getFrom_id());
+            preparedStatement.setInt(8,entity.getCrew_id());
+            preparedStatement.setInt(9,entity.getUser_id());
             preparedStatement.setInt(10,entity.getId());
             result = preparedStatement.executeUpdate();
             LOG.info("Update flight="+entity);
@@ -91,8 +91,8 @@ public class FlightDAO extends AbstractDAO implements IDAO<Flight> {
             while (resultSet.next()){
                 flights.add(new Flight(resultSet.getInt("flight_id"),resultSet.getString("flightCode"),
                         resultSet.getString("company"),resultSet.getTimestamp("departure_time"),resultSet.getTimestamp("arrival_time"),
-                        resultSet.getInt("plane"),resultSet.getInt("toPort"),resultSet.getInt("fromPort"),resultSet.getInt("crew"),
-                        resultSet.getInt("user")));
+                        resultSet.getInt("plane_id"),resultSet.getInt("toPort"),resultSet.getInt("fromPort"),resultSet.getInt("crew_id"),
+                        resultSet.getInt("user_id"), resultSet.getTimestamp("createDate")));
             }
         } catch (SQLException  e) {
             LOG.error(""+e);

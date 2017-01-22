@@ -21,10 +21,10 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
         ){
             preparedStatement.setString(1, entity.getLogin());
             preparedStatement.setString(2, entity.getPass());
-            preparedStatement.setInt(3, entity.getRole());
+            preparedStatement.setInt(3, entity.getRole_id());
             preparedStatement.setString(4, entity.getEmail());
             result = preparedStatement.executeUpdate();
-            LOG.info("Create user="+entity);
+            LOG.info("Create user_id="+entity);
         }catch (SQLException e) {
             LOG.error(""+e);
             throw new DaoException(e);
@@ -40,11 +40,11 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
         ){
             preparedStatement.setString(1, entity.getLogin());
             preparedStatement.setString(2, entity.getPass());
-            preparedStatement.setInt(3, entity.getRole());
+            preparedStatement.setInt(3, entity.getRole_id());
             preparedStatement.setString(4, entity.getEmail());
             preparedStatement.setInt(5,entity.getId());
             result = preparedStatement.executeUpdate();
-            LOG.info("Update user="+entity);
+            LOG.info("Update user_id="+entity);
         }catch (SQLException e) {
             LOG.error(""+e);
             throw new DaoException(e);
@@ -60,7 +60,7 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
         ){
             preparedStatement.setInt(1, entity.getId());
             result = preparedStatement.executeUpdate();
-            LOG.info("Delete user="+entity);
+            LOG.info("Delete user_id="+entity);
         }catch (SQLException e) {
             LOG.error(""+e);
             throw new DaoException(e);
@@ -83,7 +83,7 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 users.add(new User(resultSet.getInt("user_id"),resultSet.getString("login"),
-                        resultSet.getString("email"),resultSet.getString("pass"),resultSet.getInt("role")));
+                        resultSet.getString("email"),resultSet.getString("pass"),resultSet.getInt("role"), resultSet.getTimestamp("createdDate")));
             }
             LOG.info("Get users(count="+users.size()+")");
         }catch (SQLException e) {

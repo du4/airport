@@ -90,7 +90,7 @@ public enum Actions {
         }
 
         List<Permission> permissions = (List<Permission>) session.getAttribute("permissions");
-        User user = (User) session.getAttribute("user_id");
+        User user = (User) session.getAttribute("user");
         if (user == null){
             user = new User("tmpUser");
         }

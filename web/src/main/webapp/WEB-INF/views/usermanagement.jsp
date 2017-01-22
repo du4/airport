@@ -89,7 +89,7 @@
         <%--<tr>--%>
             <%--<td align="center"> ${user_id.login}</td>--%>
             <%--<td align="center">${user_id.email}</td>--%>
-            <%--&lt;%&ndash;<td align="center">${roles.get(${user_id.role_id})}</td>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<td align="center">${roles.getByLogin(${user_id.role_id})}</td>&ndash;%&gt;--%>
             <%--<c:choose>--%>
                 <%--<c:when test="${user_id.role_id==1}">--%>
                     <%--<td align="center">Administrator</td>--%>

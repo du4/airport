@@ -70,7 +70,6 @@ public class FrontController extends HttpServlet {
      */
     private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
         SessionAttrSesHelper.setCommandToAttribute(request);
-        SessionAttrSesHelper.setCommandToAttribute(request);
         SessionAttrSesHelper.setPermissionToAttribute(request);
     }
 
@@ -82,15 +81,15 @@ public class FrontController extends HttpServlet {
     private void setUserToAttribute(HttpServletRequest request) {
 
         HttpSession session = request.getSession(true);
-        User user = (User) session.getAttribute("user_id");
+        User user = (User) session.getAttribute("user");
 
         if (user != null) {
-            request.setAttribute("curUser", "Session info: user_id.login=" + user.getLogin() +", role="+ user.getRole_id());
-            request.setAttribute("user_id", user);
-            LOG.trace("Set user_id from_id session to_id request attribute = "+user);
+            request.setAttribute("curUser", "Session info: user.login=" + user.getLogin() +", role="+ user.getRole_id());
+            request.setAttribute("user", user);
+            LOG.trace("Set user from session to request attribute = " + user);
         } else {
-            request.setAttribute("user_id", null);
-            LOG.trace("Unauthorized user_id.");
+            request.setAttribute("user", null);
+            LOG.trace("Save user=null to http session.");
         }
     }
 }

@@ -6,6 +6,7 @@ import by.it.pvt.du4.dao.exceptions.DaoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
 
     @Override
     public int create(User entity) throws DaoException{
-        int result = -1;
+        int result;
         try(Connection connection =  PoolCreator.getConnectionFromPool();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(login, pass, role, email) VALUES(?,?,?,?);")
         ){
@@ -34,7 +35,7 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
 
     @Override
     public boolean update(User entity) throws DaoException{
-        int result = -1;
+        int result;
         try(Connection connection =  PoolCreator.getConnectionFromPool();
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE `users` SET `login`=?, `pass`=?, `role`=?, `email`=? WHERE `users`.`user_id` = ?;")
         ){
@@ -54,7 +55,7 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
 
     @Override
     public boolean delete(User entity) throws DaoException{
-        int result = -1;
+        int result;
         try(Connection connection =  PoolCreator.getConnectionFromPool();
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM `users` WHERE  `users`.`user_id`=?;")
         ){
@@ -72,6 +73,26 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
     public User read(int id) throws DaoException {
         List<User> users =  getAll("WHERE user_id=" + id + " LIMIT 0,1");
         return (users.size() > 0) ? users.get(0) : null;
+    }
+
+    public User getByLogin(String login, String p) throws DaoException {
+        User u = null;
+        try(Connection connection =  PoolCreator.getConnectionFromPool();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE `users`.`login`=? AND `users`.`pass`=?;")){
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, p);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                u = new User(resultSet.getInt("user_id"),resultSet.getString("login"),
+                        resultSet.getString("email"),resultSet.getString("pass"),resultSet.getInt("role"),
+                        resultSet.getTimestamp("createdDate"));
+            }
+        }
+        catch (SQLException e) {
+            LOG.error(""+e);
+            throw new DaoException(e);
+        }
+        return u;
     }
 
     @Override

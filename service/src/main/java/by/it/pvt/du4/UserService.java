@@ -4,11 +4,8 @@ import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.dao.DAO;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 public class UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
@@ -57,18 +54,17 @@ public class UserService {
         }
     }
 
-    public List<User> get(User user) throws ServiceException {
+    public User get(User user) throws ServiceException {
         if (user.getLogin().length() > 30){
-            throw new ServiceException(new IllegalArgumentException("User login to_id long"));
+            throw new ServiceException(new IllegalArgumentException("User login to long"));
         }
 
         if (user.getPass().length() > 30){
-            throw new ServiceException(new IllegalArgumentException("User password to_id long"));
+            throw new ServiceException(new IllegalArgumentException("User password to long"));
         }
 
         try {
-            String str = "WHERE login='" + user.getLogin() +"' AND pass='" + user.getPass() + "'";
-            return DAO.getDAO().userDAO.getAll(str);
+            return DAO.getDAO().userDAO.getByLogin(user.getLogin(),user.getPass());
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);

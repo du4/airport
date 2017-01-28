@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 @Data
-@Table
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+
+@Entity @Table
 public class Flight implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -22,8 +22,10 @@ public class Flight implements Serializable {
     @Column(unique = true, nullable = false)
     private String company;
     @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp departure_time;
     @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp arrival_time;
     @Column
     private Integer plane_id = 0;
@@ -36,6 +38,7 @@ public class Flight implements Serializable {
     @Column
     private Integer user_id = 0;
     @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createDate;
 
 }

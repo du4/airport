@@ -1,13 +1,15 @@
 package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.pool.PoolCreator;
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.pool.PoolCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jws.soap.SOAPBinding;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +20,14 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
     public int create(User entity) throws DaoException{
         int result;
         try(Connection connection =  PoolCreator.getConnectionFromPool();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(login, pass, role, email) VALUES(?,?,?,?);")
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(login, pass, role, email, createdDate)" +
+                    " VALUES(?,?,?,?,?);")
         ){
             preparedStatement.setString(1, entity.getLogin());
             preparedStatement.setString(2, entity.getPass());
             preparedStatement.setInt(3, entity.getRole_id());
             preparedStatement.setString(4, entity.getEmail());
+            preparedStatement.setTimestamp(5, entity.getCreatedDate());
             result = preparedStatement.executeUpdate();
             LOG.info("Create user_id="+entity);
         }catch (SQLException e) {
@@ -75,17 +79,16 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
         return (users.size() > 0) ? users.get(0) : null;
     }
 
-    public User getByLogin(String login, String p) throws DaoException {
+    public User getByLogin(String login, String pass) throws DaoException {
         User u = null;
         try(Connection connection =  PoolCreator.getConnectionFromPool();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE `users`.`login`=? AND `users`.`pass`=?;")){
             preparedStatement.setString(1, login);
-            preparedStatement.setString(2, p);
+            preparedStatement.setString(2, pass);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                u = new User(resultSet.getInt("user_id"),resultSet.getString("login"),
-                        resultSet.getString("email"),resultSet.getString("pass"),resultSet.getInt("role"),
-                        resultSet.getTimestamp("createdDate"));
+                u = new User(resultSet.getString("login"), resultSet.getString("email"), resultSet.getString("pass"),
+                        resultSet.getInt("role"), resultSet.getTimestamp("createdDate"));
             }
         }
         catch (SQLException e) {
@@ -103,8 +106,14 @@ public class UserDAO extends AbstractDAO implements IDAO<User> {
         ){
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                users.add(new User(resultSet.getInt("user_id"),resultSet.getString("login"),
-                        resultSet.getString("email"),resultSet.getString("pass"),resultSet.getInt("role"), resultSet.getTimestamp("createdDate")));
+                users.add(new User( resultSet.getInt(1),
+                                    resultSet.getString("login"),
+                                    resultSet.getString("email"),
+                                    resultSet.getString("pass"),
+                                    resultSet.getInt("role"),
+                                    resultSet.getTimestamp("createdDate"),
+                                    null)
+                );
             }
             LOG.info("Get users(count="+users.size()+")");
         }catch (SQLException e) {

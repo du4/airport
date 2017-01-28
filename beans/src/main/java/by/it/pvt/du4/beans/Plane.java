@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@Table
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+
+@Entity @Table
 public class Plane implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

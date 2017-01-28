@@ -23,7 +23,7 @@ public class UserDAOTest {
     @BeforeClass
     public static void init() {
         testUser = new User("testUser1","testuser1@tut.by","test1user1pass",Role.USER_ROLE,
-                new Timestamp((new Date()).getTime()));
+                new Timestamp(1000*(System.currentTimeMillis()/1000)));
     }
 
     @Test

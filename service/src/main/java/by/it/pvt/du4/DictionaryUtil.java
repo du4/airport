@@ -4,6 +4,7 @@ import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.dao.DAO;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.util.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,6 +95,7 @@ public class DictionaryUtil {
 
     public List<Command> getCommands() throws ServiceException {
         try {
+//            HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
             return DAO.getDAO().commandDAO.getAll("");
         } catch (DaoException e) {
             LOG.error(""+e);

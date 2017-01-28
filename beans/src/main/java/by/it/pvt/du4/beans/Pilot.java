@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 @Data
-@Table
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+
+@Entity @Table
 public class Pilot implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -16,6 +16,8 @@ public class FilterUTF8 implements Filter {
         code = fConfig.getInitParameter("encoding");
     }
 
+
+
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         // фильтра ПЕРЕД сервлетом.
@@ -33,7 +35,7 @@ public class FilterUTF8 implements Filter {
 
         //пример обращения к сессии
         //Приведение запроса request к http
-        HttpServletRequest req=(HttpServletRequest)request;
+        HttpServletRequest req = (HttpServletRequest)request;
 
         //получение сессии
 //        HttpSession session=req.getSession(true);

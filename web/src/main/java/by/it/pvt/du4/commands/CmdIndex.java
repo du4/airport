@@ -18,7 +18,7 @@ class CmdIndex extends Action {
         int startNumber = 0;
         String flightQuery ="";
 
-        if (request.getMethod().equalsIgnoreCase("post")) {
+        if ("post".equalsIgnoreCase(request.getMethod())) {
             try {
                 FlightQueryStrBuilder queryStrBuilder = new FlightQueryStrBuilder();
                 if (request.getParameter("from_id") != null && request.getParameter("to_id")!=null) {

@@ -3,14 +3,18 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+
+        <property name="connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/airportHibernate</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/aiportdb?useUnicode=true&amp;characterEncoding=utf8</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.pool_size">10</property>
+        <property name="hibernate.hikari.idleTimeout">30000</property>
+        <property name="hibernate.hikari.minimumIdle">2</property>
         <property name="show_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
 
         <mapping class="by.it.pvt.du4.beans.User"/>
         <mapping class="by.it.pvt.du4.beans.Role"/>

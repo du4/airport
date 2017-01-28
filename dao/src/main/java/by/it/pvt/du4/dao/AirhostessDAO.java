@@ -53,7 +53,7 @@ public class AirhostessDAO extends AbstractDAO implements IDAO <Airhostess> {
             ResultSet resultSet = statement.executeQuery(sql);
             LOG.trace("executeQuery("+sql+")");
             while (resultSet.next()){
-                airhostesses.add(new Airhostess(resultSet.getInt("airhostesses_id"),resultSet.getString("name"), resultSet.getDate("birthDay")));
+                airhostesses.add(new Airhostess(resultSet.getInt("airhostesses_id"),resultSet.getString("name"), resultSet.getTimestamp("birthDay")));
             }
 
         } catch (SQLException e) {

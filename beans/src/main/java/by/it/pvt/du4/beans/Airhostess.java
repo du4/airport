@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
-@Table
-@Entity
+
 @NoArgsConstructor
 @AllArgsConstructor
+
+@Entity @Table
 public class Airhostess implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
@@ -21,6 +22,6 @@ public class Airhostess implements Serializable{
     @Column(unique = true, nullable = false)
     private String name;
     @Column
-    private Date birthDay;
+    private Timestamp birthDay;
 
 }

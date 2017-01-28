@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class FlightStr implements Serializable {
     private Integer id = 0;
-//    private Integer viewNumber;
     private String flightCode;
     private String company;
     private Timestamp departure_time;

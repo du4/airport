@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
+import java.util.Date;
 
 class CmdSignUp extends Action {
     private static final Logger LOG = LoggerFactory.getLogger(CmdSignUp.class);
@@ -27,6 +29,7 @@ class CmdSignUp extends Action {
                 }
                 user.setPass(Form.getString(request, "pass", Patterns.PASSWORD));
                 user.setRole_id(Role.USER_ROLE);
+                user.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 
             } catch (Exception e) {
                 LOG.error("Invalid field format. " + e.toString());

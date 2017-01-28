@@ -20,12 +20,13 @@ public class FlightDAOTest {
 
     @BeforeClass
     public static void  init() {
-        testFlight = new Flight(0,"FF666","Company", new Timestamp(1488009000),new Timestamp(1476271000), 1,1,3,6,1, new Timestamp((new Date()).getTime()));
+        testFlight = new Flight(0,"FF666","Company", new Timestamp(1488009000),new Timestamp(1476271000),
+                1,1,3,6,1, new Timestamp(1000*(System.currentTimeMillis()/1000)));
     }
 
     @Test
     public void a_create() throws Exception {
-        assertTrue(flightDAO.create(testFlight)>0);
+        assertTrue(flightDAO.create(testFlight) > 0);
         testFlight.setId(flightDAO.getLastID("flight_id", "flights"));
     }
 

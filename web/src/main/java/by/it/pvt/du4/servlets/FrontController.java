@@ -1,9 +1,10 @@
 package by.it.pvt.du4.servlets;
 
+import by.it.pvt.du4.ServiceDataGenerator;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.commands.Action;
 import by.it.pvt.du4.commands.Actions;
-import by.it.pvt.du4.commands.SessionAttrSesHelper;
+import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +20,23 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(FrontController.class);
 
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        try {
+           ServiceDataGenerator.getInstance().generateData();
+        } catch (DaoException | ServiceException e) {
+            LOG.error(""+e);
+            e.printStackTrace();
+        }
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Action action;
         Action nextAction = null;
         try {
-            updateHttpSessionCash(request);
+//            updateHttpSessionCash(request);
             setUserToAttribute(request);
             action = Actions.defineFrom(request);
             LOG.trace("ActionPage="+action.getJsp());
@@ -46,7 +58,7 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
         Action action;
         try {
-            updateHttpSessionCash(request);
+//            updateHttpSessionCash(request);
             setUserToAttribute(request);
             action = Actions.defineFrom(request);
             action.execute(request, response);
@@ -68,10 +80,10 @@ public class FrontController extends HttpServlet {
      * @param request
      * @throws ServiceException
      */
-    private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
-        SessionAttrSesHelper.setCommandToAttribute(request);
-        SessionAttrSesHelper.setPermissionToAttribute(request);
-    }
+//    private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
+//        SessionAttrSesHelper.setCommandToAttribute(request);
+//        SessionAttrSesHelper.setPermissionToAttribute(request);
+//    }
 
     /**
      * Get user_id from_id session if its not null sore to_id request attribute.
@@ -84,7 +96,7 @@ public class FrontController extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user != null) {
-            request.setAttribute("curUser", "Session info: user.login=" + user.getLogin() +", role="+ user.getRole_id());
+            request.setAttribute("curUser", "Session info: user.login=" + user.getLogin() +", role="+ user.getRole());
             request.setAttribute("user", user);
             LOG.trace("Set user from session to request attribute = " + user);
         } else {

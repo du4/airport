@@ -23,4 +23,7 @@ public class Plane implements Serializable {
     )
     private String planeName;
 
+    public Plane(String planeName) {
+        this.planeName = planeName;
+    }
 }

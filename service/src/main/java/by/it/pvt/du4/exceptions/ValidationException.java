@@ -1,15 +1,11 @@
 
-package by.it.pvt.du4.dao.exceptions;
+package by.it.pvt.du4.exceptions;
 
-public class DaoException extends Exception {
+public class ValidationException extends Exception {
 
     private Exception exception;
 
-    public DaoException(String message) {
-        super(message);
-    }
-
-    public DaoException(Exception exception) {
+    public ValidationException(Exception exception) {
         this.exception = exception;
     }
 

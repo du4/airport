@@ -17,7 +17,7 @@ class CmdProfile extends Action {
         }else {
             request.removeAttribute("user");
         }
-        SessionAttrSesHelper.setRolesToAttribute(request);
+//        SessionAttrSesHelper.setRolesToAttribute(request);
         return null;
     }
 }

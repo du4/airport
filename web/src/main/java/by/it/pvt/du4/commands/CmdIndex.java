@@ -1,14 +1,12 @@
 package by.it.pvt.du4.commands;
 
 import by.it.pvt.du4.FlightService;
-import by.it.pvt.du4.beans.FlightStr;
 import by.it.pvt.du4.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 class CmdIndex extends Action {
     private  static final Logger LOG = LoggerFactory.getLogger(CmdIndex.class);
@@ -38,13 +36,13 @@ class CmdIndex extends Action {
                 return null;
             }
         }
-
-        List<FlightStr> flightStrs = FlightService.gerInstance().getAll(flightQuery);
+        request.setAttribute("airports", FlightService.gerInstance().getAirports());
+//        List<FlightStr> flightStrs = FlightService.gerInstance().getAll(flightQuery);
 //        for (FlightStr flight : flightStrs) {
 //            flight.setViewNumber(++startNumber);
 //        }
-        request.setAttribute("flights", flightStrs);
-        SessionAttrSesHelper.setAirportsToAttribute(request);
+//        request.setAttribute("flights", flightStrs);
+//        SessionAttrSesHelper.setAirportsToAttribute(request);
         return null;
     }
 }

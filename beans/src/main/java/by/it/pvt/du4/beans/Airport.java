@@ -16,10 +16,14 @@ public class Airport implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id=0;
+    private Long id;
     @Column(unique = true, nullable = false)
     private String acronim;
     @Column(unique = true, nullable = false)
     private String name;
 
+    public Airport(String acronim, String name) {
+        this.acronim = acronim;
+        this.name = name;
+    }
 }

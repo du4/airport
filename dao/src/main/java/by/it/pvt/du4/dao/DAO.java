@@ -2,23 +2,22 @@ package by.it.pvt.du4.dao;
 
 public class DAO {
 
-    private static volatile DAO dao; //синглтон для DAO
+    private static volatile DAO dao;
 
     private DAO(){}
 
-    public FlightDAO flightDAO;                //DAO for flights
-    public FlightStrDAO flightStrDAO;       // DAO for flights in str
+    public FlightDAO flightDAO;             //DAO for flights
     public AirhostessDAO airhostessDAO;     //DAO for airhostess
     public AirportsDAO airportsDAO;         //DAO for aiports
-    public PilotDAO pilotDAO;                //DAO for pilots
-    public PlaneDAO planeDAO;                 //DAO for planes
-    public UserDAO userDAO;                    //DAO for users
-    public RoleDAO roleDAO;                    //DAO for roles
+    public PilotDAO pilotDAO;               //DAO for pilots
+    public PlaneDAO planeDAO;               //DAO for planes
+    public UserDAO userDAO;                 //DAO for users
+    public RoleDAO roleDAO;                 //DAO for roles
     public CrewDAO crewDAO;                 //DAO for crews
     public CommandDAO commandDAO;           // DAO for cmd
     public PermissionDAO permissionDAO;     // DAO for permission
 
-    public static DAO getDAO() {   //singltone method
+    public static DAO getDAO() {   //singleton method
         if (dao == null) {
             synchronized (DAO.class) {
                 if (dao == null) {
@@ -30,7 +29,6 @@ public class DAO {
                     dao.userDAO = new UserDAO();
                     dao.roleDAO = new RoleDAO();
                     dao.flightDAO = new FlightDAO();
-                    dao.flightStrDAO = new FlightStrDAO();
                     dao.crewDAO = new CrewDAO();
                     dao.commandDAO = new CommandDAO();
                     dao.permissionDAO = new PermissionDAO();

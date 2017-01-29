@@ -1,15 +1,22 @@
 package by.it.pvt.du4;
 
+import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.dao.DAO;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.exceptions.ValidationException;
 import by.it.pvt.du4.util.HibernateUtil;
+import lombok.Data;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
@@ -31,7 +38,7 @@ public class UserService {
 
     public void update(User user) throws ServiceException {
         try {
-            DAO.getDAO().userDAO.update(user);
+            DAO.getDAO().userDAO.saveOrUpdate(user);
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);
@@ -39,16 +46,16 @@ public class UserService {
 
     }
 
-    public boolean delete(User user) throws ServiceException {
+    public void delete(User user) throws ServiceException {
         try {
-            return DAO.getDAO().userDAO.delete(user);
+            DAO.getDAO().userDAO.delete(user);
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);
         }
     }
 
-    public int create(User user) throws ServiceException {
+    public void create(User user) throws ServiceException {
 //        user_id.setPass(DigestUtils.md5Hex(user_id.getPass()));
         try {
             HibernateUtil util =  HibernateUtil.getHibernateUtil();
@@ -57,7 +64,14 @@ public class UserService {
             Transaction transaction = null;
             try {
                 transaction = session.beginTransaction();
-                session.saveOrUpdate(user);
+                Criteria criteria = session.createCriteria(Role.class);
+                criteria.add(Restrictions.eq("name", "user"));
+                List<Role>results = criteria.list();
+                if (results.size() != 1){
+                    throw new DaoException("Can't find user role");
+                }
+                user.setRole(results.get(0));
+                DAO.getDAO().userDAO.saveOrUpdate(user);
                 transaction.commit();
 
                 session.flush();
@@ -66,26 +80,23 @@ public class UserService {
                 LOG.error(""+e);
                 throw new DaoException(e);
             }
-
-
-            return DAO.getDAO().userDAO.create(user);
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);
         }
     }
 
-    public User get(User user) throws ServiceException {
-        if (user.getLogin().length() > 30){
-            throw new ServiceException(new IllegalArgumentException("User login to long"));
+    public User get(User user) throws ValidationException, ServiceException {
+        if (user.getLogin().length() > 50){
+            throw new ValidationException(new IllegalArgumentException("User login to long"));
         }
 
-        if (user.getPass().length() > 30){
-            throw new ServiceException(new IllegalArgumentException("User password to long"));
+        if (user.getPass().length() > 50){
+            throw new ValidationException(new IllegalArgumentException("User password to long"));
         }
 
         try {
-            return DAO.getDAO().userDAO.getByLogin(user.getLogin(),user.getPass());
+            return DAO.getDAO().userDAO.get(user.getId());
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);

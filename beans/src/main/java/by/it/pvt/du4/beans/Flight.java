@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,29 +17,29 @@ public class Flight implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id = 0;
+    private Long id;
     @Column(unique = true, nullable = false)
     private String flightCode;
     @Column(unique = true, nullable = false)
     private String company;
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp departure_time;
+    private Date departure_time;
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp arrival_time;
+    private Date arrival_time;
     @Column
-    private Integer plane_id = 0;
+    private Long plane_id;
     @Column
-    private Integer to_id = 0;
+    private Long to_id;
     @Column
-    private Integer from_id = 0;
+    private Long from_id;
     @Column
-    private Integer crew_id = 0;
+    private Long crew_id;
     @Column
-    private Integer user_id = 0;
+    private Long user_id;
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp createDate;
+    private Date createDate;
 
 }

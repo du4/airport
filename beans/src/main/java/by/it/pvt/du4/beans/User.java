@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -17,39 +20,53 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id=0;
+    @Column(name = "USER_ID", unique = true)
+    private Long id;
+
     @Column(
             unique = true,
             nullable = false
     )
     private String login;
+
     @Column(
             unique = true,
             nullable = false
     )
     private String email;
+
+
     @Column
     private String pass;
-    @Column
-    private Integer role_id = 0;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "role", joinColumns = {@JoinColumn(name = "USER_ID")},
+//                inverseJoinColumns = {@JoinColumn(name = "COMMAND_ID")})
+//    private Set<Command> commands = new HashSet<>(0);
+
+
     @Column(insertable = true, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp createdDate;
+    private Date createdDate;
+
     @Column(insertable = false, updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp updatedDate;
+    private Date updatedDate;
 
     public User(String login) {
         this.login = login;
-        this.role_id = Role.USER_ROLE;
-        this.createdDate = new Timestamp(System.currentTimeMillis()/1000);
+        this.role = new Role();
+        this.createdDate = new Timestamp(1000*(System.currentTimeMillis()/1000));
     }
 
-    public User(String login, String email, String  pass, Integer role_id, Timestamp createDate) {
+    public User(String login, String email, String  pass, Role role, Timestamp createDate) {
         this.login = login;
         this.email = email;
         this.pass = pass;
-        this.role_id = role_id;
+        this.role = role;
         this.createdDate = createDate;
     }
 

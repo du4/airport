@@ -28,9 +28,9 @@ public class CrewService {
     }
 
 
-    public int create(Crew crew) throws ServiceException {
+    public void create(Crew crew) throws ServiceException {
         try {
-            return DAO.getDAO().crewDAO.create(crew);
+            DAO.getDAO().crewDAO.saveOrUpdate(crew);
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);

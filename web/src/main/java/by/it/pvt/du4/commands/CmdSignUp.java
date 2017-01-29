@@ -17,19 +17,18 @@ class CmdSignUp extends Action {
     @Override
     public Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        if (request.getMethod().equals("POST")) {
+        if ("POST".equalsIgnoreCase(request.getMethod())) {
             User user = new User();
-            user.setId(0);
             try {
                 user.setLogin(Form.getString(request, "login", Patterns.LOGIN));
                 user.setEmail(Form.getString(request, "email", Patterns.EMAIL));
-                if (!Form.getString(request, "pass", Patterns.PASSWORD).equals(Form.getString(request, "passConfirm", Patterns.PASSWORD))){
-                    LOG.error("Passwords don't match");
-                    throw  new IllegalArgumentException("Passwords don't match");
-                }
+//               need to realize on jsp by javaScript
+//                if (!Form.getString(request, "pass", Patterns.PASSWORD).equals(Form.getString(request, "passConfirm", Patterns.PASSWORD))){
+//                    LOG.error("Passwords don't match");
+//                    throw  new IllegalArgumentException("Passwords don't match");
+//                }
                 user.setPass(Form.getString(request, "pass", Patterns.PASSWORD));
-                user.setRole_id(Role.USER_ROLE);
-                user.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+                user.setCreatedDate(new Date());
 
             } catch (Exception e) {
                 LOG.error("Invalid field format. " + e.toString());
@@ -37,13 +36,15 @@ class CmdSignUp extends Action {
                 return null;
             }
 
-            if (UserService.getInstance().create(user) > 0) {
+//            if (
+                    UserService.getInstance().create(user);
+//                            > 0) {
                 request.setAttribute(AttrMessages.msgMessage, "New user_id is created. Input new user_id login and password.");
                 LOG.trace("New user_id is created. Input new user_id login and password.");
-            } else {
-                request.setAttribute(AttrMessages.msgError, "User does not created. Create new user again. ");
-                LOG.error("User not created");
-            }
+//            } else {
+//                request.setAttribute(AttrMessages.msgError, "User does not created. Create new user again. ");
+//                LOG.error("User not created");
+//            }
             return  Actions.INDEX.action;
         }
         return null;

@@ -15,8 +15,8 @@ class CmdStuffingCrew extends Action {
     @Override
     public Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         if (request.getMethod().equalsIgnoreCase("GET")) {
-            SessionAttrSesHelper.setPilotsToAttribute(request);
-            SessionAttrSesHelper.setAirhostessToAttribute(request);
+//            SessionAttrSesHelper.setPilotsToAttribute(request);
+//            SessionAttrSesHelper.setAirhostessToAttribute(request);
         }else{// POST
             Crew crew = new Crew();
             crew.setId(0);
@@ -40,11 +40,13 @@ class CmdStuffingCrew extends Action {
 //                request.setAttribute(AttrMessages.msgError, "Invalid field format. "+e.toString());
                 return null;
             }
-            if (CrewService.getInstance().create(crew)>0){
+//            if (
+                    CrewService.getInstance().create(crew);
+//                            >0){
                 LOG.trace("New crew_id is created." + crew);
-            } else {
-                LOG.trace("Crew does not created.");
-            }
+//            } else {
+//                LOG.trace("Crew does not created.");
+//            }
         }
         return null;
     }

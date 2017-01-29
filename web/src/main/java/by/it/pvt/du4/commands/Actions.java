@@ -42,11 +42,11 @@ public enum Actions {
         if (command != null && !command.isEmpty()) {
             try {
                 command = command.toUpperCase();
-                if(checkPermission(command.toLowerCase(), request)){
+//                if(checkPermission(command.toLowerCase(), request)){
                     result = Actions.valueOf(command).action;
-                }else {
-                    throw new IllegalArgumentException("Error 403 - Forbidden");
-                }
+//                }else {
+//                    throw new IllegalArgumentException("Error 403 - Forbidden");
+//                }
 
             } catch (IllegalArgumentException e) {
                 result = Actions.ERROR.action;
@@ -89,19 +89,19 @@ public enum Actions {
             throw new IllegalArgumentException("Error 404 - Not Found");
         }
 
-        List<Permission> permissions = (List<Permission>) session.getAttribute("permissions");
-        User user = (User) session.getAttribute("user");
-        if (user == null){
-            user = new User("tmpUser");
-        }
-        if (user.getRole_id() == Role.ADMINISTRATOR_ROLE){
-            return true;
-        }
-        for (Permission p:permissions) {
-            if (p.getCommand()==commandID && user.getRole_id()==p.getRole() && p.getPermission()){
-                return true;
-            }
-        }
+//        List<Permission> permissions = (List<Permission>) session.getAttribute("permissions");
+//        User user = (User) session.getAttribute("user");
+//        if (user == null){
+//            user = new User("tmpUser");
+//        }
+//        if (user.getRole_id() == Role.ADMINISTRATOR_ROLE){
+//            return true;
+//        }
+//        for (Permission p:permissions) {
+//            if (p.getCommand()==commandID && user.getRole_id()==p.getRole() && p.getPermission()){
+//                return true;
+//            }
+//        }
         return false;
     }
 }

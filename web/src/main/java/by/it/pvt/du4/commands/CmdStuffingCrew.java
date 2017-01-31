@@ -19,20 +19,19 @@ class CmdStuffingCrew extends Action {
 //            SessionAttrSesHelper.setAirhostessToAttribute(request);
         }else{// POST
             Crew crew = new Crew();
-            crew.setId(0);
             try {
-                crew.setPilot1_id(Integer.parseInt(Form.getString(request,"pilot1", Patterns.INT)));
-                crew.setPilot2_id(Integer.parseInt(Form.getString(request,"pilot2", Patterns.INT)));
-                crew.setAirhostess1_id(Integer.parseInt(Form.getString(request,"airhostess1", Patterns.INT)));
-                crew.setAirhostess2_id(Integer.parseInt(Form.getString(request,"airhostess2", Patterns.INT)));
-                if (crew.getPilot1_id() == crew.getPilot2_id()){
-                    LOG.error("pilot1 = pilot2");
-                    throw new IllegalArgumentException("Select different pilots");
-                }
-                if (crew.getAirhostess1_id() == crew.getAirhostess2_id()){
-                    LOG.error("Airhostess1 = airhostess2");
-                    throw new IllegalArgumentException("Select different airhostesses");
-                }
+//                crew.setPilot1_id(Integer.parseInt(Form.getString(request,"pilot1", Patterns.INT)));
+//                crew.setPilot2_id(Integer.parseInt(Form.getString(request,"pilot2", Patterns.INT)));
+//                crew.setAirhostess1_id(Integer.parseInt(Form.getString(request,"airhostess1", Patterns.INT)));
+//                crew.setAirhostess2_id(Integer.parseInt(Form.getString(request,"airhostess2", Patterns.INT)));
+//                if (crew.getPilot1_id() == crew.getPilot2_id()){
+//                    LOG.error("pilot1 = pilot2");
+//                    throw new IllegalArgumentException("Select different pilots");
+//                }
+//                if (crew.getAirhostess1_id() == crew.getAirhostess2_id()){
+//                    LOG.error("Airhostess1 = airhostess2");
+//                    throw new IllegalArgumentException("Select different airhostesses");
+//                }
 
             } catch (Exception e) {
                 e.printStackTrace();

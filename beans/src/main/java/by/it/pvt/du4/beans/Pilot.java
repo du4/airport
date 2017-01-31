@@ -1,36 +1,27 @@
 package by.it.pvt.du4.beans;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-
+@DiscriminatorValue("pilot")
 @Entity @Table
-public class Pilot implements Serializable {
+public class Pilot extends Employee implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column(
-            unique = true,
-            nullable = false
-    )
-    private String name;
-    @Column
-    private String phoneNumber;
-    @Column
-    @Temporal(TemporalType.DATE)
-    private Date birthDay;
 
-    public Pilot(String name, String phoneNumber, Date birthDay) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.birthDay = birthDay;
+    @Column
+    private String rank;
+
+    public Pilot(Long id, String name, String phoneNumber, Date hired, Date fired, String rank) {
+        super(id, name, phoneNumber, hired, fired);
+        this.rank = rank;
     }
 }

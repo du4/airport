@@ -17,6 +17,7 @@ public class Flight implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "FLIGHT_ID")
     private Long id;
     @Column(unique = true, nullable = false)
     private String flightCode;
@@ -28,15 +29,15 @@ public class Flight implements Serializable {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrival_time;
-    @Column
+    @Column(name = "FK_PLANE")
     private Long plane_id;
-    @Column
+    @Column(name = "FK_TO")
     private Long to_id;
-    @Column
+    @Column(name = "FK_FROM")
     private Long from_id;
-    @Column
+    @Column(name = "FK_CREW")
     private Long crew_id;
-    @Column
+    @Column(name = "FK_USER")
     private Long user_id;
     @Column
     @Temporal(TemporalType.TIMESTAMP)

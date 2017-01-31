@@ -25,7 +25,6 @@ public class Role implements Serializable {
     )
     private String name;
 
-//    @ManyToMany(mappedBy = "commands")
     @OneToMany(mappedBy = "role")
     private Set<User>  users= new HashSet<>();
 

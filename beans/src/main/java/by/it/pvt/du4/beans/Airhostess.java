@@ -11,22 +11,16 @@ import java.util.Date;
 @Data
 
 @NoArgsConstructor
-@AllArgsConstructor
-
+@DiscriminatorValue("airhostess")
 @Entity @Table
-public class Airhostess implements Serializable{
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id=0;
-    @Column(unique = true, nullable = false)
-    private String name;
+public class Airhostess extends Employee implements Serializable{
+
     @Column
     @Temporal(TemporalType.DATE)
     private Date birthDay;
 
-    public Airhostess(String name, Date birthDay) {
-        this.name = name;
+    public Airhostess(Long id, String name, String phoneNumber, Date hired, Date fired, Date birthDay) {
+        super(id, name, phoneNumber, hired, fired);
         this.birthDay = birthDay;
     }
 }

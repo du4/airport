@@ -36,6 +36,10 @@ public class HibernateUtil {
         return session;
     }
 
+    public void realizeSession(){
+        getSessionFromThreadLocal().close();
+    }
+
     public static synchronized HibernateUtil getHibernateUtil(){
         if (util == null){
             util = new HibernateUtil();

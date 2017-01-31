@@ -17,10 +17,15 @@ public class Permission implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PERMISSION_ID")
     private Long id;
-    @Column(name = "FK_ROLE")
-    private Long role_id;
-    @Column(name = "FK_COMMAND")
-    private Long command_id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "FK_ROLE")
+    private Role role_id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "FK_COMMAND")
+    private Command command_id;
+
     @Column
     private Boolean permission;
 

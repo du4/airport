@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +25,9 @@ public class Plane implements Serializable {
             nullable = false
     )
     private String planeName;
+
+    @OneToMany(mappedBy = "plane_id")
+    private Set<Flight> flights= new HashSet<>();
 
     public Plane(String planeName) {
         this.planeName = planeName;

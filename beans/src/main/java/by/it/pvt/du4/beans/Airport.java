@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +24,12 @@ public class Airport implements Serializable {
     private String acronim;
     @Column(unique = true, nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "to_id")
+    private Set<Flight> flightsTo= new HashSet<>();
+
+    @OneToMany(mappedBy = "from_id")
+    private Set<Flight> flightsFrom= new HashSet<>();
 
     public Airport(String acronim, String name) {
         this.acronim = acronim;

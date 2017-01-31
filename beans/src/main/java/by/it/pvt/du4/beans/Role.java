@@ -28,6 +28,9 @@ public class Role implements Serializable {
     @OneToMany(mappedBy = "role")
     private Set<User>  users= new HashSet<>();
 
+    @OneToMany(mappedBy = "role_id")
+    private Set<Permission>  permissions= new HashSet<>();
+
     //<editor-fold desc="Getter+setter+equals+hashCode">
     public Role(String role) {
         this.name = role;

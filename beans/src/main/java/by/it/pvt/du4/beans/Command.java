@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +24,9 @@ public class Command implements Serializable {
             nullable = false
     )
     private String name;
+
+    @OneToMany(mappedBy = "command_id")
+    private Set<Permission> permissions = new HashSet<>();
 
     public Command(String name) {
         this.name = name;

@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -49,13 +51,16 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
+    @OneToMany(mappedBy = "user_id")
+    private Set<Flight> flights= new HashSet<>();
+
     public User(String login) {
         this.login = login;
         this.role = new Role();
         this.createdDate = new Timestamp(1000*(System.currentTimeMillis()/1000));
     }
 
-    public User(String login, String email, String  pass, Role role, Timestamp createDate) {
+    public User(String login, String email, String  pass, Role role, Date createDate) {
         this.login = login;
         this.email = email;
         this.pass = pass;

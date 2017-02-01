@@ -3,13 +3,14 @@ package by.it.pvt.du4.beans;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity @Table
 public class Permission implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -27,6 +28,7 @@ public class Permission implements Serializable {
     private Command command_id;
 
     @Column
+//    @Basic(fetch = FetchType.EAGER)
     private Boolean permission;
 
 

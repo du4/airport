@@ -1,6 +1,5 @@
 package by.it.pvt.du4.servlets;
 
-import by.it.pvt.du4.util.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +17,7 @@ public class HibernateSessionFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         chain.doFilter(request, response);
         LOG.trace("Deleting Hibernate session if exist");
-        HibernateUtil.getHibernateUtil().realizeSession();
+//        HibernateUtil.getHibernateUtil().realizeSession();
     }
 
     @Override

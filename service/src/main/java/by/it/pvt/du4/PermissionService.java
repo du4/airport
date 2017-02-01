@@ -45,7 +45,7 @@ public class PermissionService {
 
         List<Permission> permissions = DictionaryUtil.getInstance().getPermissions() ;//(List<Permission>) session.getAttribute("permissions");
         if (user == null){
-            user = new User("tmpUser");
+            user = new User("tmpUser", 3l);
         }
         if (user.getRole().equals(Role.ADMINISTRATOR_ROLE)){
             return true;

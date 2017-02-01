@@ -1,14 +1,11 @@
 package by.it.pvt.du4.beans;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
 
 @NoArgsConstructor
 @DiscriminatorValue("airhostess")
@@ -17,6 +14,8 @@ public class Airhostess extends Employee implements Serializable{
 
     @Column
     @Temporal(TemporalType.DATE)
+    @Getter
+    @Setter
     private Date birthDay;
 
     public Airhostess(Long id, String name, String phoneNumber, Date hired, Date fired, Date birthDay) {

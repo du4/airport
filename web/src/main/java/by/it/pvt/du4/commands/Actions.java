@@ -79,10 +79,10 @@ public enum Actions {
     private static boolean checkPermission(String cmd, HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
         List <Command> commands = (List<Command>) session.getAttribute("commands");
-        int commandID=-1;
+        Long commandID = -1l;
         for (int i = 0; i < commands.size(); i++) {
             if (commands.get(i).getName().equalsIgnoreCase(cmd)){
-                commandID=i+1;
+                commandID=commands.get(i).getId();
                 break;
             }
         }
@@ -94,13 +94,13 @@ public enum Actions {
         List<Permission> permissions = (List<Permission>) session.getAttribute("permissions");
         User user = (User) session.getAttribute("user");
         if (user == null){
-            user = new User("tmpUser");
+            user = new User("tmpUser", Role.USER_ROLE);
         }
         if (user.getRole().equals(Role.ADMINISTRATOR_ROLE)){
             return true;
         }
         for (Permission p:permissions) {
-            if (p.getCommand_id().equals(commandID) && user.getRole().equals(p.getRole_id()) && p.getPermission()){
+            if (p.getCommand_id().getId().equals(commandID) && user.getRole().getId().equals(p.getRole_id().getId()) && p.getPermission()){
                 return true;
             }
         }

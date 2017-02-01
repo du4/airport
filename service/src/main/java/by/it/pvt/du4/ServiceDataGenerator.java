@@ -86,9 +86,9 @@ public class ServiceDataGenerator {
         permissions.add(new Permission(null, roles.get(1),commands.get(7),true));
         permissions.add(new Permission(null, roles.get(2),commands.get(7),false));
         //usermanagement
-        permissions.add(new Permission(null, roles.get(0),commands.get(7),true));
-        permissions.add(new Permission(null, roles.get(1),commands.get(7),false));
-        permissions.add(new Permission(null, roles.get(2),commands.get(7),false));
+        permissions.add(new Permission(null, roles.get(0),commands.get(8),true));
+        permissions.add(new Permission(null, roles.get(1),commands.get(8),false));
+        permissions.add(new Permission(null, roles.get(2),commands.get(8),false));
 
         saveCollection(session, permissions);
     }

@@ -7,6 +7,8 @@ import by.it.pvt.du4.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DictionaryUtil {
@@ -94,10 +96,10 @@ public class DictionaryUtil {
 
     public List<Command> getCommands() throws ServiceException {
         try {
-//            HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+            List<Command>cmds = new ArrayList<>();
             List<Command> commands = DAO.getDAO().commandDAO.getAll();
-            commands.forEach(cmd -> cmd.getName());
-            return commands;
+            commands.forEach(cmd -> cmds.add(new Command(cmd.getId(),cmd.getName(), cmd.getPermissions())));
+            return cmds;
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);
@@ -106,9 +108,10 @@ public class DictionaryUtil {
 
     public List<Permission> getPermissions() throws ServiceException {
         try {
+            List<Permission> pms = new ArrayList<>();
             List<Permission> permissions =  DAO.getDAO().permissionDAO.getAll();
-            permissions.forEach(prm->prm.getCommand_id());
-            return permissions;
+            permissions.forEach(prm->pms.add(new Permission(prm.getId(), prm.getRole_id(), prm.getCommand_id(), prm.getPermission())));
+            return pms;
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);

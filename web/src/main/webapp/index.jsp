@@ -61,7 +61,7 @@
             <th>From</th>
             <th>To</th>
 
-            <c:if test="${user.role_id<3}">
+            <c:if test="${user.getRole().getId() < 3}">
                 <th>Crew</th>
                 <th>User</th>
             </c:if>
@@ -78,7 +78,7 @@
                 <td>${flight.plane}</td>
                 <td>${flight.from}</td>
                 <td>${flight.to}</td>
-                <c:if test="${user.role_id<3}">
+                <c:if test="${user.getRole().getId() < 3}">
                     <td>${flight.crew}</td>
                     <td>${flight.user}</td>
                 </c:if>

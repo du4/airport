@@ -17,7 +17,7 @@
     </b>
 </div>
 <br>
-<!-- Коллекцию listUser мы получаем по get из команды сервлета UserForm -->
+<!-- Коллекцию listUser мы получаем по getByLoginAndPassword из команды сервлета UserForm -->
 <c:forEach items="${users}" var="user">
     <div class="row">
         <form class="form-user-${user.id}" action="airport?action=ListUsers" method=POST>

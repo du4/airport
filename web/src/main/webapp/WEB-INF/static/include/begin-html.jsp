@@ -47,12 +47,12 @@
                 <menu:li action="Index" glyphicon="glyphicon glyphicon-home" text="  Home"/>
 
 
-                <c:if test="${user.role_id==1}">
+                <c:if test="${user.getRole().getId()  == 1}">
                     <menu:li action="UserManagement" glyphicon="glyphicon glyphicon-list-alt" text="  User Management"/>
                     <menu:li action="NewFlight" glyphicon="glyphicon glyphicon-plane_id" text="  New flight"/>
                     <menu:li action="StuffingCrew" glyphicon="glyphicon glyphicon-bullhorn" text="  Add Flight Crew"/>
                 </c:if>
-                <c:if test="${user.role_id==2}">
+                <c:if test="${user.getRole().getId() == 2}">
                     <menu:li action="StuffingCrew" glyphicon="glyphicon glyphicon-bullhorn" text="  Add Flight Crew"/>
                 </c:if>
 

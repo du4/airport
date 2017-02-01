@@ -8,6 +8,7 @@ import by.it.pvt.du4.commands.SessionAttrSesHelper;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
 import by.it.pvt.du4.util.HibernateUtil;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,19 +24,19 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(FrontController.class);
 
-    /**
-     * Generate sample data to tables
-     * @throws ServletException
-     */
-    @Override
-    public void init() throws ServletException {
-        try {
-           ServiceDataGenerator.getInstance().generateData();
-        } catch (DaoException | ServiceException e) {
-            LOG.error(""+e);
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * Generate sample data to tables
+//     * @throws ServletException
+//     */
+//    @Override
+//    public void init() throws ServletException {
+//        try {
+//           ServiceDataGenerator.getInstance().generateData();
+//        } catch (DaoException | ServiceException e) {
+//            LOG.error(""+e);
+//            e.printStackTrace();
+//        }
+//    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -87,7 +88,8 @@ public class FrontController extends HttpServlet {
      * @throws ServiceException
      */
     private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
-        Transaction t =  HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().beginTransaction();
+        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Transaction t =  session.beginTransaction();
         SessionAttrSesHelper.setCommandToAttribute(request);
         SessionAttrSesHelper.setPermissionToAttribute(request);
         t.commit();

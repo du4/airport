@@ -13,7 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 
-public class BaseDao<T> implements Dao<T> {
+public class BaseDao<T> implements IDao<T> {
     private static final Logger LOG = LoggerFactory.getLogger(BaseDao.class);
 
 
@@ -27,7 +27,7 @@ public class BaseDao<T> implements Dao<T> {
             session.saveOrUpdate(t);
             LOG.info("saveOrUpdate(t):" + t);
         } catch (HibernateException e) {
-            LOG.error("Error save or update PERSON in Dao" + e);
+            LOG.error("Error save or update PERSON in IDao" + e);
             throw new DaoException(e);
         }
 
@@ -39,9 +39,9 @@ public class BaseDao<T> implements Dao<T> {
         try {
             Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
             t = (T) session.get(getPersistentClass(), id);
-            LOG.info("get clazz:" + t);
+            LOG.info("getByLoginAndPassword clazz:" + t);
         } catch (HibernateException e) {
-            LOG.error("Error get " + getPersistentClass() + " in Dao" + e);
+            LOG.error("Error getByLoginAndPassword " + getPersistentClass() + " in IDao" + e);
             throw new DaoException(e);
         }
         return t;
@@ -56,7 +56,7 @@ public class BaseDao<T> implements Dao<T> {
             LOG.info("load() clazz:" + t);
             session.isDirty();
         } catch (HibernateException e) {
-            LOG.error("Error load() " + getPersistentClass() + " in Dao" + e);
+            LOG.error("Error load() " + getPersistentClass() + " in IDao" + e);
             throw new DaoException(e);
         }
         return t;
@@ -68,7 +68,7 @@ public class BaseDao<T> implements Dao<T> {
             session.delete(t);
             LOG.info("Delete:" + t);
         } catch (HibernateException e) {
-            LOG.error("Error save or update PERSON in Dao" + e);
+            LOG.error("Error save or update PERSON in IDao" + e);
             throw new DaoException(e);
         }
     }

@@ -7,7 +7,6 @@ import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
 import by.it.pvt.du4.exceptions.ValidationException;
 import by.it.pvt.du4.util.HibernateUtil;
-import lombok.Data;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -98,7 +97,8 @@ public class UserService {
         }
 
         try {
-            return DAO.getDAO().userDAO.get(user.getId());
+            user.setPass(DigestUtils.md5Hex(solt + user.getPass()));
+            return DAO.getDAO().userDAO.getByLoginAndPassword(user);
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);

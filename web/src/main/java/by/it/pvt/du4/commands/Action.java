@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 abstract public class Action {
 
     /**
-     * Execute command from_id request
+     * Execute action from_id request
      * @param request
      * @param response
      * @return Action

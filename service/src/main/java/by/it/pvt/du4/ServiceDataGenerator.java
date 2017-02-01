@@ -4,6 +4,7 @@ import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
 import by.it.pvt.du4.util.HibernateUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -103,7 +104,7 @@ public class ServiceDataGenerator {
                         users.get(0), new Date()));
                 flights. add(new Flight(null, "AS222", "Lufthansa", formatterDateTime.parse("2017-02-24 07:30"), formatterDateTime.parse("2017-02-24 11:30"),
                         new Plane("AN-24") , new Airport("TRN", "Turin"), new Airport("FRA", "Frankfurt"),
-                        new User("qwerty","qwerty@airport.by", "qwerty", roles.get(1), new Date()), new Date()));
+                        new User("qwerty","qwerty@airport.by", DigestUtils.md5Hex(UserService.solt + "qwerty"), roles.get(1), new Date()), new Date()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -134,9 +135,9 @@ public class ServiceDataGenerator {
             }};
         saveCollection(session, roles);
         List<User>users = new ArrayList<User>(){{
-                add(new User(null, "admin", "admin@airport.by", "admin", roles.get(0), new Date(), null, null));
-                add(new User(null, "dispatcher", "dispatcher@airport.by", "dispatcher", roles.get(1), new Date(), null, null));
-                add(new User(null, "user", "user@airport.by", "user", roles.get(2), new Date(), null, null));
+                add(new User(null, "admin", "admin@airport.by", DigestUtils.md5Hex(UserService.solt + "admin"), roles.get(0), new Date(), null, null));
+                add(new User(null, "dispatcher", "dispatcher@airport.by", DigestUtils.md5Hex(UserService.solt + "dispatcher"), roles.get(1), new Date(), null, null));
+                add(new User(null, "user", "user@airport.by",DigestUtils.md5Hex(UserService.solt + "user") , roles.get(2), new Date(), null, null));
             }};
         saveCollection(session, users);
     }

@@ -1,16 +1,11 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.DictionaryUtil;
-import by.it.pvt.du4.UserService;
-import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.ParseException;
-import java.util.List;
 
 class CmdUserManagement extends Action {
     private static final Logger LOG = LoggerFactory.getLogger(CmdUserManagement.class);

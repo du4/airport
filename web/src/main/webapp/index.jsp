@@ -13,7 +13,7 @@
         <div class="panel-heading">Find panel</div>
         <div class="panel-body">
             <div class="row">
-                <form class="form-find" action="airport?command=index" method=POST>
+                <form class="form-find" action="airport?action=index" method=POST>
                    <!-- Select Basic -->
                     <div class="col-md-2">
                         <select id="from" name="from"  class="form-control">

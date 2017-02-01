@@ -1,7 +1,7 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.FlightService;
 import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.util.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +36,6 @@ class CmdIndex extends Action {
                 return null;
             }
         }
-        request.setAttribute("airports", FlightService.gerInstance().getAirports());
 //        List<FlightStr> flightStrs = FlightService.gerInstance().getAll(flightQuery);
 //        for (FlightStr flight : flightStrs) {
 //            flight.setViewNumber(++startNumber);

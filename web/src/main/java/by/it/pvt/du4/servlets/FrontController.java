@@ -4,8 +4,11 @@ import by.it.pvt.du4.ServiceDataGenerator;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.commands.Action;
 import by.it.pvt.du4.commands.Actions;
+import by.it.pvt.du4.commands.SessionAttrSesHelper;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.util.HibernateUtil;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,9 +23,12 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(FrontController.class);
 
+    /**
+     * Generate sample data to tables
+     * @throws ServletException
+     */
     @Override
     public void init() throws ServletException {
-        super.init();
         try {
            ServiceDataGenerator.getInstance().generateData();
         } catch (DaoException | ServiceException e) {
@@ -36,10 +42,10 @@ public class FrontController extends HttpServlet {
         Action action;
         Action nextAction = null;
         try {
-//            updateHttpSessionCash(request);
+            updateHttpSessionCash(request);
             setUserToAttribute(request);
             action = Actions.defineFrom(request);
-            LOG.trace("ActionPage="+action.getJsp());
+            LOG.trace("ActionPage="+ action.getJsp());
             nextAction = action.execute(request, response);
         } catch (ServiceException e) {
             LOG.error(e.getMessage());
@@ -50,7 +56,7 @@ public class FrontController extends HttpServlet {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(action.getJsp());
             requestDispatcher.forward(request, response);
         } else {
-            response.sendRedirect("airport?command=" + nextAction);
+            response.sendRedirect("airport?action=" + nextAction);
         }
     }
 
@@ -58,11 +64,11 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
         Action action;
         try {
-//            updateHttpSessionCash(request);
+            updateHttpSessionCash(request);
             setUserToAttribute(request);
             action = Actions.defineFrom(request);
             action.execute(request, response);
-            LOG.trace("ActionPage="+action.getJsp());
+            LOG.trace("ActionPage="+ action.getJsp());
 
         } catch (ServiceException e) {
             LOG.error(""+e);
@@ -80,10 +86,13 @@ public class FrontController extends HttpServlet {
      * @param request
      * @throws ServiceException
      */
-//    private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
-//        SessionAttrSesHelper.setCommandToAttribute(request);
-//        SessionAttrSesHelper.setPermissionToAttribute(request);
-//    }
+    private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
+        Transaction t =  HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().beginTransaction();
+        SessionAttrSesHelper.setCommandToAttribute(request);
+        SessionAttrSesHelper.setPermissionToAttribute(request);
+        t.commit();
+        HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().flush();
+    }
 
     /**
      * Get user_id from_id session if its not null sore to_id request attribute.

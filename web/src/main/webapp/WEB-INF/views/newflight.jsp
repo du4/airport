@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row">
-        <form class="form-horizontal" action="airport?command=NewFlight" method="POST">
+        <form class="form-horizontal" action="airport?action=NewFlight" method="POST">
             <fieldset>
 
                 <!-- Form Name -->

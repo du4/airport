@@ -1,7 +1,6 @@
 package by.it.pvt.du4.commands;
 
 import by.it.pvt.du4.UserService;
-import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.exceptions.ServiceException;
 import org.slf4j.Logger;
@@ -9,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Timestamp;
 import java.util.Date;
 
 class CmdSignUp extends Action {

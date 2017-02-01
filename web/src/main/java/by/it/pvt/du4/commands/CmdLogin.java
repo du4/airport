@@ -16,7 +16,7 @@ class CmdLogin extends Action {
     @Override
     public Action execute(HttpServletRequest request, HttpServletResponse response) {
 
-        if (request.getMethod().equalsIgnoreCase("POST")) {
+        if ("POST".equalsIgnoreCase(request.getMethod())) {
             User user = new User();
             try {
                 user.setLogin(Form.getString(request, "login", Patterns.LOGIN));

@@ -8,6 +8,7 @@ import by.it.pvt.du4.exceptions.ServiceException;
 import by.it.pvt.du4.exceptions.ValidationException;
 import by.it.pvt.du4.util.HibernateUtil;
 import lombok.Data;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -21,6 +22,7 @@ import java.util.List;
 public class UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
     private static volatile UserService instance;
+    static final String solt = "airport";
 
     private UserService() {
     }
@@ -56,7 +58,7 @@ public class UserService {
     }
 
     public void create(User user) throws ServiceException {
-//        user_id.setPass(DigestUtils.md5Hex(user_id.getPass()));
+        user.setPass(DigestUtils.md5Hex(solt + user.getPass()));
         try {
             HibernateUtil util =  HibernateUtil.getHibernateUtil();
             Session session = util.getSessionFromThreadLocal();

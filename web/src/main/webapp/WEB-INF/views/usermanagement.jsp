@@ -20,7 +20,7 @@
 <!-- Коллекцию listUser мы получаем по get из команды сервлета UserForm -->
 <c:forEach items="${users}" var="user">
     <div class="row">
-        <form class="form-user-${user.id}" action="airport?command=ListUsers" method=POST>
+        <form class="form-user-${user.id}" action="airport?action=ListUsers" method=POST>
             <div class=col-md-1>
                 <input id="user_id_${user.id}" name="ID" type="text"
                        value="${user.id}" class="form-control input-md">

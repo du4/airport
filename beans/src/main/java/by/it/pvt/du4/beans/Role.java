@@ -11,7 +11,9 @@ import java.util.Set;
 @Entity
 @Table
 public class Role implements Serializable {
-
+    public static final Long ADMINISTRATOR_ROLE = 0l;
+    public static final Long DISPATCHER_ROLE = 1l;
+    public static final Long  USER_ROLE = 2l;
     private static final long serialVersionUID = 1L;
 
     @Id

@@ -44,29 +44,29 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <menu:li command="Index" glyphicon="glyphicon glyphicon-home" text="  Home"/>
+                <menu:li action="Index" glyphicon="glyphicon glyphicon-home" text="  Home"/>
 
 
                 <c:if test="${user.role_id==1}">
-                    <menu:li command="UserManagement" glyphicon="glyphicon glyphicon-list-alt" text="  User Management"/>
-                    <menu:li command="NewFlight" glyphicon="glyphicon glyphicon-plane_id" text="  New flight"/>
-                    <menu:li command="StuffingCrew" glyphicon="glyphicon glyphicon-bullhorn" text="  Add Flight Crew"/>
+                    <menu:li action="UserManagement" glyphicon="glyphicon glyphicon-list-alt" text="  User Management"/>
+                    <menu:li action="NewFlight" glyphicon="glyphicon glyphicon-plane_id" text="  New flight"/>
+                    <menu:li action="StuffingCrew" glyphicon="glyphicon glyphicon-bullhorn" text="  Add Flight Crew"/>
                 </c:if>
                 <c:if test="${user.role_id==2}">
-                    <menu:li command="StuffingCrew" glyphicon="glyphicon glyphicon-bullhorn" text="  Add Flight Crew"/>
+                    <menu:li action="StuffingCrew" glyphicon="glyphicon glyphicon-bullhorn" text="  Add Flight Crew"/>
                 </c:if>
 
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <c:if test="${user==null}">
-                    <menu:li command="Login" glyphicon="glyphicon glyphicon-log-in" text=" Login"/>
-                    <menu:li command="SignUp" glyphicon="glyphicon glyphicon-user_id" text=" SignUp"/>
+                    <menu:li action="Login" glyphicon="glyphicon glyphicon-log-in" text=" Login"/>
+                    <menu:li action="SignUp" glyphicon="glyphicon glyphicon-user_id" text=" SignUp"/>
                 </c:if>
                 <c:if test="${user!=null}">
                     <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="${curUser}"><span class="glyphicon glyphicon-check"></span>  user_id=${user.login}</a></li>
-                    <menu:li command="Logout" glyphicon="glyphicon glyphicon-log-out" text=" Logout"/>
-                    <menu:li command="Profile" glyphicon="glyphicon glyphicon-user_id" text=" Profile"/>
+                    <menu:li action="Logout" glyphicon="glyphicon glyphicon-log-out" text=" Logout"/>
+                    <menu:li action="Profile" glyphicon="glyphicon glyphicon-user_id" text=" Profile"/>
                 </c:if>
             </ul>
         </div>

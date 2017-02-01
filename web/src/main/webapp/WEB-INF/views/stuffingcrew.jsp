@@ -2,7 +2,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ include file="../static/include/begin-html.jsp" %>
 
-<form class="form-horizontal" action="airport?command=StuffingCrew" method="POST">
+<form class="form-horizontal" action="airport?action=StuffingCrew" method="POST">
     <fieldset>
 
         <!-- Form Name -->

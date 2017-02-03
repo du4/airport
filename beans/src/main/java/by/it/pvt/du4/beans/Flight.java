@@ -53,9 +53,10 @@ public class Flight implements Serializable {
     @Getter @Setter
     private Airport from_id;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "FK_CREW")
-//    private Crew crew_id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "FK_CREW")
+    @Getter @Setter
+    private Crew crew;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_USER")

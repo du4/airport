@@ -5,7 +5,6 @@ import by.it.pvt.du4.beans.Permission;
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.exceptions.ServiceException;
-import by.it.pvt.du4.util.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +29,11 @@ public class PermissionService {
     }
 
     public boolean checkPermission(User user, String cmd) throws ServiceException {
-        List<Command> commands = DictionaryUtil.getInstance().getCommands();
-        int commandID=-1;
+        List<Command> commands = DictionaryServiceUtil.getInstance().getCommands();
+        Long commandID= -1L;
         for (int i = 0 ; i < commands.size(); i++) {
             if (commands.get(i).getName().equalsIgnoreCase(cmd)){
-                commandID=i+1;
+                commandID=i+1L;
                 break;
             }
         }
@@ -43,15 +42,15 @@ public class PermissionService {
             throw new IllegalArgumentException("Error 404 - Not Found");
         }
 
-        List<Permission> permissions = DictionaryUtil.getInstance().getPermissions() ;//(List<Permission>) session.getAttribute("permissions");
+        List<Permission> permissions = DictionaryServiceUtil.getInstance().getPermissions() ;//(List<Permission>) session.getAttribute("permissions");
         if (user == null){
-            user = new User("tmpUser", 3l);
+            user = new User("tmpUser", 3L);
         }
-        if (user.getRole().equals(Role.ADMINISTRATOR_ROLE)){
+        if (user.getRole().getId().equals(Role.ADMINISTRATOR_ROLE)){
             return true;
         }
         for (Permission p:permissions) {
-            if (p.getCommand_id().equals(commandID) && user.getRole().equals(p.getRole_id()) && p.getPermission()){
+            if (p.getCommand_id().getId().equals(commandID) && user.getRole().equals(p.getRole_id()) && p.getPermission()){
                 return true;
             }
         }

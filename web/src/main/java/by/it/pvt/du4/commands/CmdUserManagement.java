@@ -43,7 +43,7 @@ class CmdUserManagement extends Action {
 //            }
 //        }
 //        SessionAttrSesHelper.setRolesToAttribute(request);
-//        List<User> users = DictionaryUtil.getInstance().getUsers();
+//        List<User> users = DictionaryServiceUtil.getInstance().getUsers();
 //        if (users == null) {
 //            LOG.trace("No users found.");
 //            request.setAttribute(AttrMessages.msgError,"No users found.");

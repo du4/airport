@@ -8,23 +8,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class DictionaryUtil {
-    public static volatile DictionaryUtil instance;
-    private static final Logger LOG = LoggerFactory.getLogger(DictionaryUtil.class);
+public class DictionaryServiceUtil {
+    public static volatile DictionaryServiceUtil instance;
+    private static final Logger LOG = LoggerFactory.getLogger(DictionaryServiceUtil.class);
 
-    private DictionaryUtil(){
+    private DictionaryServiceUtil(){
     }
 
-    public static DictionaryUtil getInstance() {
-        DictionaryUtil localInstance = instance;
+    public static DictionaryServiceUtil getInstance() {
+        DictionaryServiceUtil localInstance = instance;
         if (localInstance == null) {
-            synchronized (DictionaryUtil.class) {
+            synchronized (DictionaryServiceUtil.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    instance = localInstance = new DictionaryUtil();
+                    instance = localInstance = new DictionaryServiceUtil();
                 }
             }
         }
@@ -51,7 +50,9 @@ public class DictionaryUtil {
 
     public List<Airport> getAirports() throws ServiceException {
         try {
-            return DAO.getDAO().airportsDAO.getAll();
+            List<Airport>airports = new ArrayList<>();
+            DAO.getDAO().airportsDAO.getAll().forEach(airport -> airports.add(new Airport(airport.getId(), airport.getAcronim(),null,null,null)));
+            return airports;
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);
@@ -78,7 +79,9 @@ public class DictionaryUtil {
 
     public List<Plane> getPlanes() throws ServiceException {
         try {
-            return DAO.getDAO().planeDAO.getAll();
+            List<Plane> planes = new ArrayList<>();
+            DAO.getDAO().planeDAO.getAll().forEach(plane -> planes.add(new Plane(plane.getId(), plane.getPlaneName(),null)));
+            return planes;
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);

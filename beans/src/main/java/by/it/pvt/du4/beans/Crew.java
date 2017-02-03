@@ -1,7 +1,9 @@
 package by.it.pvt.du4.beans;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,29 +18,21 @@ public class Crew implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CREW_ID")
+    @Getter  @Setter
     private Long id;
 
     @ElementCollection
     @CollectionTable(name="CREW_MEMBERS", joinColumns=@JoinColumn(name="EMPLOYE_ID"))
     @Column(name="MEMBERS")
+    @Getter  @Setter
     private Set <Employee> crew = new HashSet<>();
 
-    @Column(name = "FK_FLIGHT")
-    private Long flight;
 
-    public Set<Employee> getCrew() {
-        return crew;
-    }
+    @OneToMany(mappedBy = "crew")
+    @Getter  @Setter
+    private Set<Flight>  flights = new HashSet<>();
 
-    public void setCrew(Set<Employee> crew) {
-        this.crew = crew;
-    }
 
-    public Long getFlight() {
-        return flight;
-    }
 
-    public void setFlight(Long flight) {
-        this.flight = flight;
-    }
+
 }

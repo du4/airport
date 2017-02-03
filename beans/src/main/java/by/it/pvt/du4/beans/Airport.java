@@ -1,5 +1,6 @@
 package by.it.pvt.du4.beans;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
+@AllArgsConstructor
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity @Table
 public class Airport implements Serializable {
@@ -42,6 +43,7 @@ public class Airport implements Serializable {
         this.acronim = acronim;
         this.name = name;
     }
+
 
 
     @Override

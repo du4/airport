@@ -1,6 +1,6 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.DictionaryUtil;
+import by.it.pvt.du4.DictionaryServiceUtil;
 import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.exceptions.ServiceException;
 
@@ -18,7 +18,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("roles", roleList);
             }
         }else {
-            List<Role> roles = DictionaryUtil.getInstance().getRoles();
+            List<Role> roles = DictionaryServiceUtil.getInstance().getRoles();
             request.setAttribute("roles",roles);
             request.getSession().setAttribute("roles",roles);
         }
@@ -32,7 +32,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("pilots", pilotList);
             }
         }else {
-            List<Pilot> roles = DictionaryUtil.getInstance().getPilots();
+            List<Pilot> roles = DictionaryServiceUtil.getInstance().getPilots();
             request.setAttribute("pilots",roles);
             request.getSession().setAttribute("pilots",roles);
         }
@@ -47,7 +47,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("airhostesses", airhostesses);
             }
         }else {
-            airhostesses = DictionaryUtil.getInstance().getAirhostesses();
+            airhostesses = DictionaryServiceUtil.getInstance().getAirhostesses();
             request.setAttribute("airhostesses",airhostesses);
             request.getSession().setAttribute("airhostesses",airhostesses);
         }
@@ -62,7 +62,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("airports", airports);
             }
         }else {
-            airports = DictionaryUtil.getInstance().getAirports();
+            airports = DictionaryServiceUtil.getInstance().getAirports();
             request.setAttribute("airports",airports);
             request.getSession().setAttribute("airports",airports);
         }
@@ -77,7 +77,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("planes", planes);
             }
         }else {
-            planes = DictionaryUtil.getInstance().getPlanes();
+            planes = DictionaryServiceUtil.getInstance().getPlanes();
             request.setAttribute("planes", planes);
             request.getSession().setAttribute("planes", planes);
         }
@@ -92,7 +92,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("crews", crews);
             }
         }else {
-            crews = DictionaryUtil.getInstance().getCrews();
+            crews = DictionaryServiceUtil.getInstance().getCrews();
             request.setAttribute("crews", crews);
             request.getSession().setAttribute("crews", crews);
         }
@@ -107,7 +107,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("commands", commands);
             }
         }else {
-            commands = DictionaryUtil.getInstance().getCommands();
+            commands = DictionaryServiceUtil.getInstance().getCommands();
             request.setAttribute("commands", commands);
             request.getSession().setAttribute("commands", commands);
         }
@@ -122,7 +122,7 @@ public class SessionAttrSesHelper {
                 request.setAttribute("permissions", permissions);
             }
         }else {
-            permissions = DictionaryUtil.getInstance().getPermissions();
+            permissions = DictionaryServiceUtil.getInstance().getPermissions();
             request.setAttribute("permissions", permissions);
             request.getSession().setAttribute("permissions", permissions);
         }

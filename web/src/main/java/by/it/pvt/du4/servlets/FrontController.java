@@ -24,19 +24,19 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(FrontController.class);
 
-//    /**
-//     * Generate sample data to tables
-//     * @throws ServletException
-//     */
-//    @Override
-//    public void init() throws ServletException {
-//        try {
-//           ServiceDataGenerator.getInstance().generateData();
-//        } catch (DaoException | ServiceException e) {
-//            LOG.error(""+e);
-//            e.printStackTrace();
-//        }
-//    }
+    /**
+     * Generate sample data to tables
+     * @throws ServletException
+     */
+    @Override
+    public void init() throws ServletException {
+        try {
+           ServiceDataGenerator.getInstance().generateData();
+        } catch (DaoException | ServiceException e) {
+            LOG.error(""+e);
+            e.printStackTrace();
+        }
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -107,7 +107,7 @@ public class FrontController extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user != null) {
-            request.setAttribute("curUser", "Session info: user.login=" + user.getLogin() +", role="+ user.getRole());
+            request.setAttribute("curUser", "Session info: user.login=" + user.getLogin() +", role="+ user.getRole().getName());
             request.setAttribute("user", user);
             LOG.trace("Set user from session to request attribute = " + user);
         } else {

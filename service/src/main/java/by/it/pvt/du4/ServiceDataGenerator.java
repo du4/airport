@@ -42,7 +42,7 @@ public class ServiceDataGenerator {
         generateCommandsPermissions();
         generatePlanes();
         generateEmployees();
-        generateCrews();
+//        generateCrews();
         generateFlights();
         generatePermissions();
     }
@@ -95,15 +95,32 @@ public class ServiceDataGenerator {
 
     private void generateFlights() throws DaoException {
         Session session =  HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+
+
         List<Flight>flights = new ArrayList<>();
             try {
                 List<User>users = session.createCriteria(User.class).list();
                 List<Role>roles = session.createCriteria(Role.class).list();
+                List<Pilot> pilots = session.createCriteria(Employee.class).add(Restrictions.eq("class","pilot")).list();
+                List<Airhostess> airhostess = session.createCriteria(Employee.class).add(Restrictions.eq("class","airhostess")).list();
+
+                Set<Employee> crew = new HashSet<Employee>(){{
+                    add(pilots.get(0)); add(pilots.get(1));
+                    add(airhostess.get(0));add(airhostess.get(1));
+                }};
+                Set<Employee> crew1 = new HashSet<Employee>(){{
+                    add(pilots.get(2)); add(pilots.get(3));
+                    add(airhostess.get(2));add(airhostess.get(3));
+                }};
+
+
                 flights. add(new Flight(null, "AS123", "Belavia", formatterDateTime.parse("2016-12-04 13:30"), formatterDateTime.parse("2016-12-04 17:00"),
                         new Plane("Kukuruznik") , new Airport("VNO", "Vilnius") , new Airport("KBP", "Borispol"),
-                        users.get(0), new Date()));
+                        new Crew(null, crew, null), users.get(0), new Date()));
+
+
                 flights. add(new Flight(null, "AS222", "Lufthansa", formatterDateTime.parse("2017-02-24 07:30"), formatterDateTime.parse("2017-02-24 11:30"),
-                        new Plane("AN-24") , new Airport("TRN", "Turin"), new Airport("FRA", "Frankfurt"),
+                        new Plane("AN-24") , new Airport("TRN", "Turin"), new Airport("FRA", "Frankfurt"), new Crew(null, crew1, null),
                         new User("qwerty","qwerty@airport.by", DigestUtils.md5Hex(UserService.solt + "qwerty"), roles.get(1), new Date()), new Date()));
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -111,20 +128,25 @@ public class ServiceDataGenerator {
         saveCollection(session, flights);
     }
 
-    private void generateCrews() throws DaoException {
-        Session session =  HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
-        List<Pilot> pilots = session.createCriteria(Employee.class).add(Restrictions.eq("class","pilot")).list();
-        List<Airhostess> airhostess = session.createCriteria(Employee.class).add(Restrictions.eq("class","airhostess")).list();
-
-        Set<Employee> crew = new HashSet<Employee>(){{
-            add(pilots.get(0)); add(pilots.get(1));
-            add(airhostess.get(0));add(airhostess.get(1));
-        }};
-        List<Crew>crews = new ArrayList<>();
-        crews.add(new Crew(null, crew, null));
-
-        saveCollection(session, crews);
-    }
+//    private void generateCrews() throws DaoException {
+//        Session session =  HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+//        List<Pilot> pilots = session.createCriteria(Employee.class).add(Restrictions.eq("class","pilot")).list();
+//        List<Airhostess> airhostess = session.createCriteria(Employee.class).add(Restrictions.eq("class","airhostess")).list();
+//
+//        Set<Employee> crew = new HashSet<Employee>(){{
+//            add(pilots.get(0)); add(pilots.get(1));
+//            add(airhostess.get(0));add(airhostess.get(1));
+//        }};
+//        Set<Employee> crew1 = new HashSet<Employee>(){{
+//            add(pilots.get(0)); add(pilots.get(2));
+//            add(airhostess.get(2));add(airhostess.get(1));
+//        }};
+//        List<Crew>crews = new ArrayList<>();
+//        crews.add(new Crew(null, crew, null));
+//        crews.add(new Crew(null, crew1, null));
+//
+//        saveCollection(session, crews);
+//    }
 
     private void generateRolesAndUsers() throws DaoException {
         Session session =  HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
@@ -138,6 +160,7 @@ public class ServiceDataGenerator {
                 add(new User(null, "admin", "admin@airport.by", DigestUtils.md5Hex(UserService.solt + "admin"), roles.get(0), new Date(), null, null));
                 add(new User(null, "dispatcher", "dispatcher@airport.by", DigestUtils.md5Hex(UserService.solt + "dispatcher"), roles.get(1), new Date(), null, null));
                 add(new User(null, "user", "user@airport.by",DigestUtils.md5Hex(UserService.solt + "user") , roles.get(2), new Date(), null, null));
+                add(new User(null, "duch", "duch@airport.by",DigestUtils.md5Hex(UserService.solt + "111"),roles.get(0), new Date(), null, null ));
             }};
         saveCollection(session, users);
     }
@@ -176,6 +199,7 @@ public class ServiceDataGenerator {
             employees.add(new Pilot(null,"Dubatovka Sergey","375298784275",  formatterDate.parse("2003-04-14"), null , "II"));
             employees.add(new Pilot(null,"Averuk Evgeniy","37529673457441",  formatterDate.parse("2013-01-04"), null , "I"));
             employees.add(new Pilot(null,"Vasiliev Andrew","375291234567",  formatterDate.parse("1999-05-31"), null, "II"));
+            employees.add(new Pilot(null,"Dubovik Pavel","375292224567",  formatterDate.parse("1991-12-01"), null, "I"));
             employees.add(new Airhostess(null, "Dzyachkova Inha", "37529673457441", formatterDate.parse("2001-02-31"), null, formatterDate.parse("1981-12-31")));
             employees.add(new Airhostess(null, "Zhravkova Stefania", "37523273457441", formatterDate.parse("2011-02-01"), null, formatterDate.parse("1991-10-30")));
             employees.add(new Airhostess(null, "Kubeko Diana","37522373457441", formatterDate.parse("2008-12-01"), null, formatterDate.parse("1982-06-10")));
@@ -207,10 +231,12 @@ public class ServiceDataGenerator {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            list.forEach(e -> session.saveOrUpdate(e));
+            list.forEach(session::saveOrUpdate);
             transaction.commit();
             session.flush();
         }catch (HibernateException e){
+            e.printStackTrace();
+            assert transaction != null;
             transaction.rollback();
             LOG.error(""+e);
             throw new DaoException(e);

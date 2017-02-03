@@ -15,9 +15,9 @@ import java.util.Set;
 @Entity
 @Table
 public class Role implements Serializable {
-    public static final Long ADMINISTRATOR_ROLE = 1l;
-    public static final Long DISPATCHER_ROLE = 2l;
-    public static final Long  USER_ROLE = 3l;
+    public static final Long ADMINISTRATOR_ROLE = 1L;
+    public static final Long DISPATCHER_ROLE = 2L;
+    public static final Long  USER_ROLE = 3L;
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -35,7 +35,7 @@ public class Role implements Serializable {
 
     @OneToMany(mappedBy = "role")
     @Getter @Setter
-    private Set<User>  users= new HashSet<>();
+    private Set<User>  users = new HashSet<>();
 
     @OneToMany(mappedBy = "role_id")
     @Getter @Setter

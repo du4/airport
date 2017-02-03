@@ -1,7 +1,7 @@
 package by.it.pvt.du4.dao;
 
 public class DAO {
-
+    // singleton DAO
     private static volatile DAO dao;
 
     private DAO(){}

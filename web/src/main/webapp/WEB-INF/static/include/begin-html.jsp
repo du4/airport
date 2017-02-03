@@ -37,7 +37,7 @@
             </button>
 
             <div class="navbar-header">
-                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-send"></span>  Duch Airlines</a>
+                <a class="navbar-brand" href="/airport"><span class="glyphicon glyphicon-send"></span>  Duch Airlines</a>
             </div>
 
 

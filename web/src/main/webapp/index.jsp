@@ -64,23 +64,25 @@
             <c:if test="${user.getRole().getId() < 3}">
                 <th>Crew</th>
                 <th>User</th>
+                <th>CreatedDate</th>
             </c:if>
 
         </tr>
         </thead>
         <tbody>
-            <c:forEach items="${flights}" var="flight">
+            <c:forEach items="${flightStr}" var="f">
                 <tr>
-                <td>${flight.flightCode} </td>
-                <td>${flight.company}</td>
-                <td>${flight.departure_time}</td>
-                <td>${flight.arrival_time}</td>
-                <td>${flight.plane}</td>
-                <td>${flight.from}</td>
-                <td>${flight.to}</td>
+                <td>${f.flightCode} </td>
+                <td>${f.company}</td>
+                <td>${f.departure_time}</td>
+                <td>${f.arrival_time}</td>
+                <td>${f.plane}</td>
+                <td>${f.from}</td>
+                <td>${f.to}</td>
                 <c:if test="${user.getRole().getId() < 3}">
-                    <td>${flight.crew}</td>
-                    <td>${flight.user}</td>
+                    <td>${f.crew}</td>
+                    <td>${f.user}</td>
+                    <td>${f.created_date}</td>
                 </c:if>
                 </tr>
             </c:forEach>

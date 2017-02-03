@@ -1,6 +1,5 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.DictionaryUtil;
 import by.it.pvt.du4.beans.Command;
 import by.it.pvt.du4.beans.Permission;
 import by.it.pvt.du4.beans.Role;
@@ -79,10 +78,10 @@ public enum Actions {
     private static boolean checkPermission(String cmd, HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
         List <Command> commands = (List<Command>) session.getAttribute("commands");
-        Long commandID = -1l;
-        for (int i = 0; i < commands.size(); i++) {
-            if (commands.get(i).getName().equalsIgnoreCase(cmd)){
-                commandID=commands.get(i).getId();
+        Long commandID = -1L;
+        for (Command command : commands) {
+            if (command.getName().equalsIgnoreCase(cmd)) {
+                commandID = command.getId();
                 break;
             }
         }
@@ -96,7 +95,7 @@ public enum Actions {
         if (user == null){
             user = new User("tmpUser", Role.USER_ROLE);
         }
-        if (user.getRole().equals(Role.ADMINISTRATOR_ROLE)){
+        if (user.getRole().getId().equals(Role.ADMINISTRATOR_ROLE)){
             return true;
         }
         for (Permission p:permissions) {

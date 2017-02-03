@@ -24,19 +24,19 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(FrontController.class);
 
-    /**
-     * Generate sample data to tables
-     * @throws ServletException
-     */
-    @Override
-    public void init() throws ServletException {
-        try {
-           ServiceDataGenerator.getInstance().generateData();
-        } catch (DaoException | ServiceException e) {
-            LOG.error(""+e);
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * Generate sample data to tables
+//     * @throws ServletException
+//     */
+//    @Override
+//    public void init() throws ServletException {
+//        try {
+//           ServiceDataGenerator.getInstance().generateData();
+//        } catch (DaoException | ServiceException e) {
+//            LOG.error(""+e);
+//            e.printStackTrace();
+//        }
+//    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -76,10 +76,8 @@ public class FrontController extends HttpServlet {
             e.printStackTrace();
             action = Actions.getErrorAction();
         }
-
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(action.getJsp());
         requestDispatcher.forward(request, response);
-
     }
 
     /**
@@ -88,12 +86,12 @@ public class FrontController extends HttpServlet {
      * @throws ServiceException
      */
     private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
-        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
-        Transaction t =  session.beginTransaction();
+        Session hs = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Transaction t =  hs.beginTransaction();
         SessionAttrSesHelper.setCommandToAttribute(request);
         SessionAttrSesHelper.setPermissionToAttribute(request);
         t.commit();
-        HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().flush();
+        hs.flush();
     }
 
     /**
@@ -102,10 +100,8 @@ public class FrontController extends HttpServlet {
      * @param request
      */
     private void setUserToAttribute(HttpServletRequest request) {
-
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
-
         if (user != null) {
             request.setAttribute("curUser", "Session info: user.login=" + user.getLogin() +", role="+ user.getRole().getName());
             request.setAttribute("user", user);

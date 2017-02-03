@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -20,8 +21,8 @@ public class Pilot extends Employee implements Serializable {
     @Column
     private String rank;
 
-    public Pilot(Long id, String name, String phoneNumber, Date hired, Date fired, String rank) {
-        super(id, name, phoneNumber, hired, fired);
+    public Pilot(Long id, String name, String phoneNumber, Date hired, Date fired, String rank, Set<Flight> flights) {
+        super(id, name, phoneNumber, hired, fired, flights);
         this.rank = rank;
     }
 }

@@ -51,7 +51,7 @@ public class DictionaryServiceUtil {
     public List<Airport> getAirports() throws ServiceException {
         try {
             List<Airport>airports = new ArrayList<>();
-            DAO.getDAO().airportsDAO.getAll().forEach(airport -> airports.add(new Airport(airport.getId(), airport.getAcronim(),null,null,null)));
+            DAO.getDAO().airportsDAO.getAll().forEach(airport -> airports.add(new Airport(airport.getId(), airport.getAcronim(),airport.getName(),null,null)));
             return airports;
         } catch (DaoException e) {
             LOG.error(""+e);

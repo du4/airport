@@ -27,6 +27,7 @@ public class BaseDao<T> implements IDao<T> {
             session.saveOrUpdate(t);
             LOG.info("saveOrUpdate(t):" + t);
         } catch (HibernateException e) {
+            e.printStackTrace();
             LOG.error("Error save or update PERSON in IDao" + e);
             throw new DaoException(e);
         }

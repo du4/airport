@@ -1,7 +1,6 @@
 package by.it.pvt.du4.commands;
 
 import by.it.pvt.du4.FlightService;
-import by.it.pvt.du4.beans.Flight;
 import by.it.pvt.du4.beans.FlightStr;
 import by.it.pvt.du4.exceptions.ServiceException;
 import org.slf4j.Logger;
@@ -43,7 +42,7 @@ class CmdIndex extends Action {
 //        SessionAttrSesHelper.setAirportsToAttribute(request);
 
 
-        List<FlightStr> flightStr = FlightService.gerInstance().getAllStringFlights(null);
+        List<FlightStr> flightStr = FlightService.getInstance().getAllStringFlights(null);
 //        for (FlightStr flight : flightStrs) {
 //            flight.setViewNumber(++startNumber);
 //        }

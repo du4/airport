@@ -10,7 +10,7 @@
     </layout>
   </appender>
   
-  <logger name="by.it.pvt.du4" level="TRACE"/>
+  <logger name="by.it.pvt.du4" level="INFO"/>
   
 
   <root level="info">

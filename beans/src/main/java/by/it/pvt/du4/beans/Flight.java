@@ -6,6 +6,8 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @NoArgsConstructor
@@ -20,11 +22,11 @@ public class Flight implements Serializable {
     @Getter @Setter
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     @Getter @Setter
     private String flightCode;
 
-    @Column(unique = true, nullable = false)
+    @Column
     @Getter @Setter
     private String company;
 
@@ -53,10 +55,14 @@ public class Flight implements Serializable {
     @Getter @Setter
     private Airport from_id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "FK_CREW")
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "FK_CREW")
+//    @Getter @Setter
+//    private Crew crew;
+
     @Getter @Setter
-    private Crew crew;
+    @ManyToMany(mappedBy = "flights")
+    private Set<Employee> employees = new HashSet<>(0);
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_USER")
@@ -105,4 +111,6 @@ public class Flight implements Serializable {
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         return result;
     }
+
+
 }

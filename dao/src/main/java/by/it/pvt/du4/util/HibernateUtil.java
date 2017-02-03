@@ -31,6 +31,7 @@ public class HibernateUtil {
     public Session getSessionFromThreadLocal() {
         Session session = (Session) threadLocal.get();
         if (session == null) {
+            LOG.info("Open hibernate session.");
             session = sessionFactory.openSession();
             threadLocal.set(session);
         }
@@ -38,7 +39,14 @@ public class HibernateUtil {
     }
 
     public void realizeSession(){
-        getSessionFromThreadLocal().close();
+        Session s = (Session)threadLocal.get();
+        if (s != null) {
+            LOG.info("Close hibernate session");
+            threadLocal.remove();
+            s.close();
+        }else {
+            LOG.info("Can't close session because is does not exist");
+        }
     }
 
     public static synchronized HibernateUtil getHibernateUtil(){

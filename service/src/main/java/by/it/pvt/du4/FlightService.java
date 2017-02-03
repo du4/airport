@@ -24,7 +24,7 @@ public class FlightService {
     private FlightService() {
     }
 
-    public static FlightService gerInstance() {
+    public static FlightService getInstance() {
         if (instance == null) {
             synchronized (FlightService.class){
                 if (instance == null){
@@ -67,6 +67,7 @@ public class FlightService {
         try {
             DAO.getDAO().flightDAO.saveOrUpdate(flight);
         } catch (DaoException e) {
+            e.printStackTrace();
             LOG.error(""+e);
             throw new ServiceException(e);
         }

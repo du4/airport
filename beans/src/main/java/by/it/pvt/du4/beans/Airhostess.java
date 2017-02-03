@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 
 @NoArgsConstructor
@@ -18,8 +19,8 @@ public class Airhostess extends Employee implements Serializable{
     @Setter
     private Date birthDay;
 
-    public Airhostess(Long id, String name, String phoneNumber, Date hired, Date fired, Date birthDay) {
-        super(id, name, phoneNumber, hired, fired);
+    public Airhostess(Long id, String name, String phoneNumber, Date hired, Date fired, Date birthDay, Set<Flight> flights) {
+        super(id, name, phoneNumber, hired, fired, flights);
         this.birthDay = birthDay;
     }
 }

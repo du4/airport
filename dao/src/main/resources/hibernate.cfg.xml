@@ -27,7 +27,7 @@
         <property name="hibernate.hikari.minimumIdle">1</property>
 
         <property name="show_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
 
         <mapping class="by.it.pvt.du4.beans.Role"/>
         <mapping class="by.it.pvt.du4.beans.User"/>

@@ -5,7 +5,6 @@ import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -16,21 +15,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ServiceDataGenerator {
-    private static final Logger LOG = LoggerFactory.getLogger(ServiceDataGenerator.class);
+public class ServiceDataGeneratorUtil {
+    private static final Logger LOG = LoggerFactory.getLogger(ServiceDataGeneratorUtil.class);
     private static SimpleDateFormat formatterDate = new SimpleDateFormat("yyyy-MM-dd");
     private static SimpleDateFormat formatterDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    private static volatile ServiceDataGenerator instance;
+    private static volatile ServiceDataGeneratorUtil instance;
     private static Transaction transaction = null;
     private static Session session = null;
-    private ServiceDataGenerator() {
+    private ServiceDataGeneratorUtil() {
     }
 
-    public static  ServiceDataGenerator getInstance(){
+    public static ServiceDataGeneratorUtil getInstance(){
         if (instance == null) {
-            synchronized (ServiceDataGenerator.class) {
+            synchronized (ServiceDataGeneratorUtil.class) {
                 if(instance == null){
-                    instance = new ServiceDataGenerator();
+                    instance = new ServiceDataGeneratorUtil();
                 }
             }
         }
@@ -143,10 +142,13 @@ public class ServiceDataGenerator {
 
                 Flight flight = new Flight(null, "AS123", "Belavia", formatterDateTime.parse("2016-12-04 13:30"), formatterDateTime.parse("2016-12-04 17:00"),
                         new Plane("Kukuruznik") , new Airport("VNO", "Vilnius") , new Airport("KBP", "Borispol"), null, users.get(0), new Date());
+                users.get(0).setFlights(new HashSet<>());
+                users.get(0).getFlights().add(flight);
                 flights.add(flight);
+                User us = new User("qwerty","qwerty@airport.by", DigestUtils.md5Hex(UserService.solt + "qwerty"), roles.get(1), new Date());
                 flight = new Flight(null, "AS222", "Lufthansa", formatterDateTime.parse("2017-02-24 07:30"), formatterDateTime.parse("2017-02-24 11:30"),
-                        new Plane("AN-24") , new Airport("TRN", "Turin"), new Airport("FRA", "Frankfurt"), null,
-                        new User("qwerty","qwerty@airport.by", DigestUtils.md5Hex(UserService.solt + "qwerty"), roles.get(1), new Date()), new Date());
+                        new Plane("AN-24") , new Airport("TRN", "Turin"), new Airport("FRA", "Frankfurt"), null, us, new Date());
+                us.getFlights().add(flight);
                 flights. add(flight);
 
             } catch (ParseException e) {

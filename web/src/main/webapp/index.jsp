@@ -72,24 +72,33 @@
         <tbody>
             <c:forEach items="${flightStr}" var="f">
                 <tr>
-                <td>${f.flightCode} </td>
-                <td>${f.company}</td>
-                <td>${f.departure_time}</td>
-                <td>${f.arrival_time}</td>
-                <td>${f.plane}</td>
-                <td>${f.from}</td>
-                <td>${f.to}</td>
-                <c:if test="${user.getRole().getId() < 3}">
-                    <td>${f.crew}</td>
-                    <td>${f.user}</td>
-                    <td>${f.created_date}</td>
-                </c:if>
+                    <td>${f.flightCode} </td>
+                    <td>${f.company}</td>
+                    <td>${f.departure_time}</td>
+                    <td>${f.arrival_time}</td>
+                    <td>${f.plane}</td>
+                    <td>${f.from}</td>
+                    <td>${f.to}</td>
+                    <c:if test="${user.getRole().getId() < 3}">
+                        <td>
+                            <c:forEach items="${f.crew}" var="e">
+                                ${e.name}
+                            </c:forEach>
+                            <button type="button" class="btn btn-link btn-xs">...</button>
+                        </td>
+                        <td>${f.user}</td>
+                        <td>${f.created_date}</td>
+                    </c:if>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
+    <ul class="pager">
+        <li><a href="#">Previous</a></li>
+        <li><a href="#">Next</a></li>
+    </ul>
     </div>
-    </form>
+    <%--</form>--%>
 
 <script type="text/javascript" src="WEB-INF/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 

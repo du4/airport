@@ -51,9 +51,6 @@ public class FlightService {
     }
 
 
-
-
-
     public List<FlightStr> getAllStringFlights(Map<String,String> flightQuery) throws ServiceException {
         try {
             return DAO.getDAO().flightDAO.getFindByFilter(flightQuery);

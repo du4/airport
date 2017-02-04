@@ -4,6 +4,9 @@ import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.dao.DAO;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.util.HibernateUtil;
+import org.hibernate.HibernateException;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,18 +34,30 @@ public class DictionaryServiceUtil {
     }
 
     public List<Role> getRoles() throws ServiceException {
+        Transaction t = null;
         try {
-            return DAO.getDAO().roleDAO.getAll();
+            t = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().beginTransaction();
+            List<Role> roles =  DAO.getDAO().roleDAO.getAll();
+            t.commit();
+            HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().flush();
+            return roles;
         } catch (DaoException e) {
             LOG.error(""+e);
+            t.rollback();
             throw new ServiceException(e);
         }
     }
 
     public List<Pilot> getPilots() throws ServiceException {
+        Transaction t = null;
         try {
-            return DAO.getDAO().pilotDAO.getAll();
+            t = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().beginTransaction();
+            List<Pilot> pilots =  DAO.getDAO().pilotDAO.getAll();
+            t.commit();
+            HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().flush();
+            return pilots;
         } catch (DaoException e) {
+            t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);
         }
@@ -61,16 +76,6 @@ public class DictionaryServiceUtil {
     public List<Airhostess> getAirhostesses() throws ServiceException {
         try {
             return DAO.getDAO().airhostessDAO.getAll();
-        } catch (DaoException e) {
-            LOG.error(""+e);
-            throw new ServiceException(e);
-        }
-    }
-
-
-    public List<User> getUsers() throws ServiceException {
-        try {
-            return DAO.getDAO().userDAO.getAll();
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);
@@ -96,6 +101,7 @@ public class DictionaryServiceUtil {
             throw new ServiceException(e);
         }
     }
+
 
     public List<Command> getCommands() throws ServiceException {
         try {

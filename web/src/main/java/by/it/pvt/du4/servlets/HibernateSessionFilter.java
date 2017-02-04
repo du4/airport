@@ -17,6 +17,7 @@ public class HibernateSessionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         chain.doFilter(request, response);
+        LOG.trace("Realize hibernate Session.");
         HibernateUtil.getHibernateUtil().realizeSession();
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 public class SessionAttrSesHelper {
 
     @SuppressWarnings("unchecked")
-    static void setRolesToAttribute(HttpServletRequest request) throws ServiceException {
+    public static void setRolesToAttribute(HttpServletRequest request) throws ServiceException {
         Object o = request.getSession().getAttribute("roles");
         if (o != null) {
             if (o instanceof List) {
@@ -53,7 +53,7 @@ public class SessionAttrSesHelper {
         }
     }
     @SuppressWarnings("unchecked")
-    static void setAirportsToAttribute(HttpServletRequest request) throws ServiceException {
+    public static void setAirportsToAttribute(HttpServletRequest request) throws ServiceException {
         Object o = request.getSession().getAttribute("airports");
         List<Airport> airports;
         if (o != null) {
@@ -68,7 +68,7 @@ public class SessionAttrSesHelper {
         }
     }
     @SuppressWarnings("unchecked")
-    static void setPlanesToAttribute(HttpServletRequest request) throws ServiceException {
+    public static void setPlanesToAttribute(HttpServletRequest request) throws ServiceException {
         Object o = request.getSession().getAttribute("planes");
         List<Plane> planes;
         if (o != null) {
@@ -82,21 +82,20 @@ public class SessionAttrSesHelper {
             request.getSession().setAttribute("planes", planes);
         }
     }
-    @SuppressWarnings("unchecked")
-    static void setCrewsToAttribute(HttpServletRequest request) throws ServiceException {
-        Object o = request.getSession().getAttribute("crews");
-        List<Crew> crews;
-        if (o != null) {
-            if (o instanceof List) {
-                crews = (List<Crew>) o;
-                request.setAttribute("crews", crews);
-            }
-        }else {
-            crews = DictionaryServiceUtil.getInstance().getCrews();
-            request.setAttribute("crews", crews);
-            request.getSession().setAttribute("crews", crews);
-        }
-    }
+//    static void setCrewsToAttribute(HttpServletRequest request) throws ServiceException {
+//        Object o = request.getSession().getAttribute("crews");
+//        List<Crew> crews;
+//        if (o != null) {
+//            if (o instanceof List) {
+//                crews = (List<Crew>) o;
+//                request.setAttribute("crews", crews);
+//            }
+//        }else {
+//            crews = DictionaryServiceUtil.getInstance().getCrews();
+//            request.setAttribute("crews", crews);
+//            request.getSession().setAttribute("crews", crews);
+//        }
+//    }
     @SuppressWarnings("unchecked")
     public static void setCommandToAttribute(HttpServletRequest request) throws ServiceException {
         Object o = request.getSession().getAttribute("commands");

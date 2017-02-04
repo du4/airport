@@ -58,7 +58,7 @@ public class User implements Serializable {
     @Getter @Setter
     private Date updatedDate;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter @Setter
     private Set<Flight> flights= new HashSet<>();
 
@@ -85,8 +85,13 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "login='" + login + '\'' +
-                ", role=" + role.getName() +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
+                ", pass='" + pass + '\'' +
+                ", role=" + role +
+                ", createdDate=" + createdDate +
+                ", updatedDate=" + updatedDate +
                 '}';
     }
 }

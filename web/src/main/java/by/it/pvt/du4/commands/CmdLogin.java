@@ -21,7 +21,7 @@ class CmdLogin extends Action {
             try {
                 user.setLogin(Form.getString(request, "login", Patterns.LOGIN));
                 user.setPass(Form.getString(request, "pass", Patterns.PASSWORD));
-                user = UserService.getInstance().get(user);
+                user = UserService.getInstance().getByLoginAndPassword(user);
                 request.setAttribute(AttrMessages.msgMessage, "User login - OK ");
                 addUserToSessionCookie(user, request, response);
                 LOG.trace("User="+user+ "are authorized.");

@@ -16,14 +16,18 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-public class UserService {
+public class UserService implements IService<User>{
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
     private static volatile UserService instance;
     static final String solt = "airport";
 
-    private UserService() {
+
+    private UserService()  {
     }
 
     public static  UserService getInstance(){
@@ -37,20 +41,95 @@ public class UserService {
         return instance;
     }
 
-    public void update(User user) throws ServiceException {
+    @Override
+    public void saveOrUpdate(User user) throws ServiceException {
+        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Transaction t = null;
         try {
+            t = session.beginTransaction();
+            user.setUpdatedDate(new Date());
             DAO.getDAO().userDAO.saveOrUpdate(user);
-        } catch (DaoException e) {
+            t.commit();
+            session.flush();
+        }catch (Exception e) {
+            t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);
         }
+    }
 
+    public void update(User user, Long roleId) throws ServiceException {
+        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Transaction t = null;
+        try {
+            t = session.beginTransaction();
+            user.setRole(DAO.getDAO().roleDAO.get(roleId));
+            User user1 = DAO.getDAO().userDAO.get(user.getId());
+            user.setPass(user1.getPass());
+            user.setUpdatedDate(new Date());
+            DAO.getDAO().userDAO.saveOrUpdate(user);
+            t.commit();
+            session.flush();
+        }catch (Exception e) {
+            t.rollback();
+            LOG.error(""+e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public User getById(Serializable id) throws ServiceException {
+        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Transaction t = null;
+        User user = null;
+        try {
+            t = session.beginTransaction();
+            user = DAO.getDAO().userDAO.get(id);
+            t.commit();
+            session.flush();
+            return  user;
+        }catch (Exception e) {
+            t.rollback();
+            LOG.error(""+e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public User loadById(Serializable id) throws ServiceException {
+        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Transaction t = null;
+        User user = null;
+        try {
+            t = session.beginTransaction();
+            user = DAO.getDAO().userDAO.load(id);
+            t.commit();
+            session.flush();
+            return  user;
+        }catch (Exception e) {
+            t.rollback();
+            LOG.error(""+e);
+            throw new ServiceException(e);
+        }
     }
 
     public void delete(User user) throws ServiceException {
+        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Transaction t = null;
         try {
+            t = session.beginTransaction();
+//            user.getFlights().forEach(flight -> {
+//                try {
+//                    DAO.getDAO().flightDAO.delete(flight);
+//                } catch (DaoException e) {
+//                    e.printStackTrace();
+//                }
+//            });
             DAO.getDAO().userDAO.delete(user);
+            t.commit();
+            session.flush();
         } catch (DaoException e) {
+            t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);
         }
@@ -87,7 +166,7 @@ public class UserService {
         }
     }
 
-    public User get(User user) throws ValidationException, ServiceException {
+    public User getByLoginAndPassword(User user) throws ValidationException, ServiceException {
         if (user.getLogin().length() > 50){
             throw new ValidationException(new IllegalArgumentException("User login to long"));
         }
@@ -96,12 +175,38 @@ public class UserService {
             throw new ValidationException(new IllegalArgumentException("User password to long"));
         }
 
+        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Transaction t = null;
         try {
+            t = session.beginTransaction();
             user.setPass(DigestUtils.md5Hex(solt + user.getPass()));
-            return DAO.getDAO().userDAO.getByLoginAndPassword(user);
+            user = DAO.getDAO().userDAO.getByLoginAndPassword(user);
+            t.commit();
+            session.flush();
+            return user;
         } catch (DaoException e) {
+            t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);
         }
     }
+
+    public List<User> getAll() throws ServiceException {
+        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Transaction t = null;
+        List<User> users = null;
+        try {
+            t = session.beginTransaction();
+            users = DAO.getDAO().userDAO.getAll();
+            t.commit();
+            session.flush();
+            return users;
+        }catch (Exception e) {
+            t.rollback();
+            LOG.error(""+e);
+            throw new ServiceException(e);
+        }
+    }
+
+
 }

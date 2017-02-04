@@ -1,7 +1,9 @@
 package by.it.pvt.du4.beans;
 
-import lombok.*;
-import org.hibernate.annotations.Cascade;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -40,31 +42,26 @@ public class Flight implements Serializable {
     @Getter @Setter
     private Date arrival_time;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "FK_PLANE")
     @Getter @Setter
     private Plane plane_id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "FK_TO")
     @Getter @Setter
     private Airport to_id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "FK_FROM")
     @Getter @Setter
     private Airport from_id;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "FK_CREW")
-//    @Getter @Setter
-//    private Crew crew;
-
     @Getter @Setter
-    @ManyToMany(mappedBy = "flights")
+    @ManyToMany(mappedBy = "flights", cascade = CascadeType.ALL)
     private Set<Employee> employees = new HashSet<>(0);
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "FK_USER")
     @Getter @Setter
     private User user_id;

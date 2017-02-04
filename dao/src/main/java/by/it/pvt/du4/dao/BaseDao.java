@@ -28,7 +28,7 @@ public class BaseDao<T> implements IDao<T> {
             LOG.info("saveOrUpdate(t):" + t);
         } catch (HibernateException e) {
             e.printStackTrace();
-            LOG.error("Error save or update PERSON in IDao" + e);
+            LOG.error("Error save or update in IDao" + e);
             throw new DaoException(e);
         }
 
@@ -40,9 +40,9 @@ public class BaseDao<T> implements IDao<T> {
         try {
             Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
             t = (T) session.get(getPersistentClass(), id);
-            LOG.info("getByLoginAndPassword clazz:" + t);
+            LOG.info("get clazz:" + t);
         } catch (HibernateException e) {
-            LOG.error("Error getByLoginAndPassword " + getPersistentClass() + " in IDao" + e);
+            LOG.error("Error get " + getPersistentClass() + " in IDao" + e);
             throw new DaoException(e);
         }
         return t;
@@ -69,7 +69,7 @@ public class BaseDao<T> implements IDao<T> {
             session.delete(t);
             LOG.info("Delete:" + t);
         } catch (HibernateException e) {
-            LOG.error("Error save or update PERSON in IDao" + e);
+            LOG.error("Error save or update in IDao" + e);
             throw new DaoException(e);
         }
     }

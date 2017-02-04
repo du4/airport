@@ -1,6 +1,6 @@
 package by.it.pvt.du4.servlets;
 
-import by.it.pvt.du4.ServiceDataGenerator;
+import by.it.pvt.du4.ServiceDataGeneratorUtil;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.commands.Action;
 import by.it.pvt.du4.commands.Actions;
@@ -24,19 +24,19 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(FrontController.class);
 
-//    /**
-//     * Generate sample data to tables
-//     * @throws ServletException
-//     */
-//    @Override
-//    public void init() throws ServletException {
-//        try {
-//           ServiceDataGenerator.getInstance().generateData();
-//        } catch (DaoException | ServiceException e) {
-//            LOG.error(""+e);
-//            e.printStackTrace();
-//        }
-//    }
+    /**
+     * Generate sample data to tables
+     * @throws ServletException
+     */
+    @Override
+    public void init() throws ServletException {
+        try {
+           ServiceDataGeneratorUtil.getInstance().generateData();
+        } catch (DaoException | ServiceException e) {
+            LOG.error(""+e);
+            e.printStackTrace();
+        }
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,7 +49,7 @@ public class FrontController extends HttpServlet {
             LOG.trace("ActionPage="+ action.getJsp());
             nextAction = action.execute(request, response);
         } catch (ServiceException e) {
-            LOG.error(e.getMessage());
+            LOG.error(""+e);
             e.printStackTrace();
             action = Actions.getErrorAction();
         }
@@ -81,7 +81,7 @@ public class FrontController extends HttpServlet {
     }
 
     /**
-     * Store commandList & permissionList to_id current Session if ifs absent
+     * Store commandList & permissionList to current Session if it exist
      * @param request
      * @throws ServiceException
      */
@@ -90,6 +90,7 @@ public class FrontController extends HttpServlet {
         Transaction t =  hs.beginTransaction();
         SessionAttrSesHelper.setCommandToAttribute(request);
         SessionAttrSesHelper.setPermissionToAttribute(request);
+//        SessionAttrSesHelper.setPlanesToAttribute(request);
         t.commit();
         hs.flush();
     }

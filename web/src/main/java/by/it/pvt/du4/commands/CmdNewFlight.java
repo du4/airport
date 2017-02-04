@@ -42,15 +42,6 @@ class CmdNewFlight extends Action {
                 airport = DAO.getDAO().airportsDAO.get(Long.parseLong(Form.getString(request,"to",Patterns.INT)));
                 flight.setTo_id(airport);
 
-
-//                if (flight.getFrom_id() == flight.getTo_id()){
-//                    LOG.error("Destination can't be equals to_id Arrival");
-//                    throw new IllegalArgumentException("Destination can't be equals to_id Arrival");
-//                }
-//                if (flight.getDeparture_time().getTime()  >= flight.getArrival_time().getTime()){
-//                    LOG.error("Arrival time must be grater then Destination time");
-//                    throw new IllegalArgumentException("Arrival time must be grater then Destination time");
-//                }
                 flight.setCreateDate(new Date());
 
             }catch (Exception e) {
@@ -71,7 +62,7 @@ class CmdNewFlight extends Action {
         }else{
             SessionAttrSesHelper.setAirportsToAttribute(request);
             SessionAttrSesHelper.setPlanesToAttribute(request);
-            SessionAttrSesHelper.setCrewsToAttribute(request);
+//            SessionAttrSesHelper.setCrewsToAttribute(request);
         }
         return null;
     }

@@ -24,12 +24,20 @@ public class Form {
         }
     }
 
-    static int getInt(HttpServletRequest req,
-                      String parameter) throws ParseException {
+    static int getInt(HttpServletRequest req, String parameter) throws ParseException {
         String value=req.getParameter(parameter);
         if (value != null) {
             if (value.matches("[0-9-]+"))
             {return (Integer.parseInt(value));}
+        }
+        throw new ParseException("Incorrect String: "+parameter,0);
+    }
+
+    static Long getLong(HttpServletRequest req, String parameter) throws ParseException {
+        String value=req.getParameter(parameter);
+        if (value != null) {
+            if (value.matches("[0-9-]+"))
+            {return (Long.parseLong(value));}
         }
         throw new ParseException("Incorrect String: "+parameter,0);
     }

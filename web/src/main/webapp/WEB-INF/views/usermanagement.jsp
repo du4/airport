@@ -9,7 +9,6 @@
     <b>
         <div class=col-md-1>ID</div>
         <div class=col-md-2>Login</div>
-        <%--<div class=col-md-2>Password</div>--%>
         <div class=col-md-2>Email</div>
         <div class=col-md-1>Role</div>
         <div class=col-md-2>Created Date</div>
@@ -17,22 +16,16 @@
     </b>
 </div>
 <br>
-<!-- Коллекцию listUser мы получаем по getByLoginAndPassword из команды сервлета UserForm -->
 <c:forEach items="${users}" var="user">
     <div class="row">
-        <form class="form-user-${user.id}" action="airport?action=ListUsers" method=POST>
+        <form class="form-user-${user.id}" action="airport?action=UserManagement" method=POST>
             <div class=col-md-1>
-                <input id="user_id_${user.id}" name="ID" type="text"
-                       value="${user.id}" class="form-control input-md">
+                <input id="user_id_${user.id}" name="ID" type="text"value="${user.id}" class="form-control input-md">
             </div>
             <div class=col-md-2>
                 <input id="textinput1" name="Login" type="text"
                        value="${user.login}" class="form-control input-md">
             </div>
-            <%--<div class=col-md-2>--%>
-                <%--<input id="textinput2" name="Password" type="text"--%>
-                       <%--value="${user_id.pass}" class="form-control input-md">--%>
-            <%--</div>--%>
             <div class=col-md-2>
                 <input id="textinput3" name="Email" type="text"
                        value="${user.email}" class="form-control input-md">
@@ -41,21 +34,21 @@
             <div class=col-md-1>
                 <select id="role" name="fk_Role" class="form-control">
                     <c:forEach items="${roles}" var="role">
-                        <option value="${role.id}" role=${role.id} ${role.id==user.role_id?"selected":""}>
-                                ${role.role}
+                        <option value="${role.id}" role=${role.id} ${role.id==user.role.id?"selected":""}>
+                                ${role.name}
                         </option>
                     </c:forEach>
                 </select>
             </div>
 
             <div class=col-md-2>
-                <input id="textinput4" name="Date" type="text"
+                <input id="textinput4" name="CreatedDate" type="text"
                       value="${user.createdDate}" class="form-control input-md">
             </div>
 
             <div class=col-md-2>
-                <input id="textinput5" name="Date" type="text"
-                       value="${user.createdDate}" class="form-control input-md">
+                <input id="textinput5" name="UpdatedDate" type="text"
+                       value="${user.updatedDate}" class="form-control input-md">
             </div>
 
             <div class=col-md-1>

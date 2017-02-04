@@ -38,9 +38,6 @@ class CmdIndex extends Action {
                 return null;
             }
         }
-//        HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
-//        SessionAttrSesHelper.setAirportsToAttribute(request);
-
 
         List<FlightStr> flightStr = FlightService.getInstance().getAllStringFlights(null);
 //        for (FlightStr flight : flightStrs) {

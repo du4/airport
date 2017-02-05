@@ -145,10 +145,10 @@ public class ServiceDataGeneratorUtil {
                 users.get(0).setFlights(new HashSet<>());
                 users.get(0).getFlights().add(flight);
                 flights.add(flight);
-                User us = new User("qwerty","qwerty@airport.by", DigestUtils.md5Hex(UserService.solt + "qwerty"), roles.get(1), new Date());
                 flight = new Flight(null, "AS222", "Lufthansa", formatterDateTime.parse("2017-02-24 07:30"), formatterDateTime.parse("2017-02-24 11:30"),
-                        new Plane("AN-24") , new Airport("TRN", "Turin"), new Airport("FRA", "Frankfurt"), null, us, new Date());
-                us.getFlights().add(flight);
+                        new Plane("AN-24") , new Airport("TRN", "Turin"), new Airport("FRA", "Frankfurt"), null,
+                        new User("qwerty","qwerty@airport.by", DigestUtils.md5Hex(UserService.solt + "qwerty"), roles.get(1), new Date())
+                        , new Date());
                 flights. add(flight);
 
             } catch (ParseException e) {

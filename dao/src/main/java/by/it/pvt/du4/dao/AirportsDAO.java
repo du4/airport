@@ -14,13 +14,13 @@ import java.util.List;
 public class AirportsDAO extends BaseDao <Airport> {
     private static final Logger LOG = LoggerFactory.getLogger(AirportsDAO.class);
 
-    public List<Airport> getAll() throws DaoException {
-        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
-        try {
-            return   session.createCriteria(Airport.class).setCacheable(true).list();
-        }catch (HibernateException e){
-            LOG.error(""+e);
-            throw  new DaoException(e);
-        }
-    }
+//    public List<Airport> getAll() throws DaoException {
+//        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+//        try {
+//            return   session.createCriteria(Airport.class).setCacheable(true).list();
+//        }catch (HibernateException e){
+//            LOG.error(""+e);
+//            throw  new DaoException(e);
+//        }
+//    }
 }

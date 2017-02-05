@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class PilotDAO extends BaseDao <Pilot> {
-    private static final Logger LOG = LoggerFactory.getLogger(CrewDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PilotDAO.class);
 
 
 }

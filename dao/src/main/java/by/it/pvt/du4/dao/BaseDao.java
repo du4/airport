@@ -77,7 +77,7 @@ public class BaseDao<T> implements IDao<T> {
     public List<T> getAll() throws DaoException {
         Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
         try {
-            return session.createCriteria(getPersistentClass()).list();
+            return session.createCriteria(getPersistentClass()).setCacheable(true).list();
         }catch (HibernateException e){
             LOG.error(""+e);
             throw  new DaoException(e);

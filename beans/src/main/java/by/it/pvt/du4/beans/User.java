@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,66 +18,75 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity  @Table
+@DynamicUpdate
+@Entity
+@Table
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "USER_ID", unique = true)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Long id;
 
     @Column(
             unique = true,
             nullable = false
     )
-    @Getter @Setter
+    @Getter
+    @Setter
     private String login;
 
     @Column(
             unique = true,
             nullable = false
     )
-    @Getter @Setter
+    @Getter
+    @Setter
     private String email;
 
     @Column
-    @Getter @Setter
+    @Getter
+    @Setter
     private String pass;
 
     @ManyToOne
     @JoinColumn(name = "FK_ROLE")
-    @Getter @Setter
+    @Getter
+    @Setter
     private Role role;
 
     @Column(insertable = true, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Date createdDate;
 
     @Column(insertable = false, updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Date updatedDate;
 
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Getter @Setter
-    private Set<Flight> flights= new HashSet<>();
+    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    @Getter
+    @Setter
+    private Set<Flight> flights = new HashSet<>();
 
     public User(String login) {
         this.login = login;
         this.role = new Role();
-        this.createdDate = new Timestamp(1000*(System.currentTimeMillis()/1000));
+        this.createdDate = new Timestamp(1000 * (System.currentTimeMillis() / 1000));
     }
 
     public User(String login, Long id) {
         this.login = login;
         this.role = new Role(id);
-        this.createdDate = new Timestamp(1000*(System.currentTimeMillis()/1000));
+        this.createdDate = new Timestamp(1000 * (System.currentTimeMillis() / 1000));
     }
 
-    public User(String login, String email, String  pass, Role role, Date createDate) {
+    public User(String login, String email, String pass, Role role, Date createDate) {
         this.login = login;
         this.email = email;
         this.pass = pass;

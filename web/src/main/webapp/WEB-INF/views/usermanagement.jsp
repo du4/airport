@@ -20,7 +20,7 @@
     <div class="row">
         <form class="form-user-${user.id}" action="airport?action=UserManagement" method=POST>
             <div class=col-md-1>
-                <input id="user_id_${user.id}" name="ID" type="text"value="${user.id}" class="form-control input-md">
+                ${user.id}
             </div>
             <div class=col-md-2>
                 <input id="textinput1" name="Login" type="text"
@@ -32,7 +32,7 @@
             </div>
 
             <div class=col-md-1>
-                <select id="role" name="fk_Role" class="form-control">
+                <select id="role" name="userRole" class="form-control">
                     <c:forEach items="${roles}" var="role">
                         <option value="${role.id}" role=${role.id} ${role.id==user.role.id?"selected":""}>
                                 ${role.name}
@@ -47,20 +47,19 @@
             </div>
 
             <div class=col-md-2>
-                <input id="textinput5" name="UpdatedDate" type="text"
-                       value="${user.updatedDate}" class="form-control input-md">
+                ${user.updatedDate}
             </div>
 
+
             <div class=col-md-1>
-                <button id="singlebutton1" name="singlebutton1" class="btn btn-success">
+                <button id="singlebutton1" name="ID" value=${user.id} , class="btn btn-success">
                     Update
                 </button>
             </div>
 
             <div class=col-md-1>
-                <button id="singlebutton" name="singlebutton" class="btn btn-danger"
-                        onclick="document.getElementById('user_id_${user.id}').value=-document.getElementById('user_id_${user.id}').value;"
-                >
+                <button id="singlebutton" name="ID" value=${user.id * -1} , class="btn btn-danger">
+                        <%--onclick="document.getElementById('user_id_${user.id}').value=-document.getElementById('user_id_${user.id}').value;">--%>
                     Delete
                 </button>
             </div>

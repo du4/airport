@@ -14,7 +14,7 @@
         <div class="panel-body">
             <div class="row">
                 <form class="form-find" action="airport?action=index" method=POST>
-                   <!-- Select Basic -->
+                    <!-- Select Basic -->
                     <div class="col-md-2">
                         <select id="from" name="from"  class="form-control">
                             <option value="" selected disabled>Departure</option>
@@ -70,9 +70,13 @@
         </tr>
         </thead>
         <tbody>
+        <form action="airport?action=StuffingCrew" method=GET>
             <c:forEach items="${flightStr}" var="f">
                 <tr>
-                    <td>${f.flightCode} </td>
+                    <td>
+                        <label class=</label>
+                                ${f.flightCode}
+                    </td>
                     <td>${f.company}</td>
                     <td>${f.departure_time}</td>
                     <td>${f.arrival_time}</td>
@@ -82,23 +86,26 @@
                     <c:if test="${user.getRole().getId() < 3}">
                         <td>
                             <c:forEach items="${f.crew}" var="e">
-                                ${e.name}
+                                ${e.name }
                             </c:forEach>
-                            <button type="button" class="btn btn-link btn-xs">...</button>
+                            <button type="submit" name="flight_id"  value=${f.id}  , class="btn btn-primary btn-xs">...</button>
                         </td>
                         <td>${f.user}</td>
                         <td>${f.created_date}</td>
                     </c:if>
+
                 </tr>
             </c:forEach>
+            <input type="hidden" name="action" value="StuffingCrew" />
+        </form>
         </tbody>
     </table>
     <ul class="pager">
         <li><a href="#">Previous</a></li>
         <li><a href="#">Next</a></li>
     </ul>
-    </div>
-    <%--</form>--%>
+</div>
+<%--</form>--%>
 
 <script type="text/javascript" src="WEB-INF/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 

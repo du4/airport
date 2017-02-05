@@ -58,25 +58,6 @@ public class UserService implements IService<User>{
         }
     }
 
-    public void update(User user, Long roleId) throws ServiceException {
-        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
-        Transaction t = null;
-        try {
-            t = session.beginTransaction();
-            user.setRole(DAO.getDAO().roleDAO.get(roleId));
-            User user1 = DAO.getDAO().userDAO.get(user.getId());
-            user.setPass(user1.getPass());
-            user.setUpdatedDate(new Date());
-            DAO.getDAO().userDAO.saveOrUpdate(user);
-            t.commit();
-            session.flush();
-        }catch (Exception e) {
-            t.rollback();
-            LOG.error(""+e);
-            throw new ServiceException(e);
-        }
-    }
-
     @Override
     public User getById(Serializable id) throws ServiceException {
         Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
@@ -118,13 +99,6 @@ public class UserService implements IService<User>{
         Transaction t = null;
         try {
             t = session.beginTransaction();
-//            user.getFlights().forEach(flight -> {
-//                try {
-//                    DAO.getDAO().flightDAO.delete(flight);
-//                } catch (DaoException e) {
-//                    e.printStackTrace();
-//                }
-//            });
             DAO.getDAO().userDAO.delete(user);
             t.commit();
             session.flush();
@@ -140,20 +114,13 @@ public class UserService implements IService<User>{
         try {
             HibernateUtil util =  HibernateUtil.getHibernateUtil();
             Session session = util.getSessionFromThreadLocal();
-
             Transaction transaction = null;
             try {
                 transaction = session.beginTransaction();
-                Criteria criteria = session.createCriteria(Role.class);
-                criteria.add(Restrictions.eq("name", "user"));
-                List<Role>results = criteria.list();
-                if (results.size() != 1){
-                    throw new DaoException("Can't find user role");
-                }
-                user.setRole(results.get(0));
+                Role role = DAO.getDAO().roleDAO.getByName("user");
+                user.setRole(role);
                 DAO.getDAO().userDAO.saveOrUpdate(user);
                 transaction.commit();
-
                 session.flush();
             }catch (HibernateException e) {
                 transaction.rollback();

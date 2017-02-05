@@ -93,16 +93,6 @@ public class DictionaryServiceUtil {
         }
     }
 
-    public List<Crew> getCrews() throws ServiceException {
-        try {
-            return DAO.getDAO().crewDAO.getAll();
-        } catch (DaoException e) {
-            LOG.error(""+e);
-            throw new ServiceException(e);
-        }
-    }
-
-
     public List<Command> getCommands() throws ServiceException {
         try {
             List<Command>cmds = new ArrayList<>();

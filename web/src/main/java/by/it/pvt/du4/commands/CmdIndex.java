@@ -12,10 +12,10 @@ import java.util.List;
 
 class CmdIndex extends Action {
     private  static final Logger LOG = LoggerFactory.getLogger(CmdIndex.class);
-
+    private static final int pageSize = 3;
+    private static int startNumber = 0;
     @Override
     public Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        int startNumber = 0;
         String flightQuery ="";
 
         if ("post".equalsIgnoreCase(request.getMethod())) {

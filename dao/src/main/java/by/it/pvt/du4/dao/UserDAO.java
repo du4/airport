@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class UserDAO  extends BaseDao <User> {
-    private static final Logger LOG = LoggerFactory.getLogger(CrewDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserDAO.class);
 
     public User getByLoginAndPassword(User user) throws DaoException {
         LOG.info("Get user by login:" + user.getLogin()+ " and pass");

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -42,26 +44,26 @@ public class Flight implements Serializable {
     @Getter @Setter
     private Date arrival_time;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_PLANE")
     @Getter @Setter
     private Plane plane_id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_TO")
     @Getter @Setter
     private Airport to_id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_FROM")
     @Getter @Setter
     private Airport from_id;
 
     @Getter @Setter
-    @ManyToMany(mappedBy = "flights", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "flights",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Employee> employees = new HashSet<>(0);
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_USER")
     @Getter @Setter
     private User user_id;

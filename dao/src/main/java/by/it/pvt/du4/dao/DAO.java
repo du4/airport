@@ -13,7 +13,6 @@ public class DAO {
     public PlaneDAO planeDAO;               //DAO for planes
     public UserDAO userDAO;                 //DAO for users
     public RoleDAO roleDAO;                 //DAO for roles
-    public CrewDAO crewDAO;                 //DAO for crews
     public CommandDAO commandDAO;           // DAO for cmd
     public PermissionDAO permissionDAO;     // DAO for permission
 
@@ -29,7 +28,6 @@ public class DAO {
                     dao.userDAO = new UserDAO();
                     dao.roleDAO = new RoleDAO();
                     dao.flightDAO = new FlightDAO();
-                    dao.crewDAO = new CrewDAO();
                     dao.commandDAO = new CommandDAO();
                     dao.permissionDAO = new PermissionDAO();
                 }

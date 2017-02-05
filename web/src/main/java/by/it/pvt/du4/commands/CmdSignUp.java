@@ -33,16 +33,10 @@ class CmdSignUp extends Action {
                 request.setAttribute(AttrMessages.msgError, "Invalid field format. " + e.toString());
                 return null;
             }
-
-//            if (
-                    UserService.getInstance().create(user);
-//                            > 0) {
-                request.setAttribute(AttrMessages.msgMessage, "New user_id is created. Input new user_id login and password.");
-                LOG.trace("New user_id is created. Input new user_id login and password.");
-//            } else {
-//                request.setAttribute(AttrMessages.msgError, "User does not created. Create new user again. ");
-//                LOG.error("User not created");
-//            }
+            UserService.getInstance().create(user);
+            request.getSession().setAttribute("user",user);
+            request.setAttribute(AttrMessages.msgMessage, "New user_id is created. Input new user_id login and password.");
+            LOG.trace("New user_id is created. Input new user_id login and password.");
             return  Actions.INDEX.action;
         }
         return null;

@@ -15,12 +15,6 @@
         <persistence strategy="localTempSwap" />
     </defaultCache>
 
-    <cache name="by.it.pvt.du4.beans.User"
-           maxElementsInMemory="10000"
-           eternal="false"
-           overflowToDisk="false">
-        <persistence strategy="localTempSwap" />
-    </cache>
     <cache name="by.it.pvt.du4.beans.Plane"
            maxElementsInMemory="10000"
            eternal="false"

@@ -1,6 +1,7 @@
 package by.it.pvt.du4.commands;
 
 import by.it.pvt.du4.UserService;
+import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.exceptions.ServiceException;
 import org.slf4j.Logger;
@@ -27,7 +28,15 @@ class CmdUserManagement extends Action {
                 user.setCreatedDate(formatterDateTime.parse(Form.getString(request, "CreatedDate", Patterns.PASSWORD)));
                 request.setAttribute(AttrMessages.msgMessage,user);
                 if (user.getId() > 0){
-                    UserService.getInstance().update(user, Form.getLong(request,"fk_Role"));
+                    List<Role> roles  = (List<Role>) request.getSession().getAttribute("roles");
+                    for(Role r : roles){
+                        if (r.getId().equals(Form.getLong(request, "userRole"))) {
+                            user.setRole(r);
+                            UserService.getInstance().saveOrUpdate(user);
+                            break;
+                        }
+                    }
+
                     LOG.trace("Update user:"+user);
                 }
                 if (user.getId() < 0){
@@ -50,7 +59,7 @@ class CmdUserManagement extends Action {
         } else {
             request.setAttribute(AttrMessages.msgMessage,"Read usersCount=" + users.size());
             request.setAttribute("users", users);
-            LOG.trace("Read all users, user count = "+users.size());
+            LOG.trace("Read all users, user count = " + users.size());
         }
         return null;
     }

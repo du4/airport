@@ -52,7 +52,7 @@ class CmdNewFlight extends Action {
             }
 
             try{
-                FlightService.getInstance().create(flight);
+                FlightService.getInstance().saveOrUpdate(flight);
                 LOG.trace("Create new flight"+flight);
                 return  Actions.INDEX.action;
             } catch (ServiceException e){

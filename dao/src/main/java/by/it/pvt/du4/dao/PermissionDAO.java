@@ -12,4 +12,19 @@ import java.util.List;
 
 public class PermissionDAO extends BaseDao <Permission>{
     private static final Logger LOG = LoggerFactory.getLogger(PermissionDAO.class);
+    private static volatile PermissionDAO instance;
+
+    private PermissionDAO()  {
+    }
+
+    public static  PermissionDAO getInstance(){
+        if (instance == null) {
+            synchronized (PermissionDAO.class) {
+                if(instance == null){
+                    instance = new PermissionDAO();
+                }
+            }
+        }
+        return instance;
+    }
 }

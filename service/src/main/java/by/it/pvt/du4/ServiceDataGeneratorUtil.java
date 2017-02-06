@@ -37,7 +37,7 @@ public class ServiceDataGeneratorUtil {
     }
 
     public void generateData() throws DaoException, ServiceException {
-        session =  HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        session =  HibernateUtil.getHibernateUtil().getHibernateSession();
         transaction = session.beginTransaction();
         generateRolesAndUsers();
         generateAirports();

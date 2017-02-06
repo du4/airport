@@ -10,7 +10,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity @Table
 public class Plane implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -10,16 +10,30 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDAO extends BaseDao <Role> {
     private static final Logger LOG = LoggerFactory.getLogger(RoleDAO.class);
+    private static volatile RoleDAO instance;
+
+    private RoleDAO()  {
+    }
+
+    public static  RoleDAO getInstance(){
+        if (instance == null) {
+            synchronized (RoleDAO.class) {
+                if(instance == null){
+                    instance = new RoleDAO();
+                }
+            }
+        }
+        return instance;
+    }
 
     public Role getByName(String name) throws DaoException {
 
         try {
-            Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
             Criteria criteria = session.createCriteria(Role.class).add(Restrictions.eq("name", name));
             List<Role> result =  criteria.list();
             LOG.info("Get Role by name:" + name);

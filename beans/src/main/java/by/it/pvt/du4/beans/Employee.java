@@ -1,6 +1,7 @@
 package by.it.pvt.du4.beans;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,8 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
+
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "EMPLOYEE_TYPE",
         discriminatorType = DiscriminatorType.STRING)

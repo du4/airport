@@ -17,20 +17,28 @@ import java.util.*;
 
 public class FlightDAO extends BaseDao <Flight> {
     private static final Logger LOG = LoggerFactory.getLogger(FlightDAO.class);
+    private static volatile FlightDAO instance;
 
-    public List<FlightStr> getFindByFilter(Map<String, String> flightQuery) throws DaoException {
-        List<FlightStr> flights = new ArrayList<>();
-        String toFrom = "";
-        String from;
-        if (flightQuery != null) {
-            if (flightQuery.get("from") != null){
-                toFrom +="where a.acronim=\""+flightQuery.get("from")+"\"";
+    private FlightDAO()  {
+    }
+
+    public static  FlightDAO getInstance(){
+        if (instance == null) {
+            synchronized (FlightDAO.class) {
+                if(instance == null){
+                    instance = new FlightDAO();
+                }
             }
         }
+        return instance;
+    }
 
+
+    public List<FlightStr> getByFilter(Map<String, String> flightQuery) throws DaoException {
+        List<FlightStr> flights = new ArrayList<>();
 
         try {
-            Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
             String hqlString = "SELECT f.id as q, f.flightCode, f.company, f.departure_time, f.arrival_time," +
                     "p.planeName , a.acronim, b.acronim,  u.login, f.createDate " +
                     "FROM Flight f " +
@@ -39,7 +47,9 @@ public class FlightDAO extends BaseDao <Flight> {
                     "inner join f.plane_id  p " +
                     "inner join f.user_id  u "+
                     "order by f.id asc ";
+
             Query q = session.createQuery(hqlString);
+ //         pagination
             if (flightQuery != null) {
                 if (flightQuery.get("startIndex") != null && flightQuery.get("pageSize") != null) {
                     q.setFirstResult(Integer.parseInt(flightQuery.get("startIndex")));
@@ -68,7 +78,7 @@ public class FlightDAO extends BaseDao <Flight> {
 
     public List<Employee> getFlightCrew(Serializable id) throws DaoException {
         try {
-            Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
             Query q = session.createQuery("SELECT  f.employees FROM Flight f WHERE f.id="+id);
             List<Employee> crew = q.list();
             return crew;
@@ -81,7 +91,7 @@ public class FlightDAO extends BaseDao <Flight> {
 
     public Long getCount() throws DaoException {
         try {
-            Long count = (Long) HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().createQuery("SELECT count(*) from Flight").uniqueResult();
+            Long count = (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from Flight").uniqueResult();
            return count;
         }catch (HibernateException e) {
             e.printStackTrace();

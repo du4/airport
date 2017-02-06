@@ -1,11 +1,9 @@
 package by.it.pvt.du4.servlets;
 
-import by.it.pvt.du4.ServiceDataGeneratorUtil;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.commands.Action;
 import by.it.pvt.du4.commands.Actions;
 import by.it.pvt.du4.commands.SessionAttrSesHelper;
-import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.Session;
@@ -86,7 +84,7 @@ public class FrontController extends HttpServlet {
      * @throws ServiceException
      */
     private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
-        Session hs = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Session hs = HibernateUtil.getHibernateUtil().getHibernateSession();
         Transaction t =  hs.beginTransaction();
         SessionAttrSesHelper.setCommandToAttribute(request);
         SessionAttrSesHelper.setPermissionToAttribute(request);

@@ -28,7 +28,7 @@ public class HibernateUtil {
         }
     }
 
-    public Session getSessionFromThreadLocal() {
+    public Session getHibernateSession() {
         Session session = (Session) threadLocal.get();
         if (session == null) {
             LOG.info("Open hibernate session.");

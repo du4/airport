@@ -9,45 +9,45 @@
 
 <div class="container-fluid">
 
-    <div class="panel panel-warning">
-        <div class="panel-heading">Find panel</div>
-        <div class="panel-body">
-            <div class="row">
-                <form class="form-find" action="airport?action=index" method=POST>
-                    <!-- Select Basic -->
-                    <div class="col-md-2">
-                        <select id="from" name="from"  class="form-control">
-                            <option value="" selected disabled>Departure</option>
-                            <c:forEach items="${airports}" var="airport">
-                                <option value=${airport.acronim}>${airport.acronim}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <!-- Select Basic -->
-                    <div class="col-md-2">
-                        <select id="to" name="to" class="form-control">
-                            <option value="" selected disabled>Destination</option>
-                            <c:forEach items="${airports}" var="airport">
-                                <option value=${airport.acronim}>${airport.acronim}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
+    <%--<div class="panel panel-warning">--%>
+        <%--<div class="panel-heading">Find panel</div>--%>
+        <%--<div class="panel-body">--%>
+            <%--<div class="row">--%>
+                <%--<form class="form-find" action="airport?action=index" method=POST>--%>
+                    <%--<!-- Select Basic -->--%>
+                    <%--<div class="col-md-2">--%>
+                        <%--<select id="from" name="from"  class="form-control">--%>
+                            <%--<option value="" selected disabled>Departure</option>--%>
+                            <%--<c:forEach items="${airports}" var="airport">--%>
+                                <%--<option value=${airport.acronim}>${airport.acronim}</option>--%>
+                            <%--</c:forEach>--%>
+                        <%--</select>--%>
+                    <%--</div>--%>
+                    <%--<!-- Select Basic -->--%>
+                    <%--<div class="col-md-2">--%>
+                        <%--<select id="to" name="to" class="form-control">--%>
+                            <%--<option value="" selected disabled>Destination</option>--%>
+                            <%--<c:forEach items="${airports}" var="airport">--%>
+                                <%--<option value=${airport.acronim}>${airport.acronim}</option>--%>
+                            <%--</c:forEach>--%>
+                        <%--</select>--%>
+                    <%--</div>--%>
 
-                    <div class=col-md-2>
-                        <input name="departureTime" size="16" type="text" value="" placeholder="Departure time" class="form_datetime">
-                    </div>
+                    <%--<div class=col-md-2>--%>
+                        <%--<input name="departureTime" size="16" type="text" value="" placeholder="Departure time" class="form_datetime">--%>
+                    <%--</div>--%>
 
-                    <div class=col-md-2>
-                        <input name="arrivalTime" size="16" type="text" value="" placeholder="Arrival time" class="form_datetime">
-                    </div>
-                    <!-- Button -->
-                    <div class="col-md-2">
-                        <button id="singlebutton" class="btn btn-success">Find</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                    <%--<div class=col-md-2>--%>
+                        <%--<input name="arrivalTime" size="16" type="text" value="" placeholder="Arrival time" class="form_datetime">--%>
+                    <%--</div>--%>
+                    <%--<!-- Button -->--%>
+                    <%--<div class="col-md-2">--%>
+                        <%--<button id="singlebutton" class="btn btn-success">Find</button>--%>
+                    <%--</div>--%>
+                <%--</form>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</div>--%>
 
 
     <table class="table table-hover">

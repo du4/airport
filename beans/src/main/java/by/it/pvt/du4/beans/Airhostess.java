@@ -1,6 +1,7 @@
 package by.it.pvt.du4.beans;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,8 @@ import java.util.Set;
 
 
 @NoArgsConstructor
+
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @DiscriminatorValue("airhostess")
 @Entity @Table
 public class Airhostess extends Employee implements Serializable{

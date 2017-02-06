@@ -2,7 +2,8 @@ package by.it.pvt.du4.commands;
 
 import by.it.pvt.du4.FlightService;
 import by.it.pvt.du4.beans.*;
-import by.it.pvt.du4.dao.DAO;
+import by.it.pvt.du4.dao.AirportsDAO;
+import by.it.pvt.du4.dao.PlaneDAO;
 import by.it.pvt.du4.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,13 +34,13 @@ class CmdNewFlight extends Action {
                 timestamp1 = Timestamp.valueOf(timestampStr);
                 flight.setDeparture_time(timestamp1);
 
-                Plane plane =  DAO.getDAO().planeDAO.get(Long.parseLong(Form.getString(request,"plane",Patterns.INT)));
+                Plane plane = PlaneDAO.getInstance().get(Long.parseLong(Form.getString(request,"plane",Patterns.INT)));
                 flight.setPlane_id(plane);
 
-                Airport airport = DAO.getDAO().airportsDAO.get(Long.parseLong(Form.getString(request,"from",Patterns.INT)));
+                Airport airport = AirportsDAO.getInstance().get(Long.parseLong(Form.getString(request,"from",Patterns.INT)));
                 flight.setFrom_id(airport);
 
-                airport = DAO.getDAO().airportsDAO.get(Long.parseLong(Form.getString(request,"to",Patterns.INT)));
+                airport = AirportsDAO.getInstance().get(Long.parseLong(Form.getString(request,"to",Patterns.INT)));
                 flight.setTo_id(airport);
 
                 flight.setCreateDate(new Date());

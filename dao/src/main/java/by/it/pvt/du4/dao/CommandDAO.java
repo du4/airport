@@ -13,5 +13,19 @@ import java.util.List;
 
 public class CommandDAO extends BaseDao <Command> {
     static final Logger LOG = LoggerFactory.getLogger(CommandDAO.class);
+    private static volatile CommandDAO instance;
 
+    private CommandDAO()  {
+    }
+
+    public static  CommandDAO getInstance(){
+        if (instance == null) {
+            synchronized (CommandDAO.class) {
+                if(instance == null){
+                    instance = new CommandDAO();
+                }
+            }
+        }
+        return instance;
+    }
 }

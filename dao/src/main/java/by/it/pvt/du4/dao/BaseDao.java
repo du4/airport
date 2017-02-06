@@ -23,7 +23,7 @@ public class BaseDao<T> implements IDao<T> {
 
     public void saveOrUpdate(T t) throws DaoException{
         try {
-            Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
             session.saveOrUpdate(t);
             LOG.info("saveOrUpdate(t):" + t);
         } catch (HibernateException e) {
@@ -38,7 +38,7 @@ public class BaseDao<T> implements IDao<T> {
         LOG.info("Get class by id:" + id);
         T t = null;
         try {
-            Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
             t = (T) session.get(getPersistentClass(), id);
             LOG.info("get clazz:" + t);
         } catch (HibernateException e) {
@@ -52,7 +52,7 @@ public class BaseDao<T> implements IDao<T> {
         LOG.info("Load class by id:" + id);
         T t = null;
         try {
-            Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
             t = (T) session.load(getPersistentClass(), id);
             LOG.info("load() clazz:" + t);
             session.isDirty();
@@ -65,7 +65,7 @@ public class BaseDao<T> implements IDao<T> {
 
     public void delete(T t) throws DaoException {
         try {
-            Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
             session.delete(t);
             LOG.info("Delete:" + t);
         } catch (HibernateException e) {
@@ -75,7 +75,7 @@ public class BaseDao<T> implements IDao<T> {
     }
 
     public List<T> getAll() throws DaoException {
-        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
+        Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
         try {
             return session.createCriteria(getPersistentClass()).setCacheable(true).list();
         }catch (HibernateException e){

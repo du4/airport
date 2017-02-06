@@ -2,6 +2,7 @@ package by.it.pvt.du4.beans;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @DiscriminatorValue("pilot")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity @Table
 public class Pilot extends Employee implements Serializable {
     private static final long serialVersionUID = 1L;

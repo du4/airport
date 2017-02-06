@@ -10,8 +10,8 @@
         <div class="form-group">
         <!-- Select Basic -->
         <div class="row">
-            <div class="col-md-3">
-                <label class="col-md-3 control-label">Pilots</label>
+            <div class="col-md-2">
+                <label class="col-md-2 control-label">Pilots</label>
                 <c:forEach items="${crewPilots}" var="crewPilot">
                     <select class="form-control" id="sel${crewPilot.id}">
                         <optgroup label="Pilots">
@@ -27,8 +27,8 @@
                     </select>
                 </c:forEach>
             </div>
-            <div class="col-md-3">
-                <label class="col-md-3 control-label">Airhostesses</label>
+            <div class="col-md-2">
+                <label class="col-md-2 control-label">Airhostesses</label>
                 <c:forEach items="${crewAirhostsses}" var="crewAirhostss">
                     <select class="form-control" id="sel${crewAirhostss.id}">
                         <optgroup label="Airhostesses">

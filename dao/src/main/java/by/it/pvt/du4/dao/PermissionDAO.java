@@ -12,13 +12,4 @@ import java.util.List;
 
 public class PermissionDAO extends BaseDao <Permission>{
     private static final Logger LOG = LoggerFactory.getLogger(PermissionDAO.class);
-//    public List<Permission> getAll() throws DaoException {
-//        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
-//        try {
-//            return   session.createCriteria(Permission.class).setCacheable(true).list();
-//        }catch (HibernateException e){
-//            LOG.error(""+e);
-//            throw  new DaoException(e);
-//        }
-//    }
 }

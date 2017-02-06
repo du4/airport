@@ -82,20 +82,6 @@ public class SessionAttrSesHelper {
             request.getSession().setAttribute("planes", planes);
         }
     }
-//    static void setCrewsToAttribute(HttpServletRequest request) throws ServiceException {
-//        Object o = request.getSession().getAttribute("crews");
-//        List<Crew> crews;
-//        if (o != null) {
-//            if (o instanceof List) {
-//                crews = (List<Crew>) o;
-//                request.setAttribute("crews", crews);
-//            }
-//        }else {
-//            crews = DictionaryServiceUtil.getInstance().getCrews();
-//            request.setAttribute("crews", crews);
-//            request.getSession().setAttribute("crews", crews);
-//        }
-//    }
     @SuppressWarnings("unchecked")
     public static void setCommandToAttribute(HttpServletRequest request) throws ServiceException {
         Object o = request.getSession().getAttribute("commands");

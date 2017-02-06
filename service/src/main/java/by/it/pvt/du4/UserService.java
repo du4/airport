@@ -48,7 +48,12 @@ public class UserService implements IService<User>{
         try {
             t = session.beginTransaction();
             user.setUpdatedDate(new Date());
-            DAO.getDAO().userDAO.saveOrUpdate(user);
+            User user1 = DAO.getDAO().userDAO.get(user.getId());
+            user1.setEmail(user.getEmail());
+            user1.setLogin(user.getLogin());
+            user1.setRole(user.getRole());
+            user1.setUpdatedDate(user.getUpdatedDate());
+            DAO.getDAO().userDAO.saveOrUpdate(user1);
             t.commit();
             session.flush();
         }catch (Exception e) {

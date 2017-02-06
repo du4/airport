@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ include file="../static/include/begin-html.jsp" %>
@@ -42,12 +43,12 @@
             </div>
 
             <div class=col-md-2>
-                <input id="textinput4" name="CreatedDate" type="text"
-                      value="${user.createdDate}" class="form-control input-md">
+                <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.createdDate}" var="formattedDate"/>
+                <input id="textinput4" name="CreatedDate" value="${formattedDate}" type="text" class="form-control input-md">
             </div>
 
             <div class=col-md-2>
-                ${user.updatedDate}
+                <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.updatedDate}" />
             </div>
 
 

@@ -8,15 +8,20 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class CmdIndex extends Action {
     private  static final Logger LOG = LoggerFactory.getLogger(CmdIndex.class);
-    private static final int pageSize = 3;
-    private static int startNumber = 0;
+    private static int pageSize = 3;
+    private static int pageCount = 0;
+    private static long startIndex = 1;
+    private static int activePageIndex = 1;
     @Override
     public Action execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String flightQuery ="";
+        Map<String, String> params = new HashMap<>();
 
         if ("post".equalsIgnoreCase(request.getMethod())) {
             try {
@@ -28,8 +33,11 @@ class CmdIndex extends Action {
                 }
                 queryStrBuilder.appendIntParam("fromPort", "=", request.getParameter("from_id"));
                 queryStrBuilder.appendIntParam("toPort", "=", request.getParameter("to_id"));
-                queryStrBuilder.appendStrParam("DATE(departure_time)", "=", request.getParameter("departureTime"));
-                queryStrBuilder.appendStrParam("DATE(arrival_time)", "=", request.getParameter("arrivalTime"));
+
+                params.put("from", request.getParameter("from"));
+                params.put("to",request.getParameter("to"));
+//                queryStrBuilder.appendStrParam("DATE(departure_time)", "=", request.getParameter("departureTime"));
+//                queryStrBuilder.appendStrParam("DATE(arrival_time)", "=", request.getParameter("arrivalTime"));
                 LOG.trace(queryStrBuilder.toString());
                 flightQuery = queryStrBuilder.getQuery();
             } catch (Exception e) {
@@ -39,10 +47,27 @@ class CmdIndex extends Action {
             }
         }
 
-        List<FlightStr> flightStr = FlightService.getInstance().getAllStringFlights(null);
-//        for (FlightStr flight : flightStrs) {
-//            flight.setViewNumber(++startNumber);
-//        }
+        String ps = request.getParameter("pageSize");
+        String api = request.getParameter("activePageIndex");
+
+        if (api == null ) {
+            api = Integer.toString(activePageIndex);
+            ps = Integer.toString(pageSize);
+        }
+        Long fCount = FlightService.getInstance().getFlightsCount();
+        startIndex = (Integer.parseInt(api)-1) * Integer.parseInt(ps);
+        pageSize = Integer.parseInt(ps);
+
+        params.put("pageSize", ps);
+        params.put("startIndex", Long.toString(startIndex));
+        List<FlightStr> flightStr = FlightService.getInstance().getAllStringFlights(params);
+
+        request.setAttribute("pageSize", pageSize);
+        pageCount = (int)Math.ceil((float)(fCount)/pageSize);
+        request.setAttribute("pageCount", pageCount);
+        activePageIndex = Integer.parseInt(api);
+        request.setAttribute("activePageIndex", activePageIndex);
+
         request.setAttribute("flightStr", flightStr);
         SessionAttrSesHelper.setAirportsToAttribute(request);
         return null;

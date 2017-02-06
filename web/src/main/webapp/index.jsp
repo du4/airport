@@ -19,7 +19,7 @@
                         <select id="from" name="from"  class="form-control">
                             <option value="" selected disabled>Departure</option>
                             <c:forEach items="${airports}" var="airport">
-                                <option value=${airport.id}>${airport.acronim}</option>
+                                <option value=${airport.acronim}>${airport.acronim}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -28,7 +28,7 @@
                         <select id="to" name="to" class="form-control">
                             <option value="" selected disabled>Destination</option>
                             <c:forEach items="${airports}" var="airport">
-                                <option value=${airport.id}>${airport.acronim}</option>
+                                <option value=${airport.acronim}>${airport.acronim}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -62,6 +62,7 @@
             <th>To</th>
 
             <c:if test="${user.getRole().getId() < 3}">
+                <th>id</th>
                 <th>Crew</th>
                 <th>User</th>
                 <th>CreatedDate</th>
@@ -84,6 +85,7 @@
                     <td>${f.from}</td>
                     <td>${f.to}</td>
                     <c:if test="${user.getRole().getId() < 3}">
+                        <td>${f.id}</td>
                         <td>
                             <c:forEach items="${f.crew}" var="e">
                                 ${e.name }
@@ -100,12 +102,35 @@
         </form>
         </tbody>
     </table>
-    <ul class="pager">
-        <li><a href="#">Previous</a></li>
-        <li><a href="#">Next</a></li>
-    </ul>
+
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="pagination">
+                <c:forEach var="i" begin="1" end = "${pageCount}">
+                    <li
+                            <c:if test="${i == activePageIndex}">
+                                class="active"
+                            </c:if>
+
+                    ><a href="airport?action=index&activePageIndex=${i}&pageSize=${pageSize}">${i}</a></li>
+                </c:forEach>
+            </ul>
+        </div>
+        <%--<div class="col-md-1">--%>
+            <%--<div class="form-group">--%>
+                <%--<label for="selPage">Page size:</label>--%>
+                <%--<select id="selPage" name="selPage" class="form-control">--%>
+                    <%--<option value="1">1</option>--%>
+                    <%--<option value="2" selected>2</option>--%>
+                    <%--<option value="3">3</option>--%>
+                    <%--<option value="4">4</option>--%>
+                    <%--<option value="5">5</option>--%>
+                <%--</select>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    </div>
+
 </div>
-<%--</form>--%>
 
 <script type="text/javascript" src="WEB-INF/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 

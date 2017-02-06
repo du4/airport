@@ -49,15 +49,6 @@ public class FlightService implements IService<Flight> {
         return  airports;
     }
 
-    public List<FlightStr> getAllStringFlights(Map<String,String> flightQuery) throws ServiceException {
-        try {
-            return DAO.getDAO().flightDAO.getFindByFilter(flightQuery);
-        } catch (DaoException e) {
-            LOG.error(""+e);
-            throw new ServiceException(e);
-        }
-    }
-
     @Override
     public void saveOrUpdate(Flight flight) throws ServiceException {
         try {
@@ -96,6 +87,24 @@ public class FlightService implements IService<Flight> {
             return  crew;
         }catch (Exception e) {
             t.rollback();
+            LOG.error(""+e);
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<FlightStr> getAllStringFlights(Map<String,String> flightQuery) throws ServiceException {
+        try {
+            return DAO.getDAO().flightDAO.getFindByFilter(flightQuery);
+        } catch (DaoException e) {
+            LOG.error(""+e);
+            throw new ServiceException(e);
+        }
+    }
+
+    public Long getFlightsCount() throws ServiceException {
+        try {
+            return DAO.getDAO().flightDAO.getCount();
+        } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);
         }

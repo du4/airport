@@ -1,7 +1,9 @@
 package by.it.pvt.du4.dao;
 
 
-import by.it.pvt.du4.beans.*;
+import by.it.pvt.du4.beans.Employee;
+import by.it.pvt.du4.beans.Flight;
+import by.it.pvt.du4.beans.FlightStr;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -18,6 +20,14 @@ public class FlightDAO extends BaseDao <Flight> {
 
     public List<FlightStr> getFindByFilter(Map<String, String> flightQuery) throws DaoException {
         List<FlightStr> flights = new ArrayList<>();
+        String toFrom = "";
+        String from;
+        if (flightQuery != null) {
+            if (flightQuery.get("from") != null){
+                toFrom +="where a.acronim=\""+flightQuery.get("from")+"\"";
+            }
+        }
+
 
         try {
             Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
@@ -27,8 +37,16 @@ public class FlightDAO extends BaseDao <Flight> {
                     "inner join f.to_id  a " +
                     "inner join f.from_id  b " +
                     "inner join f.plane_id  p " +
-                    "inner join f.user_id  u ";
+                    "inner join f.user_id  u "+
+                    "order by f.id asc ";
             Query q = session.createQuery(hqlString);
+            if (flightQuery != null) {
+                if (flightQuery.get("startIndex") != null && flightQuery.get("pageSize") != null) {
+                    q.setFirstResult(Integer.parseInt(flightQuery.get("startIndex")));
+                    q.setMaxResults(Integer.parseInt(flightQuery.get("pageSize")));
+                }
+            }
+
             List<Object[]> res  = q.list();
             for (Object[] f : res) {
                 flights.add(new FlightStr((Long)f[0],(String )f[1],(String )f[2],(Date)f[3],(Date)f[4],
@@ -61,4 +79,14 @@ public class FlightDAO extends BaseDao <Flight> {
         }
     }
 
+    public Long getCount() throws DaoException {
+        try {
+            Long count = (Long) HibernateUtil.getHibernateUtil().getSessionFromThreadLocal().createQuery("SELECT count(*) from Flight").uniqueResult();
+           return count;
+        }catch (HibernateException e) {
+            e.printStackTrace();
+            LOG.error("" + e);
+            throw new DaoException(e);
+        }
+    }
 }

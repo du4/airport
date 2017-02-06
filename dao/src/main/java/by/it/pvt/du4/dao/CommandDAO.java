@@ -14,13 +14,4 @@ import java.util.List;
 public class CommandDAO extends BaseDao <Command> {
     static final Logger LOG = LoggerFactory.getLogger(CommandDAO.class);
 
-//    public List<Command> getAll() throws DaoException {
-//        Session session = HibernateUtil.getHibernateUtil().getSessionFromThreadLocal();
-//        try {
-//             return   session.createCriteria(Command.class).setCacheable(true).list();
-//        }catch (HibernateException e){
-//            LOG.error(""+e);
-//            throw  new DaoException(e);
-//        }
-//    }
 }

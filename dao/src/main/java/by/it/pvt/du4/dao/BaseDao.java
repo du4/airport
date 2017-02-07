@@ -29,7 +29,6 @@ public class BaseDao<T> implements IDao<T> {
             LOG.error("Error save or update in IDao" + e);
             throw new DaoException(e);
         }
-
     }
 
     public T get(Serializable id) throws DaoException {

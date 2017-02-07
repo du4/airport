@@ -1,5 +1,6 @@
 package by.it.pvt.du4.commands;
 
+import by.it.pvt.du4.DictionaryServiceUtil;
 import by.it.pvt.du4.FlightService;
 import by.it.pvt.du4.beans.Airhostess;
 import by.it.pvt.du4.beans.Employee;
@@ -31,12 +32,10 @@ class CmdStuffingCrew extends Action {
                         }
                     }
             );
-            request.setAttribute("additionDropDoun", 2);
             request.setAttribute("crewPilots",pilots);
             request.setAttribute("crewAirhostsses", airhostesses);
-            SessionAttrSesHelper.setPilotsToAttribute(request);
-            SessionAttrSesHelper.setAirhostessToAttribute(request);
-
+            request.setAttribute("pilots", DictionaryServiceUtil.getInstance().getPilots());
+            request.setAttribute("airhostesses", DictionaryServiceUtil.getInstance().getAirhostesses());
         }else{// POST
             try {
 //                crew.setPilot1_id(Integer.parseInt(Form.getString(request,"pilot1", Patterns.INT)));

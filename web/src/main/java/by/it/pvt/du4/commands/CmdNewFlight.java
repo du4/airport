@@ -1,5 +1,6 @@
 package by.it.pvt.du4.commands;
 
+import by.it.pvt.du4.DictionaryServiceUtil;
 import by.it.pvt.du4.FlightService;
 import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.dao.AirportsDAO;
@@ -61,9 +62,8 @@ class CmdNewFlight extends Action {
                 return  Actions.NEWFLIGHT.action;
             }
         }else{
-            SessionAttrSesHelper.setAirportsToAttribute(request);
-            SessionAttrSesHelper.setPlanesToAttribute(request);
-//            SessionAttrSesHelper.setCrewsToAttribute(request);
+            request.setAttribute("airports", DictionaryServiceUtil.getInstance().getAirports());
+            request.setAttribute("planes", DictionaryServiceUtil.getInstance().getPlanes());
         }
         return null;
     }

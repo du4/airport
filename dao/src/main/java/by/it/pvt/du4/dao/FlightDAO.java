@@ -79,7 +79,7 @@ public class FlightDAO extends BaseDao <Flight> {
     public List<Employee> getFlightCrew(Serializable id) throws DaoException {
         try {
             Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-            Query q = session.createQuery("SELECT  f.employees FROM Flight f WHERE f.id="+id);
+            Query q = session.createQuery("SELECT  f.employees FROM Flight f WHERE f.id="+id).setCacheable(true);
             List<Employee> crew = q.list();
             return crew;
         }catch (Exception e){
@@ -91,7 +91,7 @@ public class FlightDAO extends BaseDao <Flight> {
 
     public Long getCount() throws DaoException {
         try {
-            Long count = (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from Flight").uniqueResult();
+            Long count = (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from Flight").setCacheable(true).uniqueResult();
            return count;
         }catch (HibernateException e) {
             e.printStackTrace();

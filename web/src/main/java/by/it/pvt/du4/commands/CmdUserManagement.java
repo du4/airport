@@ -1,5 +1,6 @@
 package by.it.pvt.du4.commands;
 
+import by.it.pvt.du4.DictionaryServiceUtil;
 import by.it.pvt.du4.UserService;
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
@@ -51,7 +52,7 @@ class CmdUserManagement extends Action {
                 request.setAttribute(AttrMessages.msgMessage,"Error");
             }
         }
-        SessionAttrSesHelper.setRolesToAttribute(request);
+        request.setAttribute("roles", DictionaryServiceUtil.getInstance().getRoles());
         List<User> users = UserService.getInstance().getAll();
         if (users == null) {
             LOG.trace("No users found.");

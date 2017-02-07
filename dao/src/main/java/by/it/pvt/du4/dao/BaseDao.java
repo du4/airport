@@ -16,9 +16,7 @@ import java.util.List;
 public class BaseDao<T> implements IDao<T> {
     private static final Logger LOG = LoggerFactory.getLogger(BaseDao.class);
 
-
     public BaseDao() {
-
     }
 
     public void saveOrUpdate(T t) throws DaoException{

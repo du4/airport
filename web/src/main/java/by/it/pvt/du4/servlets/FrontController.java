@@ -41,7 +41,6 @@ public class FrontController extends HttpServlet {
         Action action;
         Action nextAction = null;
         try {
-            updateHttpSessionCash(request);
             setUserToAttribute(request);
             action = Actions.defineFrom(request);
             LOG.trace("ActionPage="+ action.getJsp());
@@ -63,7 +62,6 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
         Action action;
         try {
-            updateHttpSessionCash(request);
             setUserToAttribute(request);
             action = Actions.defineFrom(request);
             action.execute(request, response);
@@ -76,21 +74,6 @@ public class FrontController extends HttpServlet {
         }
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(action.getJsp());
         requestDispatcher.forward(request, response);
-    }
-
-    /**
-     * Store commandList & permissionList to current Session if it exist
-     * @param request
-     * @throws ServiceException
-     */
-    private void updateHttpSessionCash(HttpServletRequest request) throws ServiceException {
-        Session hs = HibernateUtil.getHibernateUtil().getHibernateSession();
-        Transaction t =  hs.beginTransaction();
-        SessionAttrSesHelper.setCommandToAttribute(request);
-        SessionAttrSesHelper.setPermissionToAttribute(request);
-//        SessionAttrSesHelper.setPlanesToAttribute(request);
-        t.commit();
-        hs.flush();
     }
 
     /**

@@ -82,34 +82,14 @@ public class SessionAttrSesHelper {
             request.getSession().setAttribute("planes", planes);
         }
     }
-    @SuppressWarnings("unchecked")
+
     public static void setCommandToAttribute(HttpServletRequest request) throws ServiceException {
-        Object o = request.getSession().getAttribute("commands");
-        List<Command> commands;
-        if (o != null) {
-            if (o instanceof List) {
-                commands = (List<Command>) o;
-                request.setAttribute("commands", commands);
-            }
-        }else {
-            commands = DictionaryServiceUtil.getInstance().getCommands();
-            request.setAttribute("commands", commands);
-            request.getSession().setAttribute("commands", commands);
-        }
+        List<Command> commands = DictionaryServiceUtil.getInstance().getCommands();
+        request.setAttribute("commands", commands);
     }
-    @SuppressWarnings("unchecked")
+
     public static void setPermissionToAttribute(HttpServletRequest request) throws ServiceException {
-        Object o = request.getSession().getAttribute("permissions");
-        List<Permission> permissions;
-        if (o != null) {
-            if (o instanceof List) {
-                permissions = (List<Permission>) o;
-                request.setAttribute("permissions", permissions);
-            }
-        }else {
-            permissions = DictionaryServiceUtil.getInstance().getPermissions();
-            request.setAttribute("permissions", permissions);
-            request.getSession().setAttribute("permissions", permissions);
-        }
+        List<Permission> permissions = DictionaryServiceUtil.getInstance().getPermissions();
+        request.setAttribute("permissions", permissions);
     }
 }

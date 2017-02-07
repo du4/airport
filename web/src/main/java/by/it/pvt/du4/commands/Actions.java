@@ -1,5 +1,6 @@
 package by.it.pvt.du4.commands;
 
+import by.it.pvt.du4.DictionaryServiceUtil;
 import by.it.pvt.du4.beans.Command;
 import by.it.pvt.du4.beans.Permission;
 import by.it.pvt.du4.beans.Role;
@@ -73,11 +74,11 @@ public enum Actions {
      * Check if action(cmd) are allowed to_id current user_id(from_id session).
      * If allowed return - true, else return false
      * @param cmd request
-     * @return boolean
+     * @return boolean true if command is permitted, false if disabled
      */
     private static boolean checkPermission(String cmd, HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
-        List <Command> commands = (List<Command>) session.getAttribute("commands");
+        List <Command> commands = DictionaryServiceUtil.getInstance().getCommands();
         Long commandID = -1L;
         for (Command command : commands) {
             if (command.getName().equalsIgnoreCase(cmd)) {
@@ -90,7 +91,7 @@ public enum Actions {
             throw new IllegalArgumentException("Error 404 - Not Found");
         }
 
-        List<Permission> permissions = (List<Permission>) session.getAttribute("permissions");
+        List<Permission> permissions = DictionaryServiceUtil.getInstance().getPermissions();
         User user = (User) session.getAttribute("user");
         if (user == null){
             user = new User("tmpUser", Role.USER_ROLE);

@@ -5,6 +5,7 @@ import by.it.pvt.du4.dao.exceptions.DaoException;
 import java.io.Serializable;
 
 interface IDao<T> {
+
     void saveOrUpdate(T t) throws DaoException;
 
     T get(Serializable id) throws DaoException;

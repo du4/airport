@@ -6,6 +6,7 @@ import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.Transaction;
+import org.hibernate.sql.ordering.antlr.Factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +67,7 @@ public class DictionaryServiceUtil {
         try {
             List<Airport>airports = new ArrayList<>();
             AirportsDAO.getInstance().getAll().forEach(airport -> airports.add(new Airport(airport.getId(), airport.getAcronim(),airport.getName(),null,null)));
+//            airports = DaoFactory.getInstance().getDao(AirportsDAO.class).getAll();
             return airports;
         } catch (DaoException e) {
             LOG.error(""+e);
@@ -74,7 +76,7 @@ public class DictionaryServiceUtil {
     }
     public List<Airhostess> getAirhostesses() throws ServiceException {
         try {
-            return AirhostessDAO.getInstance().getAll();
+            return DaoFactory.getInstance().getDao(AirhostessDAO.class).getAll();
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);
@@ -85,6 +87,7 @@ public class DictionaryServiceUtil {
         try {
             List<Plane> planes = new ArrayList<>();
             PlaneDAO.getInstance().getAll().forEach(plane -> planes.add(new Plane(plane.getId(), plane.getPlaneName(),null)));
+//            planes = DaoFactory.getInstance().getDao(PlaneDAO.class).getAll();
             return planes;
         } catch (DaoException e) {
             LOG.error(""+e);
@@ -97,6 +100,7 @@ public class DictionaryServiceUtil {
             List<Command>cmds = new ArrayList<>();
             List<Command> commands = CommandDAO.getInstance().getAll();
             commands.forEach(cmd -> cmds.add(new Command(cmd.getId(),cmd.getName(), cmd.getPermissions())));
+//            cmds = DaoFactory.getInstance().getDao(CommandDAO.class).getAll();
             return cmds;
         } catch (DaoException e) {
             LOG.error(""+e);
@@ -109,6 +113,7 @@ public class DictionaryServiceUtil {
             List<Permission> pms = new ArrayList<>();
             List<Permission> permissions =  PermissionDAO.getInstance().getAll();
             permissions.forEach(prm->pms.add(new Permission(prm.getId(), prm.getRole_id(), prm.getCommand_id(), prm.getPermission())));
+//            pms = DaoFactory.getInstance().getDao(PermissionDAO.class).getAll();
             return pms;
         } catch (DaoException e) {
             LOG.error(""+e);

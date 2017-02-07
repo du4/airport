@@ -61,12 +61,12 @@ public class FlightService implements IService<Flight> {
     }
 
     @Override
-    public Flight getById(Serializable id) throws ServiceException {
+    public Flight get(Serializable id) throws ServiceException {
         return null;
     }
 
     @Override
-    public Flight loadById(Serializable id) throws ServiceException {
+    public Flight load(Serializable id) throws ServiceException {
         return null;
     }
 

@@ -2,7 +2,7 @@ package by.it.pvt.du4;
 
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.dao.DAO;
+import by.it.pvt.du4.dao.DaoFactory;
 import by.it.pvt.du4.dao.RoleDAO;
 import by.it.pvt.du4.dao.UserDAO;
 import by.it.pvt.du4.dao.exceptions.DaoException;
@@ -16,15 +16,13 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class UserService implements IService<User>{
+public class UserService extends BaseService<User>{
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
     private static volatile UserService instance;
-    static final String solt = "airport";
-
+    static final String salt = "airport";
 
     private UserService()  {
     }
@@ -62,59 +60,8 @@ public class UserService implements IService<User>{
         }
     }
 
-    @Override
-    public User getById(Serializable id) throws ServiceException {
-        Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-        Transaction t = null;
-        User user = null;
-        try {
-            t = session.beginTransaction();
-            user = UserDAO.getInstance().get(id);
-            t.commit();
-            session.flush();
-            return  user;
-        }catch (Exception e) {
-            t.rollback();
-            LOG.error(""+e);
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public User loadById(Serializable id) throws ServiceException {
-        Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-        Transaction t = null;
-        User user = null;
-        try {
-            t = session.beginTransaction();
-            user = UserDAO.getInstance().load(id);
-            t.commit();
-            session.flush();
-            return  user;
-        }catch (Exception e) {
-            t.rollback();
-            LOG.error(""+e);
-            throw new ServiceException(e);
-        }
-    }
-
-    public void delete(User user) throws ServiceException {
-        Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-        Transaction t = null;
-        try {
-            t = session.beginTransaction();
-            UserDAO.getInstance().delete(user);
-            t.commit();
-            session.flush();
-        } catch (DaoException e) {
-            t.rollback();
-            LOG.error(""+e);
-            throw new ServiceException(e);
-        }
-    }
-
     public void create(User user) throws ServiceException {
-        user.setPass(DigestUtils.md5Hex(solt + user.getPass()));
+        user.setPass(DigestUtils.md5Hex(salt + user.getPass()));
         try {
             HibernateUtil util =  HibernateUtil.getHibernateUtil();
             Session session = util.getHibernateSession();
@@ -123,6 +70,7 @@ public class UserService implements IService<User>{
                 transaction = session.beginTransaction();
                 Role role = RoleDAO.getInstance().getByName("user");
                 user.setRole(role);
+                DaoFactory.getInstance().getDao(UserDAO.class).saveOrUpdate(user);
                 UserDAO.getInstance().saveOrUpdate(user);
                 transaction.commit();
                 session.flush();
@@ -150,7 +98,7 @@ public class UserService implements IService<User>{
         Transaction t = null;
         try {
             t = session.beginTransaction();
-            user.setPass(DigestUtils.md5Hex(solt + user.getPass()));
+            user.setPass(DigestUtils.md5Hex(salt + user.getPass()));
             user = UserDAO.getInstance().getByLoginAndPassword(user);
             t.commit();
             session.flush();

@@ -1,6 +1,6 @@
 <ehcache>
 
-    <diskStore path="/home/du4/IdeaProjects/airport/cache/ehcache" />
+    <diskStore path="/home/du4/IdeaProjects/airport/cache/ehcache"/>
 
     <defaultCache maxElementsInMemory="20000"
                   maxEntriesLocalHeap="10000"

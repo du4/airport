@@ -37,7 +37,7 @@ public class DictionaryServiceUtil {
         Transaction t = null;
         try {
             t = HibernateUtil.getHibernateUtil().getHibernateSession().beginTransaction();
-            List<Role> roles = RoleDAO.getInstance().getAll();
+            List<Role> roles = DaoFactory.getInstance().getDao(RoleDAO.class).getAll();
             t.commit();
             HibernateUtil.getHibernateUtil().getHibernateSession().flush();
             return roles;
@@ -52,7 +52,7 @@ public class DictionaryServiceUtil {
         Transaction t = null;
         try {
             t = HibernateUtil.getHibernateUtil().getHibernateSession().beginTransaction();
-            List<Pilot> pilots = PilotDAO.getInstance().getAll();
+            List<Pilot> pilots = DaoFactory.getInstance().getDao(PilotDAO.class).getAll();
             t.commit();
             HibernateUtil.getHibernateUtil().getHibernateSession().flush();
             return pilots;
@@ -66,8 +66,8 @@ public class DictionaryServiceUtil {
     public List<Airport> getAirports() throws ServiceException {
         try {
             List<Airport>airports = new ArrayList<>();
-            AirportsDAO.getInstance().getAll().forEach(airport -> airports.add(new Airport(airport.getId(), airport.getAcronim(),airport.getName(),null,null)));
-//            airports = DaoFactory.getInstance().getDao(AirportsDAO.class).getAll();
+            DaoFactory.getInstance().getDao(AirportsDAO.class).getAll().forEach(airport ->
+                    airports.add(new Airport(airport.getId(), airport.getAcronim(),airport.getName(),null,null)));
             return airports;
         } catch (DaoException e) {
             LOG.error(""+e);
@@ -85,9 +85,7 @@ public class DictionaryServiceUtil {
 
     public List<Plane> getPlanes() throws ServiceException {
         try {
-            List<Plane> planes = new ArrayList<>();
-            PlaneDAO.getInstance().getAll().forEach(plane -> planes.add(new Plane(plane.getId(), plane.getPlaneName(),null)));
-//            planes = DaoFactory.getInstance().getDao(PlaneDAO.class).getAll();
+            List<Plane> planes = DaoFactory.getInstance().getDao(PlaneDAO.class).getAll();
             return planes;
         } catch (DaoException e) {
             LOG.error(""+e);
@@ -97,10 +95,7 @@ public class DictionaryServiceUtil {
 
     public List<Command> getCommands() throws ServiceException {
         try {
-            List<Command>cmds = new ArrayList<>();
-            List<Command> commands = CommandDAO.getInstance().getAll();
-            commands.forEach(cmd -> cmds.add(new Command(cmd.getId(),cmd.getName(), cmd.getPermissions())));
-//            cmds = DaoFactory.getInstance().getDao(CommandDAO.class).getAll();
+            List<Command>cmds = DaoFactory.getInstance().getDao(CommandDAO.class).getAll();
             return cmds;
         } catch (DaoException e) {
             LOG.error(""+e);
@@ -110,10 +105,7 @@ public class DictionaryServiceUtil {
 
     public List<Permission> getPermissions() throws ServiceException {
         try {
-            List<Permission> pms = new ArrayList<>();
-            List<Permission> permissions =  PermissionDAO.getInstance().getAll();
-            permissions.forEach(prm->pms.add(new Permission(prm.getId(), prm.getRole_id(), prm.getCommand_id(), prm.getPermission())));
-//            pms = DaoFactory.getInstance().getDao(PermissionDAO.class).getAll();
+            List<Permission> pms = DaoFactory.getInstance().getDao(PermissionDAO.class).getAll();
             return pms;
         } catch (DaoException e) {
             LOG.error(""+e);

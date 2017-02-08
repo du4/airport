@@ -13,19 +13,8 @@ import java.util.List;
 
 public class AirportsDAO extends BaseDao <Airport> {
     private static final Logger LOG = LoggerFactory.getLogger(AirportsDAO.class);
-    private static volatile AirportsDAO instance;
 
-    private AirportsDAO()  {
+    public AirportsDAO()  {
     }
 
-    public static  AirportsDAO getInstance(){
-        if (instance == null) {
-            synchronized (AirportsDAO.class) {
-                if(instance == null){
-                    instance = new AirportsDAO();
-                }
-            }
-        }
-        return instance;
-    }
 }

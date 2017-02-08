@@ -12,19 +12,7 @@ import java.util.List;
 
 public class PlaneDAO extends BaseDao <Plane> {
     private static final Logger LOG = LoggerFactory.getLogger(PlaneDAO.class);
-    private static volatile PlaneDAO instance;
 
-    private PlaneDAO()  {
-    }
-
-    public static  PlaneDAO getInstance(){
-        if (instance == null) {
-            synchronized (PlaneDAO.class) {
-                if(instance == null){
-                    instance = new PlaneDAO();
-                }
-            }
-        }
-        return instance;
+    public PlaneDAO()  {
     }
 }

@@ -13,20 +13,8 @@ import java.util.List;
 
 public class PilotDAO extends BaseDao <Pilot> {
     private static final Logger LOG = LoggerFactory.getLogger(PilotDAO.class);
-    private static volatile PilotDAO instance;
 
-    private PilotDAO()  {
-    }
-
-    public static  PilotDAO getInstance(){
-        if (instance == null) {
-            synchronized (PilotDAO.class) {
-                if(instance == null){
-                    instance = new PilotDAO();
-                }
-            }
-        }
-        return instance;
+    public PilotDAO()  {
     }
 
 }

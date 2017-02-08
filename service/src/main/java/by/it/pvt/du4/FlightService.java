@@ -1,6 +1,7 @@
 package by.it.pvt.du4;
 
 import by.it.pvt.du4.beans.*;
+import by.it.pvt.du4.dao.DaoFactory;
 import by.it.pvt.du4.dao.FlightDAO;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.exceptions.ServiceException;
@@ -34,25 +35,10 @@ public class FlightService implements IService<Flight> {
         return instance;
     }
 
-    public List<Airport>  getAirports(){
-        Session session =  HibernateUtil.getHibernateUtil().getHibernateSession();
-        Transaction transaction = null;
-        List<Airport> airports = null;
-        try{
-//            transaction = session.beginTransaction();
-            Criteria criteria = session.createCriteria(Airport.class);
-            airports =  criteria.list();
-        }catch (HibernateException e){
-//            transaction.rollback();
-            LOG.error(""+e);
-        }
-        return  airports;
-    }
-
     @Override
     public void saveOrUpdate(Flight flight) throws ServiceException {
         try {
-            FlightDAO.getInstance().saveOrUpdate(flight);
+            DaoFactory.getInstance().getDao(FlightDAO.class).saveOrUpdate(flight);
         } catch (DaoException e) {
             e.printStackTrace();
             LOG.error(""+e);
@@ -81,11 +67,12 @@ public class FlightService implements IService<Flight> {
         List<Employee> crew = null;
         try {
             t = session.beginTransaction();
-            crew = FlightDAO.getInstance().getFlightCrew(id);
+            crew = DaoFactory.getInstance().getDao(FlightDAO.class).getFlightCrew(id);
             t.commit();
             session.flush();
             return  crew;
         }catch (Exception e) {
+            assert t != null;
             t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);
@@ -94,7 +81,7 @@ public class FlightService implements IService<Flight> {
 
     public List<FlightStr> getAllStringFlights(Map<String,String> flightQuery) throws ServiceException {
         try {
-            return FlightDAO.getInstance().getByFilter(flightQuery);
+            return DaoFactory.getInstance().getDao(FlightDAO.class).getByFilter(flightQuery);
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);
@@ -103,7 +90,7 @@ public class FlightService implements IService<Flight> {
 
     public Long getFlightsCount() throws ServiceException {
         try {
-            return FlightDAO.getInstance().getCount();
+            return DaoFactory.getInstance().getDao(FlightDAO.class).getCount();
         } catch (DaoException e) {
             LOG.error(""+e);
             throw new ServiceException(e);

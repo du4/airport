@@ -42,18 +42,20 @@ public class UserService extends BaseService<User>{
     public void saveOrUpdate(User user) throws ServiceException {
         Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
         Transaction t = null;
+        UserDAO userDAO = DaoFactory.getInstance().getDao(UserDAO.class);
         try {
             t = session.beginTransaction();
             user.setUpdatedDate(new Date());
-            User user1 = UserDAO.getInstance().get(user.getId());
+            User user1 = userDAO.get(user.getId());
             user1.setEmail(user.getEmail());
             user1.setLogin(user.getLogin());
             user1.setRole(user.getRole());
             user1.setUpdatedDate(user.getUpdatedDate());
-            UserDAO.getInstance().saveOrUpdate(user1);
+            userDAO.saveOrUpdate(user1);
             t.commit();
             session.flush();
         }catch (Exception e) {
+            assert t != null;
             t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);
@@ -68,13 +70,13 @@ public class UserService extends BaseService<User>{
             Transaction transaction = null;
             try {
                 transaction = session.beginTransaction();
-                Role role = RoleDAO.getInstance().getByName("user");
+                Role role = DaoFactory.getInstance().getDao(RoleDAO.class).getByName("user");
                 user.setRole(role);
                 DaoFactory.getInstance().getDao(UserDAO.class).saveOrUpdate(user);
-                UserDAO.getInstance().saveOrUpdate(user);
                 transaction.commit();
                 session.flush();
             }catch (HibernateException e) {
+                assert transaction != null;
                 transaction.rollback();
                 LOG.error(""+e);
                 throw new DaoException(e);
@@ -99,7 +101,7 @@ public class UserService extends BaseService<User>{
         try {
             t = session.beginTransaction();
             user.setPass(DigestUtils.md5Hex(salt + user.getPass()));
-            user = UserDAO.getInstance().getByLoginAndPassword(user);
+            user =  DaoFactory.getInstance().getDao(UserDAO.class).getByLoginAndPassword(user);
             t.commit();
             session.flush();
             return user;
@@ -116,11 +118,12 @@ public class UserService extends BaseService<User>{
         List<User> users = null;
         try {
             t = session.beginTransaction();
-            users = UserDAO.getInstance().getAll();
+            users =  DaoFactory.getInstance().getDao(UserDAO.class).getAll();
             t.commit();
             session.flush();
             return users;
         }catch (Exception e) {
+            assert t != null;
             t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);

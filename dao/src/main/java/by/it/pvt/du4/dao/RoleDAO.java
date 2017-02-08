@@ -14,20 +14,8 @@ import java.util.List;
 
 public class RoleDAO extends BaseDao <Role> {
     private static final Logger LOG = LoggerFactory.getLogger(RoleDAO.class);
-    private static volatile RoleDAO instance;
 
-    private RoleDAO()  {
-    }
-
-    public static  RoleDAO getInstance(){
-        if (instance == null) {
-            synchronized (RoleDAO.class) {
-                if(instance == null){
-                    instance = new RoleDAO();
-                }
-            }
-        }
-        return instance;
+    public RoleDAO()  {
     }
 
     public Role getByName(String name) throws DaoException {

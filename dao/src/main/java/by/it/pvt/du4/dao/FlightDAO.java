@@ -17,22 +17,9 @@ import java.util.*;
 
 public class FlightDAO extends BaseDao <Flight> {
     private static final Logger LOG = LoggerFactory.getLogger(FlightDAO.class);
-    private static volatile FlightDAO instance;
 
-    private FlightDAO()  {
+    public FlightDAO()  {
     }
-
-    public static  FlightDAO getInstance(){
-        if (instance == null) {
-            synchronized (FlightDAO.class) {
-                if(instance == null){
-                    instance = new FlightDAO();
-                }
-            }
-        }
-        return instance;
-    }
-
 
     public List<FlightStr> getByFilter(Map<String, String> flightQuery) throws DaoException {
         List<FlightStr> flights = new ArrayList<>();
@@ -91,8 +78,8 @@ public class FlightDAO extends BaseDao <Flight> {
 
     public Long getCount() throws DaoException {
         try {
-            Long count = (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from Flight").setCacheable(true).uniqueResult();
-           return count;
+           return (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from Flight").
+                   setCacheable(true).uniqueResult();
         }catch (HibernateException e) {
             e.printStackTrace();
             LOG.error("" + e);

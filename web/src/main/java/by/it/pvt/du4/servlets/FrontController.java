@@ -3,11 +3,7 @@ package by.it.pvt.du4.servlets;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.commands.Action;
 import by.it.pvt.du4.commands.Actions;
-import by.it.pvt.du4.commands.SessionAttrSesHelper;
 import by.it.pvt.du4.exceptions.ServiceException;
-import by.it.pvt.du4.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

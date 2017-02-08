@@ -62,10 +62,6 @@ public enum Actions {
         return result;
     }
 
-    /**
-     * Simple return error Action
-     * @return
-     */
     public static Action getErrorAction(){
         return Actions.ERROR.action;
     }
@@ -79,6 +75,7 @@ public enum Actions {
     private static boolean checkPermission(String cmd, HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
         List <Command> commands = DictionaryServiceUtil.getInstance().getCommands();
+        List<Role>roles = DictionaryServiceUtil.getInstance().getRoles();
         Long commandID = -1L;
         for (Command command : commands) {
             if (command.getName().equalsIgnoreCase(cmd)) {

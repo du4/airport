@@ -18,6 +18,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
+
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicUpdate
 @Entity
@@ -40,6 +41,7 @@ public class User implements Serializable {
     private String login;
 
     @Column(
+
             unique = true,
             nullable = false
     )
@@ -106,5 +108,33 @@ public class User implements Serializable {
                 ", createdDate=" + createdDate +
                 ", updatedDate=" + updatedDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (pass != null ? !pass.equals(user.pass) : user.pass != null) return false;
+        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+        if (createdDate.getTime() != user.createdDate.getTime()) return false;
+        return updatedDate != null ? updatedDate.equals(user.updatedDate) : user.updatedDate == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (pass != null ? pass.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
+        return result;
     }
 }

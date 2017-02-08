@@ -14,20 +14,8 @@ import java.util.List;
 
 public class UserDAO  extends BaseDao <User> {
     private static final Logger LOG = LoggerFactory.getLogger(UserDAO.class);
-    private static volatile UserDAO instance;
 
-    private UserDAO()  {
-    }
-
-    public static  UserDAO getInstance(){
-        if (instance == null) {
-            synchronized (UserDAO.class) {
-                if(instance == null){
-                    instance = new UserDAO();
-                }
-            }
-        }
-        return instance;
+    public UserDAO()  {
     }
 
     public User getByLoginAndPassword(User user) throws DaoException {

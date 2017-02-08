@@ -4,6 +4,7 @@ import by.it.pvt.du4.DictionaryServiceUtil;
 import by.it.pvt.du4.FlightService;
 import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.dao.AirportsDAO;
+import by.it.pvt.du4.dao.DaoFactory;
 import by.it.pvt.du4.dao.PlaneDAO;
 import by.it.pvt.du4.exceptions.ServiceException;
 import org.slf4j.Logger;
@@ -35,13 +36,15 @@ class CmdNewFlight extends Action {
                 timestamp1 = Timestamp.valueOf(timestampStr);
                 flight.setDeparture_time(timestamp1);
 
-                Plane plane = PlaneDAO.getInstance().get(Long.parseLong(Form.getString(request,"plane",Patterns.INT)));
+                AirportsDAO airportsDAO = DaoFactory.getInstance().getDao(AirportsDAO.class);
+
+                Plane plane = DaoFactory.getInstance().getDao(PlaneDAO.class).get(Long.parseLong(Form.getString(request,"plane",Patterns.INT)));
                 flight.setPlane_id(plane);
 
-                Airport airport = AirportsDAO.getInstance().get(Long.parseLong(Form.getString(request,"from",Patterns.INT)));
+                Airport airport = airportsDAO.get(Long.parseLong(Form.getString(request,"from",Patterns.INT)));
                 flight.setFrom_id(airport);
 
-                airport = AirportsDAO.getInstance().get(Long.parseLong(Form.getString(request,"to",Patterns.INT)));
+                airport = airportsDAO.get(Long.parseLong(Form.getString(request,"to",Patterns.INT)));
                 flight.setTo_id(airport);
 
                 flight.setCreateDate(new Date());

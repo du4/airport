@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -34,7 +35,7 @@ public class FlightStr {
     @Getter @Setter
     private Date created_date;
     @Getter @Setter
-    private Set<Employee> crew;
+    private Set<Employee> crew = new HashSet<>(0);
 
     @Override
     public boolean equals(Object o) {

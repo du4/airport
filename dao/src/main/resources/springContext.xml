@@ -2,15 +2,39 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
-        default-init-method="init" default-destroy-method="destroy">
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 
-    <bean id="plane" class="by.it.pvt.du4.beans.Plane " factory-method="getInstance" init-method="init" destroy-method="destroy">
-        <property name="planeName" value="Yak73"/>
-    </bean>
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+       default-init-method="init" default-destroy-method="destroy">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="by.it.pvt.du4.springStudy"/>
+    <aop:aspectj-autoproxy/>
+
+    <aop:config>
+        <aop:pointcut id="performance" expression="execution(* by.it.pvt.du4.springStudy.TaskService.performJob())"/>
+        <aop:pointcut id="performanceAround" expression="execution(* by.it.pvt.du4.springStudy.TaskService.preformJobAround())"/>
+        <aop:pointcut id="performanceException" expression="execution(* by.it.pvt.du4.springStudy.TaskService.performExceptionJob())"/>
+        <aop:pointcut id="performanceName" expression="execution(* by.it.pvt.du4.springStudy.TaskService.performJob(String)) and args(name))"/>
+
+        <aop:aspect ref="work">
+            <aop:before pointcut-ref="performance" method="beforeWork"/>
+            <aop:before pointcut-ref="performanceName" method="interceptWorkName" arg-names="name"/>
+            <aop:after-returning pointcut-ref="performance" method="afterWork" />
+            <aop:around pointcut-ref="performanceAround" method="aroundWork"/>
+            <aop:after-throwing pointcut-ref="performanceException" method="afterWorkProblems" />
+        </aop:aspect>
+    </aop:config>
+
+    <!--<bean id="plane" class="by.it.pvt.du4.beans.Plane " factory-method="getInstance" init-method="init" destroy-method="destroy">-->
+        <!--<property name="planeName" value="Yak73"/>-->
+    <!--</bean>-->
+
 
 
 </beans>

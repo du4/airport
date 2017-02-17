@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Repository("userDAO")
 public class UserDAO  extends BaseDao <User> implements IUserDao{
     private static final Logger LOG = LoggerFactory.getLogger(UserDAO.class);
 
@@ -23,7 +23,6 @@ public class UserDAO  extends BaseDao <User> implements IUserDao{
     public UserDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
-
 
     public User getByLoginAndPassword(User user) throws DaoException {
         LOG.info("Get user by login:" + user.getLogin()+ " and pass");

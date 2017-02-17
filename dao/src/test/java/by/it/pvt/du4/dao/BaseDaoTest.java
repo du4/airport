@@ -8,6 +8,8 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
 import java.util.List;
@@ -17,22 +19,25 @@ import static org.junit.Assert.*;
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
 public class BaseDaoTest {
 
-
-    private static Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-    private UserDAO userDAO = DaoFactory.getInstance().getDao(UserDAO.class);
+    private static ApplicationContext context;
+    private static BaseDao<User>baseDao;
+    private static Session session ;
     private static User testUser;
     private static long countBefore = 0;
 
     @BeforeClass
     public static void init() {
+        context = new ClassPathXmlApplicationContext("daoTestSpring.xml");
+        baseDao = context.getBean(UserDAO.class);
+        session = baseDao.getSession();
         testUser = new User("testUser1","testuser1@tut.by","test1user1pass", null,  new Date(1000*(new Date().getTime()/1000)));
     }
 
     @Test
-    public void a_saveOrUpdate() throws Exception {
+    public void a_update() throws Exception {
         Transaction transaction = session.beginTransaction();
         countBefore = (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from User ").uniqueResult();
-        userDAO.update(testUser);
+        baseDao.update(testUser);
         transaction.commit();
         session.flush();
         session.clear();
@@ -44,7 +49,7 @@ public class BaseDaoTest {
     public void bget() throws Exception {
         User newUser;
         Transaction transaction = session.beginTransaction();
-        newUser = userDAO.get(testUser.getId());
+        newUser = baseDao.get(User.class, testUser.getId());
         transaction.commit();
         session.flush();
         session.clear();
@@ -52,13 +57,13 @@ public class BaseDaoTest {
     }
 
     @Test
-    public void bsaveOrUpdate() throws Exception {
+    public void bcreate() throws Exception {
         Transaction transaction = session.beginTransaction();
         countBefore = getCount();
         testUser.setLogin("newLogin");
         testUser.setEmail("newEmail@airport.by");
         testUser.setPass("111");
-        userDAO.update(testUser);
+        baseDao.create(testUser);
         transaction.commit();
         session.flush();
         session.clear();
@@ -67,21 +72,10 @@ public class BaseDaoTest {
     }
 
     @Test
-    public void c_load() throws Exception {
-        User newUser;
-        Transaction transaction = session.beginTransaction();
-        newUser = userDAO.load(testUser.getId());
-        transaction.commit();
-        session.flush();
-        session.clear();
-        assertEquals(newUser.getId(), testUser.getId());
-    }
-
-    @Test
     public void d_getAll() throws Exception {
         Transaction transaction = session.beginTransaction();
         long count = getCount();
-        List<User> users = userDAO.getAll();
+        List<User> users = baseDao.getAll(User.class);
         transaction.commit();
         session.flush();
         session.clear();
@@ -91,7 +85,7 @@ public class BaseDaoTest {
     @Test
     public void e_delete() throws Exception {
         Transaction transaction = session.beginTransaction();
-        userDAO.delete(testUser);
+        baseDao.delete(testUser);
         transaction.commit();
         session.flush();
         session.clear();

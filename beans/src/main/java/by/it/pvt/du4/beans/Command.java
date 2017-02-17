@@ -11,6 +11,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Cacheable
 //@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity @Table
 public class Command implements Serializable {

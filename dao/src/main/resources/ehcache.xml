@@ -45,6 +45,12 @@
            overflowToDisk="false">
         <persistence strategy="localTempSwap" />
     </cache>
+    <cache name="by.it.pvt.du4.beans.Employee"
+           maxElementsInMemory="10000"
+           eternal="false"
+           overflowToDisk="false">
+        <persistence strategy="localTempSwap" />
+    </cache>
 
 
 </ehcache>

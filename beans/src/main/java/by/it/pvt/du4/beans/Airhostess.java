@@ -8,10 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-
 @NoArgsConstructor
-
-//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @DiscriminatorValue("airhostess")
 @Entity @Table
 public class Airhostess extends Employee implements Serializable{

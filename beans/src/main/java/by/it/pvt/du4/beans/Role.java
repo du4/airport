@@ -12,6 +12,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 //@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cacheable
 @Entity
 @Table
 public class Role implements Serializable {

@@ -1,6 +1,6 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.service.exceptions.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

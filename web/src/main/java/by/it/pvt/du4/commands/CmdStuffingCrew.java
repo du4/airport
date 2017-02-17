@@ -1,11 +1,9 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.DictionaryServiceUtil;
-import by.it.pvt.du4.FlightService;
 import by.it.pvt.du4.beans.Airhostess;
 import by.it.pvt.du4.beans.Employee;
 import by.it.pvt.du4.beans.Pilot;
-import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.service.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +20,7 @@ class CmdStuffingCrew extends Action {
         if (request.getMethod().equalsIgnoreCase("GET")) {
             List<Pilot>pilots = new ArrayList<>();
             List<Airhostess>airhostesses = new ArrayList<>();
-            List<Employee> crew = FlightService.getInstance().gerFlightCrew(request.getParameter("flight_id"));
+            List<Employee> crew = null;//FlightService.getInstance().gerFlightCrew(request.getParameter("flight_id"));
             crew.forEach( c -> {
                         if (c instanceof Pilot) {
                             pilots.add((Pilot) c);
@@ -34,8 +32,8 @@ class CmdStuffingCrew extends Action {
             );
             request.setAttribute("crewPilots",pilots);
             request.setAttribute("crewAirhostsses", airhostesses);
-            request.setAttribute("pilots", DictionaryServiceUtil.getInstance().getPilots());
-            request.setAttribute("airhostesses", DictionaryServiceUtil.getInstance().getAirhostesses());
+//            request.setAttribute("pilots", DictionaryServiceUtil.getInstance().getPilots());
+//            request.setAttribute("airhostesses", DictionaryServiceUtil.getInstance().getAirhostesses());
         }else{// POST
             try {
 //                crew.setPilot1_id(Integer.parseInt(Form.getString(request,"pilot1", Patterns.INT)));

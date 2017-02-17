@@ -1,8 +1,7 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.UserService;
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.service.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +32,7 @@ class CmdSignUp extends Action {
                 request.setAttribute(AttrMessages.msgError, "Invalid field format. " + e.toString());
                 return null;
             }
-            UserService.getInstance().create(user);
+//            UserService.getInstance().create(user);
             request.getSession().setAttribute("user",user);
             request.setAttribute(AttrMessages.msgMessage, "New user_id is created. Input new user_id login and password.");
             LOG.trace("New user_id is created. Input new user_id login and password.");

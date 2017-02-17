@@ -1,11 +1,10 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.DictionaryServiceUtil;
 import by.it.pvt.du4.beans.Command;
 import by.it.pvt.du4.beans.Permission;
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.service.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,8 +73,8 @@ public enum Actions {
      */
     private static boolean checkPermission(String cmd, HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
-        List <Command> commands = DictionaryServiceUtil.getInstance().getCommands();
-        List<Role>roles = DictionaryServiceUtil.getInstance().getRoles();
+        List <Command> commands = null;// DictionaryServiceUtil.getInstance().getCommands();
+        List<Role>roles = null; //DictionaryServiceUtil.getInstance().getRoles();
         Long commandID = -1L;
         for (Command command : commands) {
             if (command.getName().equalsIgnoreCase(cmd)) {
@@ -88,7 +87,7 @@ public enum Actions {
             throw new IllegalArgumentException("Error 404 - Not Found");
         }
 
-        List<Permission> permissions = DictionaryServiceUtil.getInstance().getPermissions();
+        List<Permission> permissions = null;//DictionaryServiceUtil.getInstance().getPermissions();
         User user = (User) session.getAttribute("user");
         if (user == null){
             user = new User("tmpUser", Role.USER_ROLE);

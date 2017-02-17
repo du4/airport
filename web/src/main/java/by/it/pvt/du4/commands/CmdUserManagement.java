@@ -1,10 +1,8 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.DictionaryServiceUtil;
-import by.it.pvt.du4.UserService;
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.service.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +31,7 @@ class CmdUserManagement extends Action {
                     for(Role r : roles){
                         if (r.getId().equals(Form.getLong(request, "userRole"))) {
                             user.setRole(r);
-                            UserService.getInstance().saveOrUpdate(user);
+//                            UserService.getInstance().saveOrUpdate(user);
                             break;
                         }
                     }
@@ -42,7 +40,7 @@ class CmdUserManagement extends Action {
                 }
                 if (user.getId() < 0){
                     user.setId(user.getId()*(-1));
-                    UserService.getInstance().delete(user);
+//                    UserService.getInstance().delete(user);
                     LOG.trace("Delete user="+user);
                 }
 
@@ -52,16 +50,16 @@ class CmdUserManagement extends Action {
                 request.setAttribute(AttrMessages.msgMessage,"Error");
             }
         }
-        request.setAttribute("roles", DictionaryServiceUtil.getInstance().getRoles());
-        List<User> users = UserService.getInstance().getAll();
-        if (users == null) {
-            LOG.trace("No users found.");
-            request.setAttribute(AttrMessages.msgError,"No users found.");
-        } else {
-            request.setAttribute(AttrMessages.msgMessage,"Read usersCount=" + users.size());
-            request.setAttribute("users", users);
-            LOG.trace("Read all users, user count = " + users.size());
-        }
+//        request.setAttribute("roles", DictionaryServiceUtil.getInstance().getRoles());
+//        List<User> users = UserService.getInstance().getAll();
+//        if (users == null) {
+//            LOG.trace("No users found.");
+//            request.setAttribute(AttrMessages.msgError,"No users found.");
+//        } else {
+//            request.setAttribute(AttrMessages.msgMessage,"Read usersCount=" + users.size());
+//            request.setAttribute("users", users);
+//            LOG.trace("Read all users, user count = " + users.size());
+//        }
         return null;
     }
 }

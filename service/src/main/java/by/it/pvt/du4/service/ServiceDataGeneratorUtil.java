@@ -1,8 +1,8 @@
-package by.it.pvt.du4;
+package by.it.pvt.du4.service;
 
 import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.dao.exceptions.DaoException;
-import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.service.exceptions.ServiceException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Session;
@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,16 +21,18 @@ public class ServiceDataGeneratorUtil {
     private static SimpleDateFormat formatterDate = new SimpleDateFormat("yyyy-MM-dd");
     private static SimpleDateFormat formatterDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static volatile ServiceDataGeneratorUtil instance;
-    private static Transaction transaction = null;
-    private static Session session = null;
-    private ServiceDataGeneratorUtil() {
+    private ApplicationContext context;
+//    private static Transaction transaction = null;
+//    private static Session session = null;
+    private ServiceDataGeneratorUtil(ApplicationContext context) {
+        this.context =  context;
     }
 
-    public static ServiceDataGeneratorUtil getInstance(){
+    public static ServiceDataGeneratorUtil getInstance(ApplicationContext context){
         if (instance == null) {
             synchronized (ServiceDataGeneratorUtil.class) {
                 if(instance == null){
-                    instance = new ServiceDataGeneratorUtil();
+                    instance = new ServiceDataGeneratorUtil(context);
                 }
             }
         }
@@ -37,8 +40,6 @@ public class ServiceDataGeneratorUtil {
     }
 
     public void generateData() throws DaoException, ServiceException {
-        session =  HibernateUtil.getHibernateUtil().getHibernateSession();
-        transaction = session.beginTransaction();
         generateRolesAndUsers();
         generateAirports();
         generateCommandsPermissions();
@@ -47,14 +48,12 @@ public class ServiceDataGeneratorUtil {
         generateFlights();
         generateCrews();
         generatePermissions();
-        transaction.commit();
-        session.flush();
     }
 
-    private void generateCrews() {
-        List<Pilot> pilots = session.createCriteria(Employee.class).add(Restrictions.eq("class","pilot")).list();
-        List<Airhostess> airhostess = session.createCriteria(Employee.class).add(Restrictions.eq("class","airhostess")).list();
-        List<Flight> flights = session.createCriteria(Flight.class).list();
+    private void generateCrews() throws ServiceException {
+        List<Pilot> pilots = context.getBean("baseService", IService.class).getAll(Pilot.class);
+        List<Airhostess> airhostess = context.getBean("baseService", IService.class).getAll(Airhostess.class);
+        List<Flight> flights = context.getBean("baseService", IService.class).getAll(Flight.class);
 
         Flight flight = flights.get(0);
         flight.setEmployees(new HashSet<>());
@@ -90,9 +89,10 @@ public class ServiceDataGeneratorUtil {
         saveCollection(flights);
     }
 
-    private void generatePermissions() throws DaoException {
-        List<Command>commands = session.createCriteria(Command.class).list();
-        List<Role>roles = session.createCriteria(Role.class).list();
+    private void generatePermissions() throws ServiceException {
+        List<Command>commands = context.getBean("baseService", IService.class).getAll(Command.class);
+        List<Role>roles = context.getBean("baseService", IService.class).getAll(Role.class);
+
         List<Permission>permissions = new ArrayList<>();
         //error
         permissions.add(new Permission(null, roles.get(0),commands.get(0),true));
@@ -134,11 +134,11 @@ public class ServiceDataGeneratorUtil {
         saveCollection(permissions);
     }
 
-    private void generateFlights() {
+    private void generateFlights() throws ServiceException {
         List<Flight>flights = new ArrayList<>();
             try {
-                List<User>users = session.createCriteria(User.class).list();
-                List<Role>roles = session.createCriteria(Role.class).list();
+                List<User>users = context.getBean("baseService", IService.class).getAll(User.class);
+                List<Role>roles = context.getBean("baseService", IService.class).getAll(Role.class);
 
                 Flight flight = new Flight(null, "AS123", "Belavia", formatterDateTime.parse("2016-12-04 13:30"), formatterDateTime.parse("2016-12-04 17:00"),
                         new Plane("Kukuruznik") , new Airport("VNO", "Vilnius") , new Airport("KBP", "Borispol"), null, users.get(0), new Date());
@@ -157,7 +157,7 @@ public class ServiceDataGeneratorUtil {
         saveCollection(flights);
     }
 
-    private void generateRolesAndUsers() {
+    private void generateRolesAndUsers() throws ServiceException {
         List<Role>roles = new ArrayList<Role>(){{
                 add(new Role("admin"));
                 add(new Role("dispatcher"));
@@ -173,7 +173,7 @@ public class ServiceDataGeneratorUtil {
         saveCollection(users);
     }
 
-    private void generateAirports() {
+    private void generateAirports() throws ServiceException {
         List<Airport>airports = new ArrayList<Airport>(){{
                 add(new Airport("MSQ", "Minsk-2"));
                 add(new Airport("VIE", "Vienna"));
@@ -184,7 +184,7 @@ public class ServiceDataGeneratorUtil {
         saveCollection(airports);
     }
 
-    private void generatePlanes() throws DaoException {
+    private void generatePlanes() throws ServiceException {
         List<Plane>planes = new ArrayList<Plane>(){{
             add(new Plane("Boeing-747"));
             add(new Plane("Boeing-727"));
@@ -216,7 +216,7 @@ public class ServiceDataGeneratorUtil {
         saveCollection(employees);
     }
 
-    private void generateCommandsPermissions() throws DaoException {
+    private void generateCommandsPermissions() throws DaoException, ServiceException {
         List<Command>commands = new ArrayList<Command>(){{
             add(new Command("index"));
             add(new Command("login"));
@@ -231,8 +231,11 @@ public class ServiceDataGeneratorUtil {
         saveCollection(commands);
     }
 
-    private <T> void  saveCollection(List<T> list)  {
-            list.forEach(session::saveOrUpdate);
+    private <T> void  saveCollection(List<T> list) throws ServiceException {
+        IService<T> service = context.getBean("baseService", IService.class);
+            for(T t: list){
+                service.create(t);
+            }
     }
 
 }

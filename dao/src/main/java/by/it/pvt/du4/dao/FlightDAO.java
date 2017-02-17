@@ -9,18 +9,25 @@ import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class FlightDAO extends BaseDao <Flight> {
+@Repository
+public class FlightDAO extends BaseDao <Flight> implements IFlightDao{
     private static final Logger LOG = LoggerFactory.getLogger(FlightDAO.class);
 
-    public FlightDAO()  {
+    @Autowired
+    public FlightDAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
+    @Override
     public List<FlightStr> getByFilter(Map<String, String> flightQuery) throws DaoException {
         List<FlightStr> flights = new ArrayList<>();
 
@@ -62,7 +69,7 @@ public class FlightDAO extends BaseDao <Flight> {
         }
         return flights;
     }
-
+    @Override
     public List<Employee> getFlightCrew(Serializable id) throws DaoException {
         try {
             Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
@@ -75,7 +82,7 @@ public class FlightDAO extends BaseDao <Flight> {
             throw new DaoException(e);
         }
     }
-
+    @Override
     public Long getCount() throws DaoException {
         try {
            return (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from Flight").

@@ -17,7 +17,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity @Table
 public class Flight implements Serializable {
     private static final long serialVersionUID = 1L;

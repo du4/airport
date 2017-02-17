@@ -1,20 +1,35 @@
 package by.it.pvt.du4.dao;
 
+import by.it.pvt.du4.beans.Employee;
 import by.it.pvt.du4.beans.Pilot;
-import by.it.pvt.du4.beans.Role;
+import by.it.pvt.du4.beans.Plane;
 import by.it.pvt.du4.dao.exceptions.DaoException;
-import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public class PilotDAO extends BaseDao <Pilot> {
-    private static final Logger LOG = LoggerFactory.getLogger(PilotDAO.class);
-
-    public PilotDAO()  {
+@Repository
+public class PilotDAO extends BaseDao <Pilot> implements IPilotDao{
+    private static Logger log = LoggerFactory.getLogger(Pilot.class);
+    @Autowired
+    public PilotDAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
+    @Override
+    public List<Pilot> getAll(Class<Pilot> clazz) throws DaoException{
+
+        try {
+            return getSession().createCriteria(Employee.class).add(Restrictions.eq("class","pilot")).list();
+        }catch (HibernateException e){
+            log.error(""+e);
+            throw  new DaoException(e);
+        }
+    }
 }

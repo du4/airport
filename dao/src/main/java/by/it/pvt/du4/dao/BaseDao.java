@@ -5,83 +5,88 @@ import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-
+@Repository
 public class BaseDao<T> implements IDao<T> {
     private static final Logger LOG = LoggerFactory.getLogger(BaseDao.class);
+    private SessionFactory sessionFactory;
+    private Session session;
 
-    public BaseDao() {
+    @Autowired
+    public BaseDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+        this.session = sessionFactory.openSession();
     }
 
-    public void saveOrUpdate(T t) throws DaoException{
+    public Session getSession(){
+        return sessionFactory.getCurrentSession();
+    }
+
+    @Override
+    public void update(T t) throws DaoException{
         try {
-            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-            session.saveOrUpdate(t);
-            LOG.info("saveOrUpdate(t):" + t);
+            session.update(t);
+            session.flush();
+            LOG.info("update(t):" + t);
         } catch (HibernateException e) {
             e.printStackTrace();
             LOG.error("Error save or update in IDao" + e);
             throw new DaoException(e);
         }
     }
-
-    public T get(Serializable id) throws DaoException {
+    @Override
+    public T get(Class<T>clazz, Serializable id) throws DaoException {
         LOG.info("Get class by id:" + id);
         T t = null;
         try {
             Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-            t = (T) session.get(getPersistentClass(), id);
+            t = (T) session.get(clazz, id);
             LOG.info("get clazz:" + t);
         } catch (HibernateException e) {
-            LOG.error("Error get " + getPersistentClass() + " in IDao" + e);
+            LOG.error("Error get " + clazz + " in IDao" + e);
             throw new DaoException(e);
         }
         return t;
     }
-
-    public T load(Serializable id) throws DaoException {
-        LOG.info("Load class by id:" + id);
-        T t = null;
+    @Override
+    public void create(T t) throws DaoException {
         try {
-            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-            t = (T) session.load(getPersistentClass(), id);
-            LOG.info("load() clazz:" + t);
-            session.isDirty();
+            session.saveOrUpdate(t);
+            LOG.info("update(t):" + t);
+            session.flush();
         } catch (HibernateException e) {
-            LOG.error("Error load() " + getPersistentClass() + " in IDao" + e);
+            e.printStackTrace();
+            LOG.error("Error save or update in IDao" + e);
             throw new DaoException(e);
         }
-        return t;
     }
-
+    @Override
     public void delete(T t) throws DaoException {
         try {
-            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
             session.delete(t);
             LOG.info("Delete:" + t);
+            session.flush();
         } catch (HibernateException e) {
             LOG.error("Error save or update in IDao" + e);
             throw new DaoException(e);
         }
     }
-
-    public List<T> getAll() throws DaoException {
-        Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
+    @Override
+    public List<T> getAll(Class<T>clazz) throws DaoException {
         try {
-            return session.createCriteria(getPersistentClass()).setCacheable(true).list();
+            return session.createCriteria(clazz).setCacheable(true).list();
         }catch (HibernateException e){
             LOG.error(""+e);
             throw  new DaoException(e);
         }
-    }
-
-    private Class getPersistentClass() {
-        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 }

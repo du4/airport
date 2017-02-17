@@ -18,8 +18,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicUpdate
 @Entity
 @Table

@@ -15,7 +15,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @DiscriminatorValue("pilot")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity @Table
 public class Pilot extends Employee implements Serializable {
     private static final long serialVersionUID = 1L;

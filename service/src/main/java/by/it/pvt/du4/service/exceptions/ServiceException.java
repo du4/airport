@@ -1,5 +1,5 @@
 
-package by.it.pvt.du4.exceptions;
+package by.it.pvt.du4.service.exceptions;
 
 public class ServiceException extends Exception {
 

@@ -1,9 +1,7 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.DictionaryServiceUtil;
-import by.it.pvt.du4.FlightService;
 import by.it.pvt.du4.beans.FlightStr;
-import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.service.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,13 +54,13 @@ class CmdIndex extends Action {
             ps = Integer.toString(pageSize);
         }
 //        PAGINATION
-        Long fCount = FlightService.getInstance().getFlightsCount();
+        Long fCount = null;// FlightService.getInstance().getFlightsCount();
         startIndex = (Integer.parseInt(api)-1) * Integer.parseInt(ps);
         pageSize = Integer.parseInt(ps);
 
         params.put("pageSize", ps);
         params.put("startIndex", Long.toString(startIndex));
-        List<FlightStr> flightStr = FlightService.getInstance().getAllStringFlights(params);
+        List<FlightStr> flightStr = null;// FlightService.getInstance().getAllStringFlights(params);
 
         request.setAttribute("pageSize", pageSize);
         pageCount = (int)Math.ceil((float)(fCount)/pageSize);
@@ -71,7 +69,7 @@ class CmdIndex extends Action {
         request.setAttribute("activePageIndex", activePageIndex);
 //PAGINATION
         request.setAttribute("flightStr", flightStr);
-        request.setAttribute("airports", DictionaryServiceUtil.getInstance().getAirports());
+        request.setAttribute("airports", null);//DictionaryServiceUtil.getInstance().getAirports());
         return null;
     }
 }

@@ -32,7 +32,7 @@ public class BaseDaoTest {
     public void a_saveOrUpdate() throws Exception {
         Transaction transaction = session.beginTransaction();
         countBefore = (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from User ").uniqueResult();
-        userDAO.saveOrUpdate(testUser);
+        userDAO.update(testUser);
         transaction.commit();
         session.flush();
         session.clear();
@@ -58,7 +58,7 @@ public class BaseDaoTest {
         testUser.setLogin("newLogin");
         testUser.setEmail("newEmail@airport.by");
         testUser.setPass("111");
-        userDAO.saveOrUpdate(testUser);
+        userDAO.update(testUser);
         transaction.commit();
         session.flush();
         session.clear();

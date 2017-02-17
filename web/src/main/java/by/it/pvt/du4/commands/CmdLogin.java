@@ -1,6 +1,5 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.UserService;
 import by.it.pvt.du4.beans.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,7 @@ class CmdLogin extends Action {
             try {
                 user.setLogin(Form.getString(request, "login", Patterns.LOGIN));
                 user.setPass(Form.getString(request, "pass", Patterns.PASSWORD));
-                user = UserService.getInstance().getByLoginAndPassword(user);
+                user = null;//UserService.getInstance().getByLoginAndPassword(user);
                 request.setAttribute(AttrMessages.msgMessage, "User login - OK ");
                 addUserToSessionCookie(user, request, response);
                 LOG.trace("User="+user+ "are authorized.");

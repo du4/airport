@@ -1,12 +1,11 @@
 package by.it.pvt.du4.commands;
 
-import by.it.pvt.du4.DictionaryServiceUtil;
-import by.it.pvt.du4.FlightService;
-import by.it.pvt.du4.beans.*;
+import by.it.pvt.du4.beans.Airport;
+import by.it.pvt.du4.beans.Flight;
+import by.it.pvt.du4.beans.Plane;
+import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.dao.AirportsDAO;
-import by.it.pvt.du4.dao.DaoFactory;
-import by.it.pvt.du4.dao.PlaneDAO;
-import by.it.pvt.du4.exceptions.ServiceException;
+import by.it.pvt.du4.service.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,15 +35,15 @@ class CmdNewFlight extends Action {
                 timestamp1 = Timestamp.valueOf(timestampStr);
                 flight.setDeparture_time(timestamp1);
 
-                AirportsDAO airportsDAO = DaoFactory.getInstance().getDao(AirportsDAO.class);
+                AirportsDAO airportsDAO = null;//DaoFactory.getInstance().getDao(AirportsDAO.class);
 
-                Plane plane = DaoFactory.getInstance().getDao(PlaneDAO.class).get(Long.parseLong(Form.getString(request,"plane",Patterns.INT)));
+                Plane plane = null;//DaoFactory.getInstance().getDao(PlaneDAO.class).get(Long.parseLong(Form.getString(request,"plane",Patterns.INT)));
                 flight.setPlane_id(plane);
 
-                Airport airport = airportsDAO.get(Long.parseLong(Form.getString(request,"from",Patterns.INT)));
+                Airport airport = null;//airportsDAO.get(Long.parseLong(Form.getString(request,"from",Patterns.INT)));
                 flight.setFrom_id(airport);
 
-                airport = airportsDAO.get(Long.parseLong(Form.getString(request,"to",Patterns.INT)));
+                airport = null;//airportsDAO.get(Long.parseLong(Form.getString(request,"to",Patterns.INT)));
                 flight.setTo_id(airport);
 
                 flight.setCreateDate(new Date());
@@ -56,17 +55,17 @@ class CmdNewFlight extends Action {
                 return null;
             }
 
-            try{
-                FlightService.getInstance().saveOrUpdate(flight);
-                LOG.trace("Create new flight"+flight);
-                return  Actions.INDEX.action;
-            } catch (ServiceException e){
-                LOG.error("Flight does not created."+e);
-                return  Actions.NEWFLIGHT.action;
-            }
+//            try{
+//                FlightService.getInstance().saveOrUpdate(flight);
+//                LOG.trace("Create new flight"+flight);
+//                return  Actions.INDEX.action;
+//            } catch (ServiceException e){
+//                LOG.error("Flight does not created."+e);
+//                return  Actions.NEWFLIGHT.action;
+//            }
         }else{
-            request.setAttribute("airports", DictionaryServiceUtil.getInstance().getAirports());
-            request.setAttribute("planes", DictionaryServiceUtil.getInstance().getPlanes());
+//            request.setAttribute("airports", DictionaryServiceUtil.getInstance().getAirports());
+//            request.setAttribute("planes", DictionaryServiceUtil.getInstance().getPlanes());
         }
         return null;
     }

@@ -11,7 +11,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity @Table
 public class Command implements Serializable {
     private static final long serialVersionUID = 1L;

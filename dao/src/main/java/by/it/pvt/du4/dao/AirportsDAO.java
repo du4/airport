@@ -2,19 +2,16 @@ package by.it.pvt.du4.dao;
 
 
 import by.it.pvt.du4.beans.Airport;
-import by.it.pvt.du4.dao.exceptions.DaoException;
-import by.it.pvt.du4.util.HibernateUtil;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public class AirportsDAO extends BaseDao <Airport> implements IAirportDao{
 
-public class AirportsDAO extends BaseDao <Airport> {
-    private static final Logger LOG = LoggerFactory.getLogger(AirportsDAO.class);
-
-    public AirportsDAO()  {
+    @Autowired
+    public AirportsDAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
 }

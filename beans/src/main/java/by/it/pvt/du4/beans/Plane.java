@@ -12,7 +12,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity @Table
 public class Plane implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(Plane.class);

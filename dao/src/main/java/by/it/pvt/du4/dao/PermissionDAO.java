@@ -5,15 +5,20 @@ import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public class PermissionDAO extends BaseDao <Permission>{
-    private static final Logger LOG = LoggerFactory.getLogger(PermissionDAO.class);
+@Repository
+public class PermissionDAO extends BaseDao <Permission> implements IPermissionDao{
 
-    public PermissionDAO()  {
+    @Autowired
+    public PermissionDAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
 }

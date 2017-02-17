@@ -28,7 +28,7 @@ public class BaseDaoTest {
     @BeforeClass
     public static void init() {
         context = new ClassPathXmlApplicationContext("daoTestSpring.xml");
-        baseDao = context.getBean(UserDAO.class);
+        baseDao = context.getBean(UserDao.class);
         session = baseDao.getSession();
         testUser = new User("testUser1","testuser1@tut.by","test1user1pass", null,  new Date(1000*(new Date().getTime()/1000)));
     }

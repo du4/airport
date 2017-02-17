@@ -19,11 +19,11 @@ import java.io.Serializable;
 import java.util.*;
 
 @Repository
-public class FlightDAO extends BaseDao <Flight> implements IFlightDao{
-    private static final Logger LOG = LoggerFactory.getLogger(FlightDAO.class);
+public class FlightDao extends BaseDao <Flight> implements IFlightDao{
+    private static final Logger LOG = LoggerFactory.getLogger(FlightDao.class);
 
     @Autowired
-    public FlightDAO(SessionFactory sessionFactory) {
+    public FlightDao(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 

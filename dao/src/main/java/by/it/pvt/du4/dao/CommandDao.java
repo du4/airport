@@ -1,6 +1,7 @@
 package by.it.pvt.du4.dao;
 
-import by.it.pvt.du4.beans.Permission;
+
+import by.it.pvt.du4.beans.Command;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -14,11 +15,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class PermissionDAO extends BaseDao <Permission> implements IPermissionDao{
+public class CommandDao extends BaseDao <Command> implements ICommandDao{
 
     @Autowired
-    public PermissionDAO(SessionFactory sessionFactory) {
+    public CommandDao(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
-
 }

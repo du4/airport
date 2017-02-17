@@ -2,10 +2,8 @@ package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.dao.exceptions.DaoException;
-import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -16,12 +14,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class RoleDAO extends BaseDao <Role> implements IRoleDao{
+public class RoleDao extends BaseDao <Role> implements IRoleDao{
 
-    private static final Logger LOG = LoggerFactory.getLogger(RoleDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RoleDao.class);
 
     @Autowired
-    public RoleDAO(SessionFactory sessionFactory) {
+    public RoleDao(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 

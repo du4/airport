@@ -1,7 +1,6 @@
 package by.it.pvt.du4.dao;
 
-
-import by.it.pvt.du4.beans.Command;
+import by.it.pvt.du4.beans.Plane;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -15,10 +14,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CommandDAO extends BaseDao <Command> implements ICommandDao{
+public class PlaneDao extends BaseDao <Plane>  implements IPlaneDao{
 
     @Autowired
-    public CommandDAO(SessionFactory sessionFactory) {
+    public PlaneDao(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 }

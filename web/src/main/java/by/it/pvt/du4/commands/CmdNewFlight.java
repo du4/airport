@@ -4,7 +4,7 @@ import by.it.pvt.du4.beans.Airport;
 import by.it.pvt.du4.beans.Flight;
 import by.it.pvt.du4.beans.Plane;
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.dao.AirportsDAO;
+import by.it.pvt.du4.dao.AirportsDao;
 import by.it.pvt.du4.service.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ class CmdNewFlight extends Action {
                 timestamp1 = Timestamp.valueOf(timestampStr);
                 flight.setDeparture_time(timestamp1);
 
-                AirportsDAO airportsDAO = null;//DaoFactory.getInstance().getDao(AirportsDAO.class);
+                AirportsDao airportsDao = null;//DaoFactory.getInstance().getDao(AirportsDAO.class);
 
                 Plane plane = null;//DaoFactory.getInstance().getDao(PlaneDAO.class).get(Long.parseLong(Form.getString(request,"plane",Patterns.INT)));
                 flight.setPlane_id(plane);

@@ -1,6 +1,6 @@
 package by.it.pvt.du4.dao;
 
-import by.it.pvt.du4.beans.Plane;
+import by.it.pvt.du4.beans.Permission;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -14,10 +14,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class PlaneDAO extends BaseDao <Plane>  implements IPlaneDao{
+public class PermissionDao extends BaseDao <Permission> implements IPermissionDao{
 
     @Autowired
-    public PlaneDAO(SessionFactory sessionFactory) {
+    public PermissionDao(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
+
 }

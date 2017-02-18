@@ -3,7 +3,7 @@ package by.it.pvt.du4.service;
 import by.it.pvt.du4.beans.Employee;
 import by.it.pvt.du4.beans.Flight;
 import by.it.pvt.du4.beans.FlightStr;
-import by.it.pvt.du4.dao.IFlightDao;
+import by.it.pvt.du4.dao.interfaces.IFlightDao;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.service.exceptions.ServiceException;
 import by.it.pvt.du4.service.interfaces.IFlightService;

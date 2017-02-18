@@ -2,6 +2,7 @@ package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.dao.interfaces.IUserDao;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository()
-public class UserDao extends BaseDao <User> implements IUserDao<User>{
+public class UserDao extends BaseDao <User> implements IUserDao<User> {
     private static final Logger LOG = LoggerFactory.getLogger(UserDao.class);
 
     @Autowired

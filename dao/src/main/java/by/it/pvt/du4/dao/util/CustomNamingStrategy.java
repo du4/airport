@@ -1,4 +1,4 @@
-package by.it.pvt.du4.util;
+package by.it.pvt.du4.dao.util;
 
 import org.hibernate.cfg.DefaultNamingStrategy;
 

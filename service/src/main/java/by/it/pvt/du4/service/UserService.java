@@ -1,8 +1,8 @@
 package by.it.pvt.du4.service;
 
 import by.it.pvt.du4.beans.User;
-import by.it.pvt.du4.dao.*;
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.dao.interfaces.IUserDao;
 import by.it.pvt.du4.service.exceptions.ServiceException;
 import by.it.pvt.du4.service.exceptions.ValidationException;
 import by.it.pvt.du4.service.interfaces.IUserService;

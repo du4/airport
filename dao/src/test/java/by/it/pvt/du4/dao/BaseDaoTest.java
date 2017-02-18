@@ -1,98 +1,77 @@
 package by.it.pvt.du4.dao;
 
+import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
+import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.dao.interfaces.IDao;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-@FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
+@ContextConfiguration(locations = "classpath:daoTestSpring.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+@TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 public class BaseDaoTest {
 
-//    private static ApplicationContext context;
-//    private static BaseDao<User>baseDao;
-//    private static Session session ;
-//    private static User testUser;
-//    private static long countBefore = 0;
-//
-//    @BeforeClass
-//    public static void init() {
-//        context = new ClassPathXmlApplicationContext("daoTestSpring.xml");
-//        baseDao = context.getBean(UserDao.class);
-//        session = baseDao.getSession();
-//        testUser = new User("testUser1","testuser1@tut.by","test1user1pass", null,  new Date(1000*(new Date().getTime()/1000)));
-//    }
-//
-//    @Test
-//    public void a_update() throws Exception {
-//        Transaction transaction = session.beginTransaction();
-//        countBefore = (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from User ").uniqueResult();
-//        baseDao.update(testUser);
-//        transaction.commit();
-//        session.flush();
-//        session.clear();
-//        long newCount = (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from User ").uniqueResult();
-//        assertTrue(newCount == (countBefore+1));
-//    }
-//
-//    @Test
-//    public void bget() throws Exception {
-//        User newUser;
-//        Transaction transaction = session.beginTransaction();
-//        newUser = baseDao.get(User.class, testUser.getId());
-//        transaction.commit();
-//        session.flush();
-//        session.clear();
-//        assertEquals(newUser, testUser);
-//    }
-//
-//    @Test
-//    public void bcreate() throws Exception {
-//        Transaction transaction = session.beginTransaction();
-//        countBefore = getCount();
-//        testUser.setLogin("newLogin");
-//        testUser.setEmail("newEmail@airport.by");
-//        testUser.setPass("111");
-//        baseDao.create(testUser);
-//        transaction.commit();
-//        session.flush();
-//        session.clear();
-//        long countAfter = getCount();
-//        assertEquals(countBefore, countAfter);
-//    }
-//
-//    @Test
-//    public void d_getAll() throws Exception {
-//        Transaction transaction = session.beginTransaction();
-//        long count = getCount();
-//        List<User> users = baseDao.getAll(User.class);
-//        transaction.commit();
-//        session.flush();
-//        session.clear();
-//        assertEquals((int)count, users.size());
-//    }
-//
-//    @Test
-//    public void e_delete() throws Exception {
-//        Transaction transaction = session.beginTransaction();
-//        baseDao.delete(testUser);
-//        transaction.commit();
-//        session.flush();
-//        session.clear();
-//        long newCount = getCount();
-//        assertEquals(newCount, 0L);
-//    }
-//
-//    private long getCount() {
-//        return (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from User ").uniqueResult();
-//    }
+    @Autowired
+    private IDao<User> baseDao;
+
+
+    @Test
+    public void create() throws Exception {
+        Role role = new Role("TestRole");
+        User testUser = new User("testUser1","testuser1@tut.by","test1user1pass", role,  new Date(1000*(new Date().getTime()/1000)));
+        baseDao.create(testUser);
+        assertNotNull(testUser.getId());
+        User user = (User) baseDao.get(User.class, testUser.getId());
+        assertEquals(testUser, user);
+    }
+
+    @Test
+    public void update() throws Exception {
+        User testUser = new User("testUser1","testuser1@tut.by","test1user1pass", null,  new Date(1000*(new Date().getTime()/1000)));
+        baseDao.create(testUser);
+        testUser.setPass("123");
+        testUser.setLogin("newLogin");
+        testUser.setEmail("email@email.com");
+        baseDao.update(testUser);
+        User user = (User) baseDao.get(User.class, testUser.getId());
+        assertEquals(testUser, user);
+    }
+
+    @Test
+    public void get() throws Exception {
+        User testUser = new User("testUser1","testuser1@tut.by","test1user1pass", new Role("testRole"),  new Date(1000*(new Date().getTime()/1000)));
+        baseDao.create(testUser);
+        User user = (User) baseDao.get(User.class, testUser.getId());
+        assertEquals(testUser, user);
+    }
+
+    @Test
+    public void getCount() throws Exception {
+        assertTrue(baseDao.getCount(User.class).longValue() == 0L);
+    }
+
+    @Test
+    public void getAll() throws Exception {
+        Long countBefore = baseDao.getCount(User.class);
+        List<User> users = baseDao.getAll(User.class);
+        assertTrue(countBefore == users.size());
+
+    }
+
+    @Test(expected = DaoException.class)
+    public void exceptionTest() throws DaoException {
+        baseDao.get(User.class, 3);
+    }
 }

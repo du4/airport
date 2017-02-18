@@ -2,8 +2,8 @@ package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Employee;
 import by.it.pvt.du4.beans.Pilot;
-import by.it.pvt.du4.beans.Plane;
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.dao.interfaces.IPilotDao;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class PilotDao extends BaseDao <Pilot> implements IPilotDao{
+public class PilotDao extends BaseDao <Pilot> implements IPilotDao {
     private static Logger log = LoggerFactory.getLogger(Pilot.class);
     @Autowired
     public PilotDao(SessionFactory sessionFactory) {

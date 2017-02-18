@@ -1,7 +1,7 @@
 package by.it.pvt.du4.service;
 
 import by.it.pvt.du4.beans.Pilot;
-import by.it.pvt.du4.dao.IPilotDao;
+import by.it.pvt.du4.dao.interfaces.IPilotDao;
 import by.it.pvt.du4.service.interfaces.IPilotService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

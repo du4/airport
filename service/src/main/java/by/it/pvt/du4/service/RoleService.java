@@ -1,7 +1,7 @@
 package by.it.pvt.du4.service;
 
 import by.it.pvt.du4.beans.Role;
-import by.it.pvt.du4.dao.IRoleDao;
+import by.it.pvt.du4.dao.interfaces.IRoleDao;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.service.exceptions.ServiceException;
 import by.it.pvt.du4.service.interfaces.IRoleService;

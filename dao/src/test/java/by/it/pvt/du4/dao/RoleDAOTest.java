@@ -2,6 +2,7 @@ package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.dao.interfaces.IRoleDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +71,5 @@ public class RoleDAOTest {
         List<Role> roles = roleDao.getAll(Role.class);
         assertTrue(countBefore == roles.size());
 
-    }
-
-    @Test(expected = DaoException.class)
-    public void exceptionTest() throws DaoException {
-        roleDao.get(Role.class, 3);
     }
 }

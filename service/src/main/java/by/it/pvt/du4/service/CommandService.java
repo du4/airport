@@ -1,7 +1,7 @@
 package by.it.pvt.du4.service;
 
 import by.it.pvt.du4.beans.Command;
-import by.it.pvt.du4.dao.ICommandDao;
+import by.it.pvt.du4.dao.interfaces.ICommandDao;
 import by.it.pvt.du4.service.interfaces.ICommandService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -63,7 +63,7 @@
         </property>
 
         <property name="namingStrategy">
-            <bean class="by.it.pvt.du4.util.CustomNamingStrategy"/>
+            <bean class="by.it.pvt.du4.dao.util.CustomNamingStrategy"/>
         </property>
 
         <property name="hibernateProperties">

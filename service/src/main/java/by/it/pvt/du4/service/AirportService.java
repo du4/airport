@@ -1,7 +1,7 @@
 package by.it.pvt.du4.service;
 
 import by.it.pvt.du4.beans.Airport;
-import by.it.pvt.du4.dao.IAirportDao;
+import by.it.pvt.du4.dao.interfaces.IAirportDao;
 import by.it.pvt.du4.service.interfaces.IAirportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

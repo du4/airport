@@ -17,6 +17,18 @@
     <context:annotation-config/>
     <!--<aop:aspectj-autoproxy/>-->
 
+    <bean id="baseDao" class="by.it.pvt.du4.dao.BaseDao">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
+    <bean id="flightDao" class="by.it.pvt.du4.dao.FlightDao">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
+    <bean id="planeDao" class="by.it.pvt.du4.dao.PlaneDao">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
     <bean id="userDao" class="by.it.pvt.du4.dao.UserDao">
         <constructor-arg ref="sessionFactory"/>
     </bean>
@@ -64,7 +76,7 @@
         </property>
 
         <property name="namingStrategy">
-            <bean class="by.it.pvt.du4.util.CustomNamingStrategy"/>
+            <bean class="by.it.pvt.du4.dao.util.CustomNamingStrategy"/>
         </property>
 
         <property name="hibernateProperties">

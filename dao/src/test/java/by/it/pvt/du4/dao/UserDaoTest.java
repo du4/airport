@@ -3,21 +3,15 @@ package by.it.pvt.du4.dao;
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.dao.exceptions.DaoException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.junit.FixMethodOrder;
+import by.it.pvt.du4.dao.interfaces.IUserDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.Date;
 import java.util.List;
 

@@ -5,9 +5,9 @@ import by.it.pvt.du4.beans.Employee;
 import by.it.pvt.du4.beans.Flight;
 import by.it.pvt.du4.beans.FlightStr;
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.dao.interfaces.IFlightDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Repository
-public class FlightDao extends BaseDao <Flight> implements IFlightDao{
+public class FlightDao extends BaseDao <Flight> implements IFlightDao {
     private static final Logger LOG = LoggerFactory.getLogger(FlightDao.class);
 
     @Autowired

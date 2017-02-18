@@ -1,6 +1,6 @@
 package by.it.pvt.du4.service;
 
-import by.it.pvt.du4.dao.IDao;
+import by.it.pvt.du4.dao.interfaces.IDao;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.service.exceptions.ServiceException;
 import by.it.pvt.du4.service.interfaces.IService;

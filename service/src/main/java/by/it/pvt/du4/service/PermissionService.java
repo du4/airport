@@ -1,7 +1,7 @@
 package by.it.pvt.du4.service;
 
 import by.it.pvt.du4.beans.Permission;
-import by.it.pvt.du4.dao.IPermissionDao;
+import by.it.pvt.du4.dao.interfaces.IPermissionDao;
 import by.it.pvt.du4.service.interfaces.IPermissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

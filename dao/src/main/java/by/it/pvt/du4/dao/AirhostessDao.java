@@ -3,8 +3,8 @@ package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Airhostess;
 import by.it.pvt.du4.beans.Employee;
-import by.it.pvt.du4.beans.Pilot;
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.dao.interfaces.IAirhostessDao;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AirhostessDao extends BaseDao <Airhostess>  implements IAirhostessDao{
+public class AirhostessDao extends BaseDao <Airhostess>  implements IAirhostessDao {
     private static Logger log = LoggerFactory.getLogger(Airhostess.class);
 
     @Autowired

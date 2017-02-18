@@ -2,6 +2,7 @@ package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Role;
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.dao.interfaces.IRoleDao;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class RoleDao extends BaseDao <Role> implements IRoleDao{
+public class RoleDao extends BaseDao <Role> implements IRoleDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(RoleDao.class);
 

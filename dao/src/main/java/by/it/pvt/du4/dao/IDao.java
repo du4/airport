@@ -16,5 +16,7 @@ public interface IDao<T> {
     void delete(T t) throws DaoException;
 
     List<T> getAll(Class<T>clazz) throws DaoException;
+
+    Long getCount(Class<T>clazz) throws Exception;
 }
 

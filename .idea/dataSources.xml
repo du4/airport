@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MySQL - airportH@localhost" uuid="016f74d0-a140-49fb-a535-7ca8a45c57d3">
+    <data-source source="LOCAL" name="MySQL - airportS@localhost" uuid="ab31c0bf-eb6b-4fd5-a28a-57b1efc4ef87">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/airportH</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/airportS</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />
@@ -15,11 +15,11 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="MySQL - airportS@localhost" uuid="ab31c0bf-eb6b-4fd5-a28a-57b1efc4ef87">
+    <data-source source="LOCAL" name="MySQL - airportSTest@localhost" uuid="7bb695a7-c7ec-49a0-b02e-1bf476822557">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/airportS</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/airportSTest</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

@@ -3,18 +3,17 @@ package by.it.pvt.du4.service;
 import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.service.exceptions.ServiceException;
-import by.it.pvt.du4.util.HibernateUtil;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
 public class ServiceDataGeneratorUtil {
     private static final Logger LOG = LoggerFactory.getLogger(ServiceDataGeneratorUtil.class);
@@ -22,8 +21,6 @@ public class ServiceDataGeneratorUtil {
     private static SimpleDateFormat formatterDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static volatile ServiceDataGeneratorUtil instance;
     private ApplicationContext context;
-//    private static Transaction transaction = null;
-//    private static Session session = null;
     private ServiceDataGeneratorUtil(ApplicationContext context) {
         this.context =  context;
     }

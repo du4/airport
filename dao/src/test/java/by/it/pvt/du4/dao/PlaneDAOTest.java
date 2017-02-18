@@ -2,7 +2,6 @@ package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Plane;
 import by.it.pvt.du4.beans.Role;
-import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.After;

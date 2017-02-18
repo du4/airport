@@ -2,17 +2,16 @@ package by.it.pvt.du4.dao;
 
 
 import by.it.pvt.du4.dao.exceptions.DaoException;
-import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @Repository
@@ -42,8 +41,7 @@ public class BaseDao<T> implements IDao<T> {
     @Override
     public void update(T t) throws DaoException{
         try {
-            session.update(t);
-            session.flush();
+            getSession().update(t);
             LOG.info("update(t):" + t);
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -56,8 +54,7 @@ public class BaseDao<T> implements IDao<T> {
         LOG.info("Get class by id:" + id);
         T t = null;
         try {
-            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-            t = (T) session.get(clazz, id);
+            t = (T) getSession().get(clazz, id);
             LOG.info("get clazz:" + t);
         } catch (HibernateException e) {
             LOG.error("Error get " + clazz + " in IDao" + e);
@@ -68,11 +65,9 @@ public class BaseDao<T> implements IDao<T> {
     @Override
     public void create(T t) throws DaoException {
         try {
-            session.saveOrUpdate(t);
+            getSession().saveOrUpdate(t);
             LOG.info("update(t):" + t);
-            session.flush();
         } catch (HibernateException e) {
-            e.printStackTrace();
             LOG.error("Error save or update in IDao" + e);
             throw new DaoException(e);
         }
@@ -80,9 +75,8 @@ public class BaseDao<T> implements IDao<T> {
     @Override
     public void delete(T t) throws DaoException {
         try {
-            session.delete(t);
+            getSession().delete(t);
             LOG.info("Delete:" + t);
-            session.flush();
         } catch (HibernateException e) {
             LOG.error("Error save or update in IDao" + e);
             throw new DaoException(e);
@@ -91,10 +85,17 @@ public class BaseDao<T> implements IDao<T> {
     @Override
     public List<T> getAll(Class<T>clazz) throws DaoException {
         try {
-            return session.createCriteria(clazz).setCacheable(true).list();
+            return getSession().createCriteria(clazz).setCacheable(true).list();
         }catch (HibernateException e){
+            e.printStackTrace();
             LOG.error(""+e);
             throw  new DaoException(e);
         }
+    }
+
+    @Override
+    public Long getCount(Class<T>clazz) throws Exception {
+        Long result = (Long) getSession().createCriteria(clazz).setProjection(Projections.rowCount()).uniqueResult();
+        return result;
     }
 }

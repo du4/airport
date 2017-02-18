@@ -3,7 +3,6 @@ package by.it.pvt.du4.service;
 import by.it.pvt.du4.dao.IDao;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.service.exceptions.ServiceException;
-import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
@@ -17,7 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+@Transactional(propagation = Propagation.REQUIRED)
 public class BaseService<T> implements IService<T> {
     private static final Logger LOG = LoggerFactory.getLogger(BaseService.class);
 
@@ -29,15 +28,9 @@ public class BaseService<T> implements IService<T> {
 
     @Override
     public void update(T entity) throws ServiceException {
-        Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-        Transaction t = null;
         try {
-            t = session.beginTransaction();
             baseDao.update(entity);
-            t.commit();
-            session.flush();
         }catch (Exception e) {
-            t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);
         }
@@ -48,15 +41,9 @@ public class BaseService<T> implements IService<T> {
     public T get(Class clazz, Serializable id) throws ServiceException {
         LOG.info("Get class by id:" + id);
         T entity = null;
-        Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-        Transaction t = null;
         try {
-            t = session.beginTransaction();
             entity = (T)baseDao.get(clazz, id);
-            t.commit();
-            session.flush();
         }catch (Exception e) {
-            t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);
         }
@@ -75,15 +62,9 @@ public class BaseService<T> implements IService<T> {
 
     @Override
     public void delete(T entity) throws ServiceException {
-        Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-        Transaction t = null;
         try {
-            t = session.beginTransaction();
             baseDao.delete(entity);
-            t.commit();
-            session.flush();
         } catch (DaoException e) {
-            t.rollback();
             LOG.error(""+e);
             throw new ServiceException(e);
         }

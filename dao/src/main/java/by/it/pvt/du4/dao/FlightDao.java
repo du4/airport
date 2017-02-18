@@ -5,7 +5,6 @@ import by.it.pvt.du4.beans.Employee;
 import by.it.pvt.du4.beans.Flight;
 import by.it.pvt.du4.beans.FlightStr;
 import by.it.pvt.du4.dao.exceptions.DaoException;
-import by.it.pvt.du4.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -32,7 +31,6 @@ public class FlightDao extends BaseDao <Flight> implements IFlightDao{
         List<FlightStr> flights = new ArrayList<>();
 
         try {
-            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
             String hqlString = "SELECT f.id as q, f.flightCode, f.company, f.departure_time, f.arrival_time," +
                     "p.planeName , a.acronim, b.acronim,  u.login, f.createDate " +
                     "FROM Flight f " +
@@ -42,7 +40,7 @@ public class FlightDao extends BaseDao <Flight> implements IFlightDao{
                     "inner join f.user_id  u "+
                     "order by f.id asc ";
 
-            Query q = session.createQuery(hqlString);
+            Query q = getSession().createQuery(hqlString);
  //         pagination
             if (flightQuery != null) {
                 if (flightQuery.get("startIndex") != null && flightQuery.get("pageSize") != null) {
@@ -57,7 +55,7 @@ public class FlightDao extends BaseDao <Flight> implements IFlightDao{
                         (String)f[5],(String)f[6],(String)f[7],(String)f[8],(Date)f[9], null));
             }
             for (FlightStr f : flights) {
-                q = session.createQuery("SELECT f.employees FROM Flight f WHERE f.id="+f.getId());
+                q = getSession().createQuery("SELECT f.employees FROM Flight f WHERE f.id="+f.getId());
                 List<Employee> crew  = q.list();
                 f.setCrew(new HashSet<>(crew));
             }
@@ -72,8 +70,7 @@ public class FlightDao extends BaseDao <Flight> implements IFlightDao{
     @Override
     public List<Employee> getFlightCrew(Serializable id) throws DaoException {
         try {
-            Session session = HibernateUtil.getHibernateUtil().getHibernateSession();
-            Query q = session.createQuery("SELECT  f.employees FROM Flight f WHERE f.id="+id).setCacheable(true);
+            Query q = getSession().createQuery("SELECT  f.employees FROM Flight f WHERE f.id="+id).setCacheable(true);
             List<Employee> crew = q.list();
             return crew;
         }catch (Exception e){
@@ -85,7 +82,7 @@ public class FlightDao extends BaseDao <Flight> implements IFlightDao{
     @Override
     public Long getCount() throws DaoException {
         try {
-           return (Long) HibernateUtil.getHibernateUtil().getHibernateSession().createQuery("SELECT count(*) from Flight").
+           return (Long) getSession().createQuery("SELECT count(*) from Flight").
                    setCacheable(true).uniqueResult();
         }catch (HibernateException e) {
             e.printStackTrace();

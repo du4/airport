@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("userDao")
-public class UserDao extends BaseDao <User> implements IUserDao{
+@Repository()
+public class UserDao extends BaseDao <User> implements IUserDao<User>{
     private static final Logger LOG = LoggerFactory.getLogger(UserDao.class);
 
     @Autowired

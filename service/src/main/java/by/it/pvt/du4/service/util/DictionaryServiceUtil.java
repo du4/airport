@@ -1,6 +1,5 @@
-package by.it.pvt.du4.service;
+package by.it.pvt.du4.service.util;
 
-import by.it.pvt.du4.service.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

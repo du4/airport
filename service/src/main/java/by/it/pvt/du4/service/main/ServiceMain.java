@@ -1,6 +1,7 @@
-package by.it.pvt.du4.service;
+package by.it.pvt.du4.service.main;
 
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.service.util.ServiceDataGeneratorUtil;
 import by.it.pvt.du4.service.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +19,7 @@ public class ServiceMain {
 
         try {
             ServiceDataGeneratorUtil.getInstance(context).generateData();
-        } catch (DaoException e) {
-            e.printStackTrace();
-        } catch (ServiceException e) {
+        } catch (DaoException | ServiceException e) {
             e.printStackTrace();
         }
 

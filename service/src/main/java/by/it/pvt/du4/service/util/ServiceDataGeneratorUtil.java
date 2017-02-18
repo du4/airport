@@ -1,8 +1,10 @@
-package by.it.pvt.du4.service;
+package by.it.pvt.du4.service.util;
 
 import by.it.pvt.du4.beans.*;
 import by.it.pvt.du4.dao.exceptions.DaoException;
+import by.it.pvt.du4.service.UserService;
 import by.it.pvt.du4.service.exceptions.ServiceException;
+import by.it.pvt.du4.service.interfaces.IService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -144,7 +146,7 @@ public class ServiceDataGeneratorUtil {
                 flights.add(flight);
                 flight = new Flight(null, "AS222", "Lufthansa", formatterDateTime.parse("2017-02-24 07:30"), formatterDateTime.parse("2017-02-24 11:30"),
                         new Plane("AN-24") , new Airport("TRN", "Turin"), new Airport("FRA", "Frankfurt"), null,
-                        new User("qwerty","qwerty@airport.by", DigestUtils.md5Hex(UserService.salt + "qwerty"), roles.get(1), new Date())
+                        new User("qwerty","qwerty@airport.by", DigestUtils.md5Hex(UserService.getSalt() + "qwerty"), roles.get(1), new Date())
                         , new Date());
                 flights. add(flight);
 
@@ -162,10 +164,10 @@ public class ServiceDataGeneratorUtil {
             }};
         saveCollection(roles);
         List<User>users = new ArrayList<User>(){{
-                add(new User(null, "admin", "admin@airport.by", DigestUtils.md5Hex(UserService.salt + "admin"), roles.get(0), new Date(), null, null));
-                add(new User(null, "dispatcher", "dispatcher@airport.by", DigestUtils.md5Hex(UserService.salt + "dispatcher"), roles.get(1), new Date(), null, null));
-                add(new User(null, "user", "user@airport.by",DigestUtils.md5Hex(UserService.salt + "user") , roles.get(2), new Date(), null, null));
-                add(new User(null, "duch", "duch@airport.by",DigestUtils.md5Hex(UserService.salt + "111"),roles.get(0), new Date(), null, null ));
+                add(new User(null, "admin", "admin@airport.by", DigestUtils.md5Hex(UserService.getSalt() + "admin"), roles.get(0), new Date(), null, null));
+                add(new User(null, "dispatcher", "dispatcher@airport.by", DigestUtils.md5Hex(UserService.getSalt() + "dispatcher"), roles.get(1), new Date(), null, null));
+                add(new User(null, "user", "user@airport.by",DigestUtils.md5Hex(UserService.getSalt() + "user") , roles.get(2), new Date(), null, null));
+                add(new User(null, "duch", "duch@airport.by",DigestUtils.md5Hex(UserService.getSalt() + "111"),roles.get(0), new Date(), null, null ));
             }};
         saveCollection(users);
     }

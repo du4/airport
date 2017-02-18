@@ -1,4 +1,4 @@
-package by.it.pvt.du4.service;
+package by.it.pvt.du4.service.interfaces;
 
 import by.it.pvt.du4.beans.User;
 import by.it.pvt.du4.service.exceptions.ServiceException;

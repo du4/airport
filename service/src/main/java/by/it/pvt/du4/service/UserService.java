@@ -5,6 +5,7 @@ import by.it.pvt.du4.dao.*;
 import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.service.exceptions.ServiceException;
 import by.it.pvt.du4.service.exceptions.ValidationException;
+import by.it.pvt.du4.service.interfaces.IUserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
-public class UserService extends BaseService<User>  implements IUserService{
+public class UserService extends BaseService<User>  implements IUserService {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
-    static final String salt = "airport";
+    private static final String salt = "airport";
 
     @Autowired
     IUserDao userDao;
@@ -43,4 +44,7 @@ public class UserService extends BaseService<User>  implements IUserService{
     }
 }
 
+    public static String getSalt() {
+        return salt;
+    }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="default" template="/WEB-INF/view/layouts/default.jspx">
+        <put-attribute name="title" value="MVC"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/view/common/footer.jspx"/>
+    </definition>
+
+    <definition name="home" extends="default">
+        <put-attribute name="title" value="Flight Table"/>
+        <put-attribute name="body" value="/WEB-INF/view/home/index.jsp"/>
+    </definition>
+
+    <definition name="user/main" extends="default">
+        <put-attribute name="title" value="User management"/>
+        <put-attribute name="body" value="/WEB-INF/view/user/main.jspx"/>
+    </definition>
+
+    <definition name="persons/main" extends="default">
+        <put-attribute name="title" value="Persons Info"/>
+        <put-attribute name="body" value="/WEB-INF/view/person/main.jspx"/>
+    </definition>
+    <definition name="products/main" extends="default">
+        <put-attribute name="title" value="Products"/>
+        <put-attribute name="body" value="/WEB-INF/view/product/main.jspx"/>
+    </definition>
+
+    <definition name="login" extends="default">
+        <put-attribute name="title" value="Login page"/>
+    </definition>
+</tiles-definitions>
+

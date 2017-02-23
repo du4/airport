@@ -29,7 +29,7 @@ public class UserDaoTest {
     @Test
     public void create() throws Exception {
         Role role = new Role("TestRole");
-        User testUser = new User("testUser1","testuser1@tut.by","test1user1pass", role,  new Date(1000*(new Date().getTime()/1000)));
+        User testUser = new User("testUser","testuser@tut.by","pass", role,  new Date(1000*(new Date().getTime()/1000)));
         userDao.create(testUser);
         assertNotNull(testUser.getId());
         User user = (User) userDao.get(User.class, testUser.getId());
@@ -46,7 +46,7 @@ public class UserDaoTest {
 
     @Test
     public void update() throws Exception {
-        User testUser = new User("testUser1","testuser1@tut.by","test1user1pass", null,  new Date(1000*(new Date().getTime()/1000)));
+        User testUser = new User("testUser","testuser1@tut.by","test1user1pass", null,  new Date(1000*(new Date().getTime()/1000)));
         userDao.create(testUser);
         testUser.setPass("123");
         testUser.setLogin("newLogin");

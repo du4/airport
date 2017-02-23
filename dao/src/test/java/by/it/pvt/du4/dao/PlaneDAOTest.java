@@ -1,15 +1,23 @@
 package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Plane;
-import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.dao.interfaces.IPlaneDao;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+@ContextConfiguration(locations = "classpath:daoTestSpring.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+@TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 public class PlaneDAOTest {
 
 

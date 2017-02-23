@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @ContextConfiguration(locations = "classpath:daoTestSpring.xml")
@@ -44,17 +45,17 @@ public class FlightDAOTest {
 
     @Test
     public void create() throws Exception {
-//        Flight testFlight = createFlightInstance();
-//        flightDao.create(testFlight);
-//        List<Flight> flights = flightDao.getAll(Flight.class);
-//        assertEquals(flights.get(0), testFlight);
+        Flight testFlight = createFlightInstance();
+        flightDao.create(testFlight);
+        assertNotNull(testFlight.getId());
+        Flight flight = flightDao.get(Flight.class, testFlight.getId());
+        assertEquals(flight, testFlight);
     }
 
     @Test
     public void getByFilter() throws Exception {
 //        Flight testFlight = createFlightInstance();
 //        flightDao.create(testFlight);
-//        long curCount = flightDao.getCount(Flight.class).longValue();
 //        List<FlightStr> flights = flightDao.getByFilter(null);
 //        FlightStr f = flights.get(0);
 //        assertTrue(f.getId().equals(testFlight.getId()) && f.getArrival_time().getTime() == testFlight.getArrival_time().getTime() &&

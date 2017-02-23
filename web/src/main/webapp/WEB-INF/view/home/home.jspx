@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:spring="http://www.springframework.org/tags">
+
+<jsp:output doctype-public="-//W3C//DTD XHTML 1.1//EN"
+            doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
+            doctype-root-element="html" omit-xml-declaration="false"/>
+<jsp:directive.page pageEncoding="UTF-8" contentType="text/html; UTF-8"/>
+
+<head>
+    <style>
+        text {
+            height: 16px;
+            width: 40px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!--<tiles:insertAttribute  name="title"/>-->
+<!--<c:if test="${not empty title}">-->
+<!--<title>${title}</title>-->
+<!--</c:if>-->
+
+<div class="container-fluid">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Company</th>
+            <th>Departure Time</th>
+            <th>Arrival Time</th>
+            <th>Plane</th>
+            <th>From</th>
+            <th>To</th>
+            <th>id</th>
+            <th>Crew</th>
+            <th>User</th>
+            <th>CreatedDate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${flightStr}" var="f">
+            <tr>
+                <td> ${f.flightCode}</td>
+                <td>${f.company}</td>
+                <td>${f.departure_time}</td>
+                <td>${f.arrival_time}</td>
+                <td>${f.plane}</td>
+                <td>${f.from}</td>
+                <td>${f.to}</td>
+                <td>${f.id}</td>
+                <td>
+                    <c:forEach items="${f.crew}" var="e">
+                        ${e.name }
+                    </c:forEach>
+                    <button type="submit" name="flight_id"  class="btn btn-primary btn-xs" value="${f.id}" >...</button>
+                </td>
+                <td>${f.user}</td>
+                <td>${f.created_date}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+    <div>
+        <c:set var="btnValue"><spring:message code="buttons.person.add"/></c:set>
+        <input id="addPerson" type="button" value="${btnValue}"/>
+        <c:set var="btnValue"><spring:message code="buttons.person.delete"/></c:set>
+        <input id="deletePerson" type="button" value="${btnValue}"/>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu"
+          xmlns:spring="http://www.springframework.org/tags">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/airport/index/page"><span class="glyphicon glyphicon-send"></span>  Duch Airlines</a>
+                </div>
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+
+                    <c:set var="navName"><spring:message code="header.navigation.home"/></c:set>
+                    <c:choose>
+                        <c:when test="${currentPageName eq 'home'}">
+                            <li class="active">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-home"/>
+                                    ${navName}
+                                </a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/welcome">
+                                    <span class="glyphicon glyphicon-home"/>
+                                    ${navName}
+                                </a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:set var="navName"><spring:message code="header.navigation.usermanagement"/></c:set>
+                    <c:choose>
+                        <c:when test="${currentPageName eq 'usermanagement'}">
+                            <li class="active">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-list-alt"/>
+                                    ${navName}
+                                </a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li glyphicon="glyphicon glyphicon-list-alt">
+                                <a href="${pageContext.request.contextPath}/users/page">
+                                    <span class="glyphicon glyphicon-list-alt"/>
+                                    ${navName}
+                                </a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:set var="navName"><spring:message code="header.navigation.newflight"/></c:set>
+                    <c:choose>
+                        <c:when test="${currentPageName eq 'newflight'}">
+                            <li class="active">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-plane"/>
+                                    ${navName}
+                                </a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/newflight">
+                                    <span class="glyphicon glyphicon-plane"/>
+                                    ${navName}
+                                </a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:set var="locale" value="${request.LOCALE.language}"/>
+                    <c:if test="${locale eq 'en'}">
+                        <li><a href="?locale=en"><spring:message code="header.locale.en"/></a></li>
+                        <li class="active"><a href="#"><spring:message code="header.locale.ru"/></a></li>
+                    </c:if>
+                    <c:if test="${locale eq 'ru'}">
+                        <li><a href="?locale=ru"><spring:message code="header.locale.ru"/></a></li>
+                        <li class="active"><a href="#"><spring:message code="header.locale.en"/></a></li>
+                    </c:if>
+                    <c:if test="${empty locale}">
+                        <li><a href="?locale=ru"><spring:message code="header.locale.ru"/></a></li>
+                        <li class="active"><a href="?locale=en"><spring:message code="header.locale.en"/></a></li>
+                    </c:if>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <c:if test="${user==null}">
+                        <c:set var="navName"><spring:message code="header.navigation.login"/></c:set>
+                        <c:choose>
+                            <c:when test="${currentPageName eq 'login'}">
+                                <li class="active">
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-log-in"/>
+                                        ${navName}
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/login">
+                                        <span class="glyphicon glyphicon-log-in"/>
+                                        ${navName}
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:set var="navName"><spring:message code="header.navigation.singup"/></c:set>
+                        <c:choose>
+                            <c:when test="${currentPageName eq 'signup'}">
+                                <li class="active">
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-user"/>
+                                        ${navName}
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/signup">
+                                        <span class="glyphicon glyphicon-user"/>
+                                        ${navName}
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                    <c:if test="${user!=null}">
+                        <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="${curUser}">
+                            <span class="glyphicon glyphicon-check"></span>  user_id=${user.login}</a></li>
+                        <menu:li action="Logout" glyphicon="glyphicon glyphicon-log-out" text=" Logout"/>
+                        <menu:li action="Profile" glyphicon="glyphicon glyphicon-user_id" text=" Profile"/>
+                    </c:if>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+</jsp:root>

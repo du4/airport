@@ -1,7 +1,6 @@
 package by.it.pvt.du4.dao;
 
 import by.it.pvt.du4.beans.Role;
-import by.it.pvt.du4.dao.exceptions.DaoException;
 import by.it.pvt.du4.dao.interfaces.IRoleDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;

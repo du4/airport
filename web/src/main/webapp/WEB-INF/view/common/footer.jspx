@@ -1,0 +1,15 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:spring="http://www.springframework.org/tags"
+          version="2.0">
+
+    <footer class="container-fluid text-center">
+        <div class="footer">
+            <p>du4 © 2016 Shkantau Aliaksei</p>
+        </div>
+    </footer>
+
+</jsp:root>
+
+
+

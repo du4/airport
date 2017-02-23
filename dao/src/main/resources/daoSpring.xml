@@ -3,34 +3,27 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context-4.0.xsd
-       http://www.springframework.org/schema/cache
-       http://www.springframework.org/schema/cache/spring-cache.xsd"
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd"
        default-init-method="init" default-destroy-method="destroy">
 
     <context:annotation-config/>
     <context:component-scan base-package="by.it.pvt.du4.dao"/>
     <aop:aspectj-autoproxy/>
 
-    <cache:annotation-driven />
+    <!--<cache:annotation-driven />-->
+    <!--<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">-->
+        <!--<property name="cacheManager" ref="ehcache" />-->
+    <!--</bean>-->
+    <!--<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" >-->
+        <!--<property name="configLocation" value="classpath:ehcache.xml" />-->
+    <!--</bean>-->
 
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-        <property name="cacheManager" ref="ehcache" />
-    </bean>
-
-    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" >
-        <property name="configLocation" value="classpath:ehcache.xml" />
-    </bean>
-
-
-    <!--Translate exceptions to Spring-exceptions -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
@@ -73,7 +66,12 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="connection.isolation">2</prop>
                 <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+                <prop key="hibernate.generate_statistics">true</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                <prop key="hibernate.cache.use_query_cache">true</prop>
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+                <prop key="net.sf.ehcache.configurationResourceName">/ehcache.xml</prop>
             </props>
         </property>
     </bean>

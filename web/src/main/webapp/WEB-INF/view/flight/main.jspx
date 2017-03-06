@@ -9,24 +9,10 @@
             INFO : ${message}
         </c:if> <br/>
     </div>
-    <div>
-        <spring:message code="persons.table.header"/>
-        <c:if test="${empty persons}"><spring:message code="persons.table.empty"/></c:if><br/>
-        <c:forEach var="person1" items="${persons}" varStatus="status">
-            <br/>${status.count}.       ${person1.surname}     ${person1.name}
-        </c:forEach>
-    </div>
-
-    <div>
-        <c:set var="btnValue"><spring:message code="buttons.person.add"/></c:set>
-        <input id="addPerson" type="button" value="${btnValue}"/>
-        <c:set var="btnValue"><spring:message code="buttons.person.delete"/></c:set>
-        <input id="deletePerson" type="button" value="${btnValue}"/>
-    </div>
 
     <br/>
 
-    <s:form id="personForm" name="person" action="" style="display: none" modelAttribute="person" method="post">
+    <s:form id="addFlightForm" name="addFlight" action="" style="display: none" modelAttribute="addFlight" method="post">
         <fieldset>
             <label for="name"><spring:message code="label.person.name"/></label>
             <s:errors path="name" cssStyle="color: red" />

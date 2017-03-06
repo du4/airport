@@ -16,13 +16,6 @@
     <context:component-scan base-package="by.it.pvt.du4.dao"/>
     <aop:aspectj-autoproxy/>
 
-    <!--<cache:annotation-driven />-->
-    <!--<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">-->
-        <!--<property name="cacheManager" ref="ehcache" />-->
-    <!--</bean>-->
-    <!--<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" >-->
-        <!--<property name="configLocation" value="classpath:ehcache.xml" />-->
-    <!--</bean>-->
 
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 

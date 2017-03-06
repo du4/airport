@@ -1,16 +1,19 @@
 package by.it.pvt.du4.controller;
 
+import by.it.pvt.du4.beans.Airport;
+import by.it.pvt.du4.beans.Flight;
+import by.it.pvt.du4.beans.Plane;
 import by.it.pvt.du4.service.exceptions.ServiceException;
+import by.it.pvt.du4.service.interfaces.IAirportService;
 import by.it.pvt.du4.service.interfaces.IFlightService;
+import by.it.pvt.du4.service.interfaces.IPlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.xml.ws.RequestWrapper;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping("/index")
@@ -19,29 +22,20 @@ public class IndexController {
     @Autowired
     private IFlightService flightService;
 
+
     @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public String welcomePage(ModelMap model) {
-        populatePageName(model);
+    public String welcomePage(ModelMap map) {
+        populatePageName(map);
         try {
-            model.put("flightStr", flightService.getAllStringFlights(null));
+            map.put("flightStr", flightService.getAllStringFlights(null));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
         return "home";
     }
 
-    @RequestMapping(value = "/login-fail", method = RequestMethod.GET)
-    @RequestWrapper
-    public String loginFail(ModelAndView model, @RequestParam(value = "login-fail") String error ) {
-        if ("error".equals(error)) {
-            model.addObject("error", "Authentication error");
-        }
-
-        return "home";
-    }
-
-    private void populatePageName(ModelMap model) {
-        model.addAttribute("currentPageName", "home");
+    private void populatePageName(ModelMap map) {
+        map.addAttribute("currentPageName", "home");
     }
 }
 

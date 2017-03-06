@@ -13,7 +13,7 @@
                 </button>
 
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/airport/home/page"><span class="glyphicon glyphicon-send"></span>  Duch Airlines</a>
+                    <a class="navbar-brand" href="/airport/index/page"><span class="glyphicon glyphicon-send"></span>  Duch Airlines</a>
                 </div>
 
             </div>
@@ -32,7 +32,7 @@
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a href="${pageContext.request.contextPath}/home/page">
+                                <a href="${pageContext.request.contextPath}/index/page">
                                     <span class="glyphicon glyphicon-home"/>
                                     ${navName}
                                 </a>
@@ -62,7 +62,7 @@
 
                     <c:set var="navName"><spring:message code="header.navigation.newflight"/></c:set>
                     <c:choose>
-                        <c:when test="${currentPageName eq 'newflight'}">
+                        <c:when test="${currentPageName eq 'newFlight'}">
                             <li class="active">
                                 <a href="#">
                                     <span class="glyphicon glyphicon-plane"/>
@@ -72,7 +72,7 @@
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a href="${pageContext.request.contextPath}/newflight">
+                                <a href="${pageContext.request.contextPath}/flights/addPage">
                                     <span class="glyphicon glyphicon-plane"/>
                                     ${navName}
                                 </a>

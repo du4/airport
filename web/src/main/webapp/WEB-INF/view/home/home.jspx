@@ -65,12 +65,13 @@
         </tbody>
     </table>
 
-    <div>
-        <c:set var="btnValue"><spring:message code="buttons.person.add"/></c:set>
-        <input id="addPerson" type="button" value="${btnValue}"/>
-        <c:set var="btnValue"><spring:message code="buttons.person.delete"/></c:set>
-        <input id="deletePerson" type="button" value="${btnValue}"/>
-    </div>
+    <!--<div>-->
+        <!--<c:set var="btnValue"><spring:message code="buttons.person.add"/></c:set>-->
+        <!--<input id="addPerson" type="button" value="${btnValue}"/>-->
+        <!--<c:set var="btnValue"><spring:message code="buttons.person.delete"/></c:set>-->
+        <!--<input id="deletePerson" type="button" value="${btnValue}"/>-->
+    <!--</div>-->
+
 </div>
 </body>
 </html>

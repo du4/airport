@@ -39,7 +39,7 @@
                     <td>${f.plane}</td>
                     <td>${f.from}</td>
                     <td>${f.to}</td>
-                    <c:if test="${user.getRole().getId() < 3}">
+                    <%--<c:if test="${user.getRole().getId() < 3}">--%>
                         <td>${f.id}</td>
                         <td>
                             <c:forEach items="${f.crew}" var="e">
@@ -49,7 +49,7 @@
                         </td>
                         <td>${f.user}</td>
                         <td>${f.created_date}</td>
-                    </c:if>
+                    <%--</c:if>--%>
 
                 </tr>
             </c:forEach>
@@ -58,19 +58,21 @@
         </tbody>
     </table>
 
-    <div class="row">
-        <div class="col-md-2">
-            <ul class="pagination">
-                <c:forEach var="i" begin="1" end = "${pageCount}">
-                    <li
-                            <c:if test="${i eq activePageIndex}">
-                                class="active"
-                            </c:if>
+    <%--<div class="row">--%>
+        <%--<div class="col-md-2">--%>
+            <%--<ul class="pagination">--%>
+                <%--<c:forEach var="i" begin="1" end = "${pageCount}">--%>
+                    <%--<li--%>
+                            <%--<c:if test="${i eq activePageIndex}">--%>
+                                <%--class="active"--%>
+                            <%--</c:if>--%>
 
-                    ><a href="airport?action=index&activePageIndex=${i}&pageSize=${pageSize}">${i}</a></li>
-                </c:forEach>
-            </ul>
-        </div>
+                    <%--><a href="airport?action=index&activePageIndex=${i}&pageSize=${pageSize}">${i}</a></li>--%>
+                <%--</c:forEach>--%>
+            <%--</ul>--%>
+        <%--</div>--%>
+
+
         <%--<div class="col-md-1">--%>
             <%--<div class="form-group">--%>
                 <%--<label for="selPage">Page size:</label>--%>

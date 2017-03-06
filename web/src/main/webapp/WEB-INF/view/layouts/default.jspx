@@ -3,13 +3,15 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:u="urn:jsptagdir:/WEB-INF/tags/utils"
       xmlns:com="urn:jsptagdir:/WEB-INF/tags/common"
-      xmlns:spring="http://www.springframework.org/tags"
-      xmlns:tiles="http://tiles.apache.org/tags-tiles">
+      xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:spring="http://www.springframework.org/tags">
 
 <jsp:output doctype-public="-//W3C//DTD XHTML 1.1//EN"
             doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
-            doctype-root-element="html" omit-xml-declaration="false"/>
+            doctype-root-element="html"
+            omit-xml-declaration="false"/>
+
 <jsp:directive.page pageEncoding="UTF-8" contentType="text/html; UTF-8"/>
+
 <head>
     <![CDATA[
     <meta charset="utf-8">
@@ -40,7 +42,7 @@
 <body>
 <com:header-navigation/>
 <div class="jumbotron">
-    <div class="container text-center">
+    <div class="container-fluid">
         <tiles:insertAttribute name="body"/>
     </div>
 </div>

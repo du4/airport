@@ -14,7 +14,7 @@ import javax.xml.ws.RequestWrapper;
 
 @Controller
 @RequestMapping("/index")
-public class WelcomeController {
+public class IndexController {
 
     @Autowired
     private IFlightService flightService;

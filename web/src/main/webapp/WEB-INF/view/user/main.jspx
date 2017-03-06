@@ -1,67 +1,68 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
->
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+
 <div class="container-fluid">
 
     <div class="row">
-            <div>ID</div>
-            <div>Login</div>
-            <div>Email</div>
-            <div>Role</div>
-            <div>Created Date</div>
-            <div>Modified Date</div>
+            <div class="col-md-1">ID</div>
+            <div class="col-md-1">Login</div>
+            <div class="col-md-2">Email</div>
+            <div class="col-md-2">Role</div>
+            <div class="col-md-2">Created Date</div>
+            <div class="col-md-2">Modified Date</div>
     </div>
 
     <c:forEach items="${users}" var="user">
         <div class="row">
-            <!--<form class="form-user-${user.id}" action="airport?action=UserManagement">-->
-                <div>
+
+                <div class="col-md-1">
                     ${user.id}
                 </div>
-                <div>
+
+                <div class="col-md-1">
                     <input id="textinput1" name="Login" type="text"
                     value="${user.login}" class="form-control input-md"/>
                 </div>
-                <div>
+
+                <div class="col-md-2">
                     <input id="textinput3" name="Email" type="text"
                    value="${user.email}" class="form-control input-md"/>
                 </div>
 
-                <div>
+                <div class="col-md-2">
                     <select id="role" name="userRole" class="form-control">
-                        <optgroup label="roles">
                         <c:forEach items="${roles}" var="role">
-                            <option value="${role.id}" >
+                            <option value="${role.id}">
                                     <!--<c:if   test="${role.id==user.role.id}">-->
                                         <!--selected-->
                                     <!--</c:if>-->
+
                                     <!--role=${role.id} ${role.id==user.role.id?"selected":""}>-->
                                     ${role.name}
                             </option>
                         </c:forEach>
-                    </optgroup>
                     </select>
                 </div>
 
-                <div>
+                <div class="col-md-2">
                     <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.createdDate}" var="formattedDate"/>
                     <input id="textinput4" name="CreatedDate" value="${formattedDate}" type="text" class="form-control input-md"/>
                 </div>
 
-                <div>
+                <div class="col-md-2">
                    <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.updatedDate}" ></fmt:formatDate>
                 </div>
 
 
-                <div>
+                <div class="col-md-1">
                     <button id="singlebutton1" name="ID" value="${user.id}" class="btn btn-success">
                     Update
                     </button>
                 </div>
 
-                <div>
+                <div class="col-md-1">
                     <button id="singlebutton" name="ID" value="${user.id * -1}"  class="btn btn-danger">
                         Delete
                     </button>

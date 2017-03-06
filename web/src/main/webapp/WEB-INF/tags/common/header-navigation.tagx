@@ -13,7 +13,7 @@
                 </button>
 
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/airport/index/page"><span class="glyphicon glyphicon-send"></span>  Duch Airlines</a>
+                    <a class="navbar-brand" href="/airport/home/page"><span class="glyphicon glyphicon-send"></span>  Duch Airlines</a>
                 </div>
 
             </div>
@@ -32,7 +32,7 @@
                         </c:when>
                         <c:otherwise>
                             <li>
-                                <a href="${pageContext.request.contextPath}/welcome">
+                                <a href="${pageContext.request.contextPath}/home/page">
                                     <span class="glyphicon glyphicon-home"/>
                                     ${navName}
                                 </a>
